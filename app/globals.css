@@ -13,3 +13,10 @@
   }
 }
 
+/* Force-hide custom cursor on touch devices as a fallback */
+@media (pointer: coarse), (hover: none) {
+  .custom-cursor {
+    display: none !important;
+  }
+}
+
