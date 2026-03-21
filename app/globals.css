@@ -6,8 +6,8 @@
   --color-light: #FFFFFF;
 }
 
-/* Hide default cursor only on devices with a fine pointer (mouse/trackpad) */
-@media (pointer: fine) {
+/* Hide default cursor only on devices with a fine pointer AND hover support (mouse/trackpad) */
+@media (pointer: fine) and (hover: hover) {
   * {
     cursor: none !important;
   }
