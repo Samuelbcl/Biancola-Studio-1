@@ -6,14 +6,15 @@ import { motion, useSpring } from "framer-motion";
 export default function CustomCursor() {
   const [isHovering, setIsHovering] = useState(false);
   const [isVisible, setIsVisible] = useState(false);
+  const [isTouchDevice, setIsTouchDevice] = useState(true);
 
   const cursorX = useSpring(0, { stiffness: 300, damping: 30 });
   const cursorY = useSpring(0, { stiffness: 300, damping: 30 });
 
   useEffect(() => {
-    // Hide on touch devices
-    const isTouchDevice = window.matchMedia("(pointer: coarse)").matches;
-    if (isTouchDevice) return;
+    const touch = window.matchMedia("(pointer: coarse)").matches;
+    setIsTouchDevice(touch);
+    if (touch) return;
 
     const handleMouseMove = (e: MouseEvent) => {
       cursorX.set(e.clientX);
@@ -50,6 +51,8 @@ export default function CustomCursor() {
       document.documentElement.removeEventListener("mouseenter", handleMouseEnter);
     };
   }, [cursorX, cursorY, isVisible]);
+
+  if (isTouchDevice) return null;
 
   return (
     <motion.div

@@ -18,7 +18,7 @@ export default function RootLayout({
 }) {
   return (
     <html lang="fr" className={inter.className}>
-      <body style={{ backgroundColor: "#FFFFFF", cursor: "none" }}>
+      <body style={{ backgroundColor: "#FFFFFF" }}>
         <CustomCursor />
         <SmoothScroll>{children}</SmoothScroll>
       </body>
