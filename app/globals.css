@@ -1,6 +1,10 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+@import "tailwindcss";
+
+@theme {
+  --color-primary: #2563EB;
+  --color-dark: #0A0A0A;
+  --color-light: #FFFFFF;
+}
 
 * {
   cursor: none;
