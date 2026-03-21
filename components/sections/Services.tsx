@@ -137,14 +137,27 @@ export default function Services() {
     <section id="services" className="bg-white px-6 py-24">
       <div className="mx-auto max-w-7xl">
         {/* Title */}
-        <h2 className="mb-16 text-center text-3xl font-bold text-dark md:text-5xl">
+        <motion.h2
+          className="mb-16 text-center text-3xl font-bold text-dark md:text-5xl"
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+        >
           Nos <span style={{ color: "#2563EB" }}>Services</span>
-        </h2>
+        </motion.h2>
 
         {/* Cards */}
         <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
-          {services.map((service) => (
-            <TiltCard key={service.title} service={service} />
+          {services.map((service, i) => (
+            <motion.div
+              key={service.title}
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ delay: i * 0.1 }}
+            >
+              <TiltCard service={service} />
+            </motion.div>
           ))}
         </div>
 

@@ -1,6 +1,7 @@
 "use client";
 
-import { motion } from "framer-motion";
+import { useRef } from "react";
+import { motion, useScroll, useTransform } from "framer-motion";
 import Marquee from "@/components/ui/Marquee";
 
 const titleText = "Votre présence digitale,";
@@ -21,16 +22,27 @@ const containerVariants = {
 };
 
 export default function Hero() {
+  const sectionRef = useRef<HTMLElement>(null);
+  const { scrollYProgress } = useScroll({
+    target: sectionRef,
+    offset: ["start start", "end start"],
+  });
+
+  const videoY = useTransform(scrollYProgress, [0, 1], ["0%", "30%"]);
+  const contentY = useTransform(scrollYProgress, [0, 1], ["0%", "15%"]);
+  const contentOpacity = useTransform(scrollYProgress, [0, 0.8], [1, 0]);
+
   return (
-    <section className="relative flex min-h-screen flex-col">
-      {/* Video background */}
-      <video
+    <section ref={sectionRef} className="relative flex min-h-screen flex-col overflow-hidden">
+      {/* Video background with parallax */}
+      <motion.video
         autoPlay
         muted
         loop
         playsInline
         className="absolute inset-0 h-full w-full object-cover"
         src="/hero-video.mp4"
+        style={{ y: videoY }}
       />
 
       {/* White overlay */}
@@ -39,8 +51,11 @@ export default function Hero() {
         style={{ backgroundColor: "rgba(255,255,255,0.85)" }}
       />
 
-      {/* Content */}
-      <div className="relative z-10 flex flex-1 flex-col items-center justify-center px-6 text-center">
+      {/* Content with parallax */}
+      <motion.div
+        className="relative z-10 flex flex-1 flex-col items-center justify-center px-6 text-center"
+        style={{ y: contentY, opacity: contentOpacity }}
+      >
         {/* Title - letter by letter */}
         <motion.h1
           className="text-4xl font-bold leading-tight tracking-tight text-dark md:text-6xl lg:text-7xl"
@@ -96,7 +111,7 @@ export default function Hero() {
             Discutons de votre projet
           </a>
         </motion.div>
-      </div>
+      </motion.div>
 
       {/* Marquee bottom */}
       <div className="relative z-10 border-t border-gray-200 bg-white py-4">
