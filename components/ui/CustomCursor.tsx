@@ -12,7 +12,10 @@ export default function CustomCursor() {
   const cursorY = useSpring(0, { stiffness: 300, damping: 30 });
 
   useEffect(() => {
-    const touch = window.matchMedia("(pointer: coarse)").matches;
+    const touch =
+      "ontouchstart" in window ||
+      navigator.maxTouchPoints > 0 ||
+      window.matchMedia("(pointer: coarse)").matches;
     setIsTouchDevice(touch);
     if (touch) return;
 
