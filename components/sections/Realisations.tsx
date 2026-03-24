@@ -59,7 +59,7 @@ function MacBookCarousel({ images }: { images: string[] }) {
           top: "9%",
           left: "7%",
           right: "7%",
-          bottom: "20%",
+          bottom: "21.5%",
           zIndex: 1,
           overflow: "hidden",
           backgroundColor: "#000",
