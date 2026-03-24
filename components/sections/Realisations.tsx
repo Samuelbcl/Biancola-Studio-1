@@ -63,7 +63,7 @@ function MacBookCarousel({ images }: { images: string[] }) {
           zIndex: 1,
           overflow: "hidden",
           backgroundColor: "#000",
-          borderRadius: "6px 6px 0 0",
+          borderRadius: "12px 12px 0 0",
         }}>
           {/* Slide track */}
           <div style={{
