@@ -54,8 +54,8 @@ function MacBookCarousel({ images }: { images: string[] }) {
       {/* ── MacBook lid ── */}
       <div style={{
         backgroundColor: "#1c1c1e",
-        borderRadius: "14px 14px 4px 4px",
-        padding: "14px 12px 10px",
+        borderRadius: "14px 14px 2px 2px",
+        padding: "14px 12px 0",
         boxShadow: "0 0 0 1px #3a3a3c, 0 30px 80px rgba(0,0,0,0.25), 0 8px 20px rgba(0,0,0,0.15)",
         position: "relative",
       }}>
@@ -71,7 +71,7 @@ function MacBookCarousel({ images }: { images: string[] }) {
         <div style={{
           aspectRatio: "16 / 10",
           overflow: "hidden",
-          borderRadius: "4px",
+          borderRadius: "0",
           backgroundColor: "#000",
           position: "relative",
         }}>
