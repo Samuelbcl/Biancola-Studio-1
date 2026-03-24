@@ -11,8 +11,8 @@ const projects = [
     description:
       "Configurateur commercial sur mesure pour une entreprise. Création d'offres, étude comparative et gestion documentaire avec cloud intégré.",
     images: [
-      "/projects/risosales-1.png",
-      "/projects/risosales-2.png",
+      "/projects/risosales_1.png",
+      "/projects/risosales_2.png",
     ],
     href: null,
     isPublic: false,
