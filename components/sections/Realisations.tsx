@@ -56,10 +56,10 @@ function MacBookCarousel({ images }: { images: string[] }) {
         {/* Screen area — sits behind the PNG, aligned to the transparent screen window */}
         <div style={{
           position: "absolute",
-          top: "8.8%",
-          left: "9.8%",
-          right: "9.9%",
-          bottom: "9.3%",
+          top: "9.7%",
+          left: "10.9%",
+          right: "11.0%",
+          bottom: "10.3%",
           zIndex: 1,
           overflow: "hidden",
           backgroundColor: "#000",
