@@ -2,29 +2,16 @@
 
 import { useRef, useState, useEffect } from "react";
 import { motion } from "framer-motion";
-import { ArrowUpRight, Lock } from "lucide-react";
+import { Lock } from "lucide-react";
+
+// Bezel dimensions (px)
+const BZ_SIDE = 11;
+const BZ_TOP = 18;
+const BZ_BOTTOM = 9;
+// Peek space each side (how much of next/prev image shows beside the laptop)
+const PEEK = 52;
 
 const projects = [
-  {
-    title: "Élève-toi",
-    category: "App mobile / web",
-    description:
-      "Application de motivation quotidienne. Citations, objectifs et routines pensés pour booster la progression personnelle — disponible sur mobile et navigateur.",
-    images: [],
-    color: "#1a1a2e",
-    href: "https://eleve-toi.vercel.app",
-    isPublic: true,
-  },
-  {
-    title: "RoadCRM",
-    category: "App mobile / CRM",
-    description:
-      "Mini CRM de terrain pour commerciaux. Gestion des prospects, suivi des rendez-vous et pipeline de vente — optimisé mobile pour les équipes en déplacement.",
-    images: [],
-    color: "#0f2027",
-    href: "https://roadcrm.vercel.app",
-    isPublic: true,
-  },
   {
     title: "RisoSales",
     category: "Outil métier",
@@ -33,132 +20,198 @@ const projects = [
     images: [
       "/projects/risosales-1.png",
       "/projects/risosales-2.png",
-      "/projects/risosales-3.png",
-      "/projects/risosales-4.png",
-      "/projects/risosales-5.png",
     ],
-    color: "#1c1c1c",
     href: null,
     isPublic: false,
   },
 ];
 
-function MacBookMockup({ images }: { images: string[] }) {
+function MacBookCarousel({ images }: { images: string[] }) {
   const [current, setCurrent] = useState(0);
+  const [screenW, setScreenW] = useState(0);
+  const screenRef = useRef<HTMLDivElement>(null);
 
+  // Measure the inner screen width
+  useEffect(() => {
+    if (!screenRef.current) return;
+    const ro = new ResizeObserver(() => {
+      if (screenRef.current) setScreenW(screenRef.current.offsetWidth);
+    });
+    ro.observe(screenRef.current);
+    setScreenW(screenRef.current.offsetWidth);
+    return () => ro.disconnect();
+  }, []);
+
+  // Auto-play
   useEffect(() => {
     if (images.length <= 1) return;
-    const interval = setInterval(() => {
-      setCurrent((c) => (c + 1) % images.length);
-    }, 2800);
-    return () => clearInterval(interval);
+    const t = setInterval(() => setCurrent((c) => (c + 1) % images.length), 3200);
+    return () => clearInterval(t);
   }, [images.length]);
 
+  const screenH = screenW > 0 ? Math.round(screenW * (10 / 16)) : 0;
+
   return (
-    <div style={{ padding: "24px 20px 0", backgroundColor: "#f0f0f0" }}>
-      {/* Lid */}
-      <div
-        style={{
-          position: "relative",
-          backgroundColor: "#1c1c1e",
-          borderRadius: "10px 10px 0 0",
-          padding: "10px 10px 7px",
-          boxShadow:
-            "0 0 0 1px #3a3a3c, inset 0 1px 0 rgba(255,255,255,0.06)",
-        }}
-      >
-        {/* Camera */}
-        <div
-          style={{
-            position: "absolute",
-            top: 4,
-            left: "50%",
-            transform: "translateX(-50%)",
-            width: 5,
-            height: 5,
-            borderRadius: "50%",
-            backgroundColor: "#3a3a3c",
-          }}
-        />
-        {/* Screen */}
-        <div
-          style={{
-            position: "relative",
-            aspectRatio: "16 / 10",
-            overflow: "hidden",
-            borderRadius: "3px",
-            backgroundColor: "#000",
-          }}
-        >
-          {images.map((img, i) => (
-            // eslint-disable-next-line @next/next/no-img-element
-            <img
-              key={img}
-              src={img}
-              alt={`Screenshot ${i + 1}`}
+    <div>
+      {/* Outer wrapper — padding = peek space */}
+      <div style={{ position: "relative", padding: `0 ${PEEK}px` }}>
+        {/* Inner wrapper — stacking context for z-index */}
+        <div style={{ position: "relative" }}>
+
+          {/* ── Camera dot (z-index 3, above bezel) ── */}
+          <div
+            style={{
+              position: "absolute",
+              top: 6,
+              left: "50%",
+              transform: "translateX(-50%)",
+              width: 5,
+              height: 5,
+              borderRadius: "50%",
+              backgroundColor: "#3d3d3f",
+              zIndex: 3,
+              pointerEvents: "none",
+            }}
+          />
+
+          {/* ── MacBook bezel (z-index 2) ──
+               Border = dark aluminium frame.
+               Background = transparent so images show through the screen area. */}
+          <div
+            style={{
+              position: "relative",
+              zIndex: 2,
+              border: `${BZ_SIDE}px solid #1c1c1e`,
+              borderTopWidth: BZ_TOP,
+              borderBottomWidth: BZ_BOTTOM,
+              borderRadius: "14px 14px 3px 3px",
+              background: "transparent",
+              boxShadow:
+                "0 0 0 1px #3a3a3c, 0 28px 70px rgba(0,0,0,0.22), 0 8px 20px rgba(0,0,0,0.12)",
+              boxSizing: "border-box",
+            }}
+          >
+            {/* Inner screen div — maintains 16:10 ratio, gives us the pixel width */}
+            <div
+              ref={screenRef}
+              style={{ aspectRatio: "16 / 10", width: "100%" }}
+            />
+          </div>
+
+          {/* ── Image carousel (z-index 1, behind bezel) ──
+               Positioned exactly over the screen area.
+               overflow: visible → images peek outside the MacBook on both sides. */}
+          {screenW > 0 && (
+            <div
               style={{
                 position: "absolute",
-                inset: 0,
-                width: "100%",
-                height: "100%",
-                objectFit: "cover",
-                opacity: i === current ? 1 : 0,
-                transition: "opacity 0.9s ease",
+                top: BZ_TOP,
+                left: BZ_SIDE,
+                width: screenW,
+                height: screenH,
+                zIndex: 1,
+                overflow: "visible",
+                backgroundColor: "#000",
+              }}
+            >
+              <div
+                style={{
+                  display: "flex",
+                  height: "100%",
+                  transform: `translateX(-${current * screenW}px)`,
+                  transition:
+                    "transform 0.85s cubic-bezier(0.25, 0.46, 0.45, 0.94)",
+                  willChange: "transform",
+                }}
+              >
+                {images.map((img, i) => (
+                  <div
+                    key={i}
+                    style={{
+                      minWidth: screenW,
+                      height: "100%",
+                      flexShrink: 0,
+                    }}
+                  >
+                    {/* eslint-disable-next-line @next/next/no-img-element */}
+                    <img
+                      src={img}
+                      alt={`Screenshot ${i + 1}`}
+                      style={{
+                        width: "100%",
+                        height: "100%",
+                        objectFit: "cover",
+                        display: "block",
+                      }}
+                    />
+                  </div>
+                ))}
+              </div>
+            </div>
+          )}
+        </div>
+
+        {/* ── Hinge ── */}
+        <div
+          style={{
+            height: 8,
+            background: "linear-gradient(to bottom, #2c2c2e, #1c1c1e)",
+            boxShadow: "0 4px 14px rgba(0,0,0,0.35)",
+          }}
+        />
+
+        {/* ── Foot ── */}
+        <div
+          style={{
+            height: 3,
+            backgroundColor: "#1c1c1e",
+            borderRadius: "0 0 8px 8px",
+            margin: "0 36px",
+          }}
+        />
+      </div>
+
+      {/* Progress dots */}
+      {images.length > 1 && (
+        <div
+          style={{
+            display: "flex",
+            justifyContent: "center",
+            gap: 6,
+            marginTop: 20,
+          }}
+        >
+          {images.map((_, i) => (
+            <button
+              key={i}
+              onClick={() => setCurrent(i)}
+              style={{
+                height: 6,
+                width: i === current ? 20 : 6,
+                borderRadius: 3,
+                backgroundColor:
+                  i === current ? "#2563EB" : "rgba(37,99,235,0.2)",
+                border: "none",
+                padding: 0,
+                cursor: "pointer",
+                transition: "all 0.3s ease",
               }}
             />
           ))}
         </div>
-      </div>
-      {/* Hinge bar */}
-      <div
-        style={{
-          height: 6,
-          background: "linear-gradient(to bottom, #2c2c2e, #1c1c1e)",
-          boxShadow: "0 3px 10px rgba(0,0,0,0.35)",
-        }}
-      />
-      {/* Foot */}
-      <div
-        style={{
-          height: 3,
-          backgroundColor: "#2a2a2c",
-          borderRadius: "0 0 6px 6px",
-          margin: "0 28px",
-        }}
-      />
+      )}
     </div>
   );
 }
 
 export default function Realisations() {
-  const scrollRef = useRef<HTMLDivElement>(null);
-  const [isDragging, setIsDragging] = useState(false);
-  const startX = useRef(0);
-  const startScrollLeft = useRef(0);
-
-  function onMouseDown(e: React.MouseEvent<HTMLDivElement>) {
-    if (!scrollRef.current) return;
-    setIsDragging(true);
-    startX.current = e.pageX;
-    startScrollLeft.current = scrollRef.current.scrollLeft;
-  }
-
-  function onMouseMove(e: React.MouseEvent<HTMLDivElement>) {
-    if (!isDragging || !scrollRef.current) return;
-    e.preventDefault();
-    const dx = e.pageX - startX.current;
-    scrollRef.current.scrollLeft = startScrollLeft.current - dx;
-  }
-
-  function onMouseUp() {
-    setIsDragging(false);
-  }
+  const project = projects[0];
 
   return (
-    <section id="realisations" className="bg-white px-6 py-24">
-      <div className="mx-auto max-w-7xl">
+    <section id="realisations" className="overflow-hidden bg-white py-24">
+      <div className="mx-auto max-w-5xl px-6">
         {/* Header */}
-        <div className="mb-12">
+        <div className="mb-16">
           <motion.p
             className="mb-2 text-sm font-semibold uppercase tracking-widest"
             style={{ color: "#2563EB" }}
@@ -179,104 +232,45 @@ export default function Realisations() {
           </motion.h2>
         </div>
 
-        {/* Desktop: 3-column grid */}
-        <div className="hidden gap-6 md:grid md:grid-cols-3">
-          {projects.map((project, i) => (
-            <ProjectCard key={project.title} project={project} index={i} />
-          ))}
-        </div>
-
-        {/* Mobile: horizontal scroll */}
-        <div
-          ref={scrollRef}
-          className={`flex gap-6 overflow-x-auto pb-4 md:hidden select-none ${isDragging ? "cursor-grabbing" : "cursor-grab"}`}
-          style={{ scrollbarWidth: "none" }}
-          onMouseDown={onMouseDown}
-          onMouseMove={onMouseMove}
-          onMouseUp={onMouseUp}
-          onMouseLeave={onMouseUp}
+        {/* MacBook showcase */}
+        <motion.div
+          initial={{ opacity: 0, y: 40 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ delay: 0.1 }}
         >
-          {projects.map((project, i) => (
-            <div key={project.title} className="min-w-[300px] flex-shrink-0">
-              <ProjectCard project={project} index={i} />
-            </div>
-          ))}
-        </div>
+          <MacBookCarousel images={project.images} />
+        </motion.div>
+
+        {/* Project info */}
+        <motion.div
+          className="mt-12"
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ delay: 0.2 }}
+        >
+          <div className="mb-3 flex flex-wrap items-center gap-2">
+            <span
+              className="rounded-full px-3 py-1 text-xs font-medium"
+              style={{ color: "#2563EB", backgroundColor: "rgba(37,99,235,0.08)" }}
+            >
+              {project.category}
+            </span>
+            {!project.isPublic && (
+              <span className="flex items-center gap-1 rounded-full bg-gray-100 px-3 py-1 text-xs font-medium text-gray-500">
+                <Lock size={10} />
+                Projet interne
+              </span>
+            )}
+          </div>
+          <h3 className="mb-2 text-2xl font-bold text-dark">{project.title}</h3>
+          <p className="mb-5 max-w-xl text-sm leading-relaxed text-gray-500">
+            {project.description}
+          </p>
+          <span className="text-sm text-gray-400">Usage interne · Non public</span>
+        </motion.div>
       </div>
     </section>
-  );
-}
-
-function ProjectCard({
-  project,
-  index,
-}: {
-  project: (typeof projects)[number];
-  index: number;
-}) {
-  const hasImages = project.images.length > 0;
-
-  return (
-    <motion.div
-      className="group overflow-hidden rounded-2xl border border-gray-100 bg-white shadow-sm transition-shadow hover:shadow-md"
-      initial={{ opacity: 0, y: 30 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true }}
-      transition={{ delay: index * 0.1 }}
-    >
-      {/* Visual area */}
-      {hasImages ? (
-        <MacBookMockup images={project.images} />
-      ) : (
-        <div
-          className="flex h-52 items-center justify-center"
-          style={{ backgroundColor: project.color }}
-        >
-          <span
-            className="select-none text-6xl font-bold opacity-20"
-            style={{ color: "#ffffff" }}
-          >
-            {project.title.charAt(0)}
-          </span>
-        </div>
-      )}
-
-      {/* Content */}
-      <div className="p-5">
-        <div className="mb-3 flex flex-wrap items-center gap-2">
-          <span
-            className="rounded-full px-3 py-1 text-xs font-medium"
-            style={{ color: "#2563EB", backgroundColor: "rgba(37,99,235,0.08)" }}
-          >
-            {project.category}
-          </span>
-          {!project.isPublic && (
-            <span className="flex items-center gap-1 rounded-full bg-gray-100 px-3 py-1 text-xs font-medium text-gray-500">
-              <Lock size={10} />
-              Projet interne
-            </span>
-          )}
-        </div>
-        <h3 className="mb-2 text-lg font-semibold text-dark">{project.title}</h3>
-        <p className="mb-5 text-sm leading-relaxed text-gray-500">
-          {project.description}
-        </p>
-
-        {project.isPublic && project.href ? (
-          <a
-            href={project.href}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="inline-flex items-center gap-1.5 text-sm font-medium transition-opacity hover:opacity-70"
-            style={{ color: "#2563EB" }}
-          >
-            Voir le projet
-            <ArrowUpRight size={15} />
-          </a>
-        ) : (
-          <span className="text-sm text-gray-400">Usage interne · Non public</span>
-        )}
-      </div>
-    </motion.div>
   );
 }
