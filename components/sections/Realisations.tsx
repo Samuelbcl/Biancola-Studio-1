@@ -208,25 +208,25 @@ function ProjectCard({
           </span>
         )}
 
-        {/* Category badge */}
-        <span
-          className="absolute left-4 top-4 rounded-full px-3 py-1 text-xs font-medium backdrop-blur-sm"
-          style={{ color: "#2563EB", backgroundColor: "rgba(255,255,255,0.9)" }}
-        >
-          {project.category}
-        </span>
-
-        {/* Private badge */}
-        {!project.isPublic && (
-          <span className="absolute right-4 top-4 flex items-center gap-1 rounded-full bg-black/40 px-3 py-1 text-xs font-medium text-white backdrop-blur-sm">
-            <Lock size={10} />
-            Projet interne
-          </span>
-        )}
       </div>
 
       {/* Content */}
       <div className="p-5">
+        {/* Badges */}
+        <div className="mb-3 flex flex-wrap items-center gap-2">
+          <span
+            className="rounded-full px-3 py-1 text-xs font-medium"
+            style={{ color: "#2563EB", backgroundColor: "rgba(37,99,235,0.08)" }}
+          >
+            {project.category}
+          </span>
+          {!project.isPublic && (
+            <span className="flex items-center gap-1 rounded-full bg-gray-100 px-3 py-1 text-xs font-medium text-gray-500">
+              <Lock size={10} />
+              Projet interne
+            </span>
+          )}
+        </div>
         <h3 className="mb-2 text-lg font-semibold text-dark">{project.title}</h3>
         <p className="mb-5 text-sm leading-relaxed text-gray-500">
           {project.description}
