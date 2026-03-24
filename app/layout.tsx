@@ -1,6 +1,5 @@
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
-import CustomCursor from "@/components/ui/CustomCursor";
 import SmoothScroll from "@/components/SmoothScroll";
 import "./globals.css";
 
@@ -19,7 +18,6 @@ export default function RootLayout({
   return (
     <html lang="fr" className={inter.className}>
       <body style={{ backgroundColor: "#FFFFFF" }}>
-        <CustomCursor />
         <SmoothScroll>{children}</SmoothScroll>
       </body>
     </html>

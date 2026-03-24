@@ -6,17 +6,4 @@
   --color-light: #FFFFFF;
 }
 
-/* Hide default cursor only on devices with a fine pointer AND hover support (mouse/trackpad) */
-@media (pointer: fine) and (hover: hover) {
-  * {
-    cursor: none !important;
-  }
-}
-
-/* Force-hide custom cursor on touch devices as a fallback */
-@media (pointer: coarse), (hover: none) {
-  .custom-cursor {
-    display: none !important;
-  }
-}
 
