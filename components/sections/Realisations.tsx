@@ -21,21 +21,24 @@ const projects = [
 
 function MacBookCarousel({ images }: { images: string[] }) {
   const ext = useMemo(() => [...images, images[0]], [images]);
-  const [idx, setIdx]             = useState(0);
-  const [animated, setAnimated]   = useState(true);
+  const [idx, setIdx]           = useState(0);
+  const [animated, setAnimated] = useState(true);
 
+  // Auto-play — always forward
   useEffect(() => {
     if (images.length <= 1) return;
     const t = setInterval(() => { setAnimated(true); setIdx((c) => c + 1); }, 3500);
     return () => clearInterval(t);
   }, [images.length]);
 
+  // Jump back to 0 after reaching the clone
   useEffect(() => {
     if (idx !== ext.length - 1) return;
-    const t = setTimeout(() => { setAnimated(false); setIdx(0); }, 900);
+    const t = setTimeout(() => { setAnimated(false); setIdx(0); }, 920);
     return () => clearTimeout(t);
   }, [idx, ext.length]);
 
+  // Re-enable animation after the instant jump
   useEffect(() => {
     if (animated || idx !== 0) return;
     const id = requestAnimationFrame(() => requestAnimationFrame(() => setAnimated(true)));
@@ -45,58 +48,21 @@ function MacBookCarousel({ images }: { images: string[] }) {
   const activeDot = idx % images.length;
 
   return (
-    <div style={{ maxWidth: 880, margin: "0 auto" }}>
+    <div style={{ maxWidth: 900, margin: "0 auto" }}>
 
-      {/* ── MacBook lid ── */}
-      <div style={{
-        backgroundColor: "#1c1c1e",
-        borderRadius: "16px 16px 3px 3px",
-        padding: "16px 14px 0",
-        position: "relative",
-        boxShadow: [
-          "0 0 0 1px #3a3a3c",
-          "0 2px 4px rgba(0,0,0,0.4)",
-          "0 12px 30px rgba(0,0,0,0.25)",
-          "0 40px 80px rgba(0,0,0,0.2)",
-          "0 80px 120px rgba(0,0,0,0.1)",
-        ].join(", "),
-      }}>
-        {/* Aluminium top edge shine */}
+      {/* Wrapper — PNG determines the height */}
+      <div style={{ position: "relative" }}>
+
+        {/* Screen area — sits behind the PNG, aligned to the transparent screen window */}
         <div style={{
           position: "absolute",
-          top: 0, left: "15%", right: "15%", height: 1,
-          background: "linear-gradient(to right, transparent, rgba(255,255,255,0.12), transparent)",
-          borderRadius: "50%",
-        }} />
-
-        {/* Camera */}
-        <div style={{
-          position: "absolute",
-          top: 6, left: "50%",
-          transform: "translateX(-50%)",
-          width: 7, height: 7,
-          borderRadius: "50%",
-          backgroundColor: "#0a0a0a",
-          boxShadow: "0 0 0 1px #2a2a2c, inset 0 0 3px rgba(0,0,0,0.8)",
-        }}>
-          {/* Camera dot */}
-          <div style={{
-            position: "absolute",
-            top: "50%", left: "50%",
-            transform: "translate(-50%, -50%)",
-            width: 3, height: 3,
-            borderRadius: "50%",
-            backgroundColor: "#1a2a1a",
-          }} />
-        </div>
-
-        {/* Screen */}
-        <div style={{
-          aspectRatio: "16 / 10",
+          top: "9%",
+          left: "4.5%",
+          right: "4.5%",
+          bottom: "20%",
+          zIndex: 1,
           overflow: "hidden",
-          borderRadius: "4px 4px 0 0",
           backgroundColor: "#000",
-          position: "relative",
         }}>
           {/* Slide track */}
           <div style={{
@@ -115,41 +81,33 @@ function MacBookCarousel({ images }: { images: string[] }) {
                 <img
                   src={img}
                   alt={`Screenshot ${i + 1}`}
-                  style={{ width: "100%", height: "100%", objectFit: "cover", display: "block" }}
+                  style={{ width: "100%", height: "100%", objectFit: "cover", objectPosition: "top", display: "block" }}
                 />
               </div>
             ))}
           </div>
-
-          {/* Screen glass reflection */}
-          <div style={{
-            position: "absolute",
-            inset: 0,
-            background: "linear-gradient(135deg, rgba(255,255,255,0.04) 0%, transparent 60%)",
-            pointerEvents: "none",
-          }} />
         </div>
+
+        {/* MacBook PNG frame — on top, transparent screen shows images behind */}
+        {/* eslint-disable-next-line @next/next/no-img-element */}
+        <img
+          src="/projects/macbook-frame.png.png"
+          alt=""
+          style={{
+            width: "100%",
+            height: "auto",
+            display: "block",
+            position: "relative",
+            zIndex: 2,
+            pointerEvents: "none",
+            userSelect: "none",
+          }}
+        />
       </div>
 
-      {/* ── Hinge ── */}
-      <div style={{
-        height: 10,
-        background: "linear-gradient(to bottom, #2c2c2e 0%, #1a1a1c 60%, #141416 100%)",
-        boxShadow: "0 6px 20px rgba(0,0,0,0.5), 0 2px 4px rgba(0,0,0,0.4)",
-      }} />
-
-      {/* ── Base ── */}
-      <div style={{
-        height: 5,
-        background: "linear-gradient(to bottom, #242426, #1c1c1e)",
-        borderRadius: "0 0 12px 12px",
-        margin: "0 50px",
-        boxShadow: "0 6px 16px rgba(0,0,0,0.35)",
-      }} />
-
-      {/* ── Progress dots ── */}
+      {/* Progress dots */}
       {images.length > 1 && (
-        <div style={{ display: "flex", justifyContent: "center", gap: 6, marginTop: 24 }}>
+        <div style={{ display: "flex", justifyContent: "center", gap: 6, marginTop: 16 }}>
           {images.map((_, i) => (
             <button
               key={i}
@@ -176,9 +134,7 @@ export default function Realisations() {
   return (
     <section
       id="realisations"
-      style={{
-        background: "linear-gradient(180deg, #f7f8fc 0%, #ffffff 40%, #f7f8fc 100%)",
-      }}
+      style={{ background: "linear-gradient(180deg, #f7f8fc 0%, #ffffff 40%, #f7f8fc 100%)" }}
       className="overflow-hidden py-24 px-6"
     >
       <div className="mx-auto max-w-5xl">
@@ -205,7 +161,7 @@ export default function Realisations() {
           </motion.h2>
         </div>
 
-        {/* MacBook */}
+        {/* MacBook showcase */}
         <motion.div
           initial={{ opacity: 0, y: 50 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -217,7 +173,7 @@ export default function Realisations() {
 
         {/* Project info */}
         <motion.div
-          className="mt-14"
+          className="mt-10"
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
