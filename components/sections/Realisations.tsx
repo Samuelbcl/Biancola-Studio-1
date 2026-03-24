@@ -155,7 +155,7 @@ function ProjectCard({
       {/* Image area */}
       <div
         className="relative flex h-52 items-center justify-center overflow-hidden"
-        style={{ backgroundColor: hasImages ? "#f8f9fa" : project.color }}
+        style={{ backgroundColor: project.color }}
       >
         {hasImages ? (
           <>
@@ -163,7 +163,7 @@ function ProjectCard({
             <img
               src={project.images[current]}
               alt={`${project.title} ${current + 1}`}
-              className="h-full w-full object-contain transition-opacity duration-300"
+              className="h-full w-full object-cover transition-opacity duration-300"
             />
 
             {/* Prev / Next arrows — visibles au hover si plusieurs images */}
