@@ -1,12 +1,8 @@
 "use client";
 
-import { useRef, useState, useEffect, useMemo } from "react";
+import { useState, useEffect, useMemo } from "react";
 import { motion } from "framer-motion";
 import { Lock } from "lucide-react";
-
-const BZ_SIDE = 11;
-const BZ_TOP  = 18;
-const PEEK    = 52; // px visible on each side of the MacBook
 
 const projects = [
   {
@@ -24,147 +20,101 @@ const projects = [
 ];
 
 function MacBookCarousel({ images }: { images: string[] }) {
-  // Add clone of first image at the end for seamless infinite loop
+  // Clone first image at end → seamless infinite left-to-right loop
   const ext = useMemo(() => [...images, images[0]], [images]);
-
-  const [idx, setIdx]         = useState(0);
+  const [idx, setIdx]           = useState(0);
   const [animated, setAnimated] = useState(true);
-  const [screenW, setScreenW] = useState(0);
-  const screenRef = useRef<HTMLDivElement>(null);
 
-  // Measure inner screen width (updates on resize)
-  useEffect(() => {
-    if (!screenRef.current) return;
-    const ro = new ResizeObserver(() => {
-      if (screenRef.current) setScreenW(screenRef.current.offsetWidth);
-    });
-    ro.observe(screenRef.current);
-    setScreenW(screenRef.current.offsetWidth);
-    return () => ro.disconnect();
-  }, []);
-
-  // Auto-play — always increments forward (left → right motion)
+  // Auto-play
   useEffect(() => {
     if (images.length <= 1) return;
-    const t = setInterval(() => {
-      setAnimated(true);
-      setIdx((c) => c + 1);
-    }, 3200);
+    const t = setInterval(() => { setAnimated(true); setIdx((c) => c + 1); }, 3200);
     return () => clearInterval(t);
   }, [images.length]);
 
-  // When we reach the clone, jump instantly back to index 0 after the slide finishes
+  // When we reach the clone → jump back to 0 without animation
   useEffect(() => {
     if (idx !== ext.length - 1) return;
-    const t = setTimeout(() => {
-      setAnimated(false);
-      setIdx(0);
-    }, 900); // matches transition duration
+    const t = setTimeout(() => { setAnimated(false); setIdx(0); }, 880);
     return () => clearTimeout(t);
   }, [idx, ext.length]);
 
-  // Re-enable animation on the very next frame after the instant jump
+  // Re-enable animation on next frame after the instant jump
   useEffect(() => {
     if (animated || idx !== 0) return;
-    const id = requestAnimationFrame(() =>
-      requestAnimationFrame(() => setAnimated(true))
-    );
+    const id = requestAnimationFrame(() => requestAnimationFrame(() => setAnimated(true)));
     return () => cancelAnimationFrame(id);
   }, [animated, idx]);
 
-  const screenH = screenW > 0 ? Math.round(screenW * (10 / 16)) : 0;
   const activeDot = idx % images.length;
 
   return (
-    <div>
-      {/* Outer wrapper — left/right padding = peek space */}
-      <div style={{ position: "relative", padding: `0 ${PEEK}px` }}>
-        <div style={{ position: "relative" }}>
+    <div style={{ maxWidth: 860, margin: "0 auto" }}>
 
-          {/* Camera (z-index 3) */}
-          <div style={{
-            position: "absolute",
-            top: 6,
-            left: "50%",
-            transform: "translateX(-50%)",
-            width: 5, height: 5,
-            borderRadius: "50%",
-            backgroundColor: "#3d3d3f",
-            zIndex: 3,
-            pointerEvents: "none",
-          }} />
+      {/* ── MacBook lid ── */}
+      <div style={{
+        backgroundColor: "#1c1c1e",
+        borderRadius: "14px 14px 4px 4px",
+        padding: "14px 12px 10px",
+        boxShadow: "0 0 0 1px #3a3a3c, 0 30px 80px rgba(0,0,0,0.25), 0 8px 20px rgba(0,0,0,0.15)",
+        position: "relative",
+      }}>
+        {/* Camera */}
+        <div style={{
+          position: "absolute", top: 5, left: "50%",
+          transform: "translateX(-50%)",
+          width: 6, height: 6, borderRadius: "50%",
+          backgroundColor: "#3d3d3f",
+        }} />
 
-          {/* MacBook bezel (z-index 2)
-              The BORDER is the dark aluminium frame.
-              The BACKGROUND is transparent so images behind show through the screen area. */}
+        {/* Screen — images live here, overflow:hidden guarantees they fill it */}
+        <div style={{
+          aspectRatio: "16 / 10",
+          overflow: "hidden",
+          borderRadius: "4px",
+          backgroundColor: "#000",
+          position: "relative",
+        }}>
+          {/* Slide track — percentage-based, no pixel measurement needed */}
           <div style={{
-            position: "relative",
-            zIndex: 2,
-            border: `${BZ_SIDE}px solid #1c1c1e`,
-            borderTopWidth: BZ_TOP,
-            borderBottomWidth: 9,
-            borderRadius: "14px 14px 3px 3px",
-            background: "transparent",
-            boxShadow: "0 0 0 1px #3a3a3c, 0 28px 70px rgba(0,0,0,0.22)",
-            boxSizing: "border-box",
+            display: "flex",
+            height: "100%",
+            width: `${ext.length * 100}%`,
+            transform: `translateX(-${(idx * 100) / ext.length}%)`,
+            transition: animated
+              ? "transform 0.85s cubic-bezier(0.25, 0.46, 0.45, 0.94)"
+              : "none",
+            willChange: "transform",
           }}>
-            {/* Inner div — holds the 16:10 ratio and gives us the pixel width */}
-            <div ref={screenRef} style={{ aspectRatio: "16 / 10", width: "100%" }} />
-          </div>
-
-          {/* Image carousel (z-index 1, behind bezel)
-              CRITICAL: left = PEEK + BZ_SIDE so images align exactly with the screen area.
-              overflow: visible lets the next/prev image peek outside the MacBook. */}
-          {screenW > 0 && (
-            <div style={{
-              position: "absolute",
-              top: BZ_TOP,
-              left: PEEK + BZ_SIDE,   // ← screen left edge
-              width: screenW,
-              height: screenH,
-              zIndex: 1,
-              overflow: "visible",
-              backgroundColor: "#000",
-            }}>
-              <div style={{
-                display: "flex",
-                height: "100%",
-                transform: `translateX(-${idx * screenW}px)`,
-                transition: animated
-                  ? "transform 0.85s cubic-bezier(0.25, 0.46, 0.45, 0.94)"
-                  : "none",
-                willChange: "transform",
-              }}>
-                {ext.map((img, i) => (
-                  <div key={i} style={{ minWidth: screenW, height: "100%", flexShrink: 0 }}>
-                    {/* eslint-disable-next-line @next/next/no-img-element */}
-                    <img
-                      src={img}
-                      alt={`Screenshot ${i + 1}`}
-                      style={{ width: "100%", height: "100%", objectFit: "cover", display: "block" }}
-                    />
-                  </div>
-                ))}
+            {ext.map((img, i) => (
+              <div key={i} style={{ width: `${100 / ext.length}%`, height: "100%", flexShrink: 0 }}>
+                {/* eslint-disable-next-line @next/next/no-img-element */}
+                <img
+                  src={img}
+                  alt={`Screenshot ${i + 1}`}
+                  style={{ width: "100%", height: "100%", objectFit: "cover", display: "block" }}
+                />
               </div>
-            </div>
-          )}
+            ))}
+          </div>
         </div>
-
-        {/* Hinge */}
-        <div style={{
-          height: 8,
-          background: "linear-gradient(to bottom, #2c2c2e, #1c1c1e)",
-          boxShadow: "0 4px 14px rgba(0,0,0,0.35)",
-        }} />
-
-        {/* Foot */}
-        <div style={{
-          height: 3,
-          backgroundColor: "#1c1c1e",
-          borderRadius: "0 0 8px 8px",
-          margin: "0 36px",
-        }} />
       </div>
+
+      {/* ── Hinge ── */}
+      <div style={{
+        height: 9,
+        background: "linear-gradient(to bottom, #2c2c2e, #1a1a1a)",
+        boxShadow: "0 4px 16px rgba(0,0,0,0.4)",
+      }} />
+
+      {/* ── Foot ── */}
+      <div style={{
+        height: 4,
+        backgroundColor: "#1c1c1e",
+        borderRadius: "0 0 10px 10px",
+        margin: "0 40px",
+        boxShadow: "0 4px 10px rgba(0,0,0,0.25)",
+      }} />
 
       {/* Progress dots */}
       {images.length > 1 && (
@@ -174,8 +124,7 @@ function MacBookCarousel({ images }: { images: string[] }) {
               key={i}
               onClick={() => { setAnimated(true); setIdx(i); }}
               style={{
-                height: 6,
-                width: i === activeDot ? 20 : 6,
+                height: 6, width: i === activeDot ? 20 : 6,
                 borderRadius: 3,
                 backgroundColor: i === activeDot ? "#2563EB" : "rgba(37,99,235,0.2)",
                 border: "none", padding: 0, cursor: "pointer",
@@ -196,7 +145,6 @@ export default function Realisations() {
     <section id="realisations" className="overflow-hidden bg-white py-24">
       <div className="mx-auto max-w-5xl px-6">
 
-        {/* Header */}
         <div className="mb-16">
           <motion.p
             className="mb-2 text-sm font-semibold uppercase tracking-widest"
@@ -218,7 +166,6 @@ export default function Realisations() {
           </motion.h2>
         </div>
 
-        {/* MacBook */}
         <motion.div
           initial={{ opacity: 0, y: 40 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -228,7 +175,6 @@ export default function Realisations() {
           <MacBookCarousel images={project.images} />
         </motion.div>
 
-        {/* Project info */}
         <motion.div
           className="mt-12"
           initial={{ opacity: 0, y: 20 }}
