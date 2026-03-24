@@ -57,8 +57,8 @@ function MacBookCarousel({ images }: { images: string[] }) {
         <div style={{
           position: "absolute",
           top: "9%",
-          left: "7%",
-          right: "7%",
+          left: "13%",
+          right: "13%",
           bottom: "21.5%",
           zIndex: 1,
           overflow: "hidden",
