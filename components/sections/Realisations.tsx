@@ -2,7 +2,7 @@
 
 import { useRef, useState } from "react";
 import { motion } from "framer-motion";
-import { ArrowUpRight, Lock } from "lucide-react";
+import { ArrowUpRight, Lock, ChevronLeft, ChevronRight } from "lucide-react";
 
 const projects = [
   {
@@ -10,8 +10,8 @@ const projects = [
     category: "App mobile / web",
     description:
       "Application de motivation quotidienne. Citations, objectifs et routines pensés pour booster la progression personnelle — disponible sur mobile et navigateur.",
-    // Remplacer par : "/projects/eleve-toi.png" une fois le screenshot ajouté dans /public/projects/
-    image: null,
+    // Ajouter les images dans /public/projects/ : eleve-toi-1.png, eleve-toi-2.png...
+    images: [],
     color: "#1a1a2e",
     href: "https://eleve-toi.vercel.app",
     isPublic: true,
@@ -21,8 +21,8 @@ const projects = [
     category: "App mobile / CRM",
     description:
       "Mini CRM de terrain pour commerciaux. Gestion des prospects, suivi des rendez-vous et pipeline de vente — optimisé mobile pour les équipes en déplacement.",
-    // Remplacer par : "/projects/roadcrm.png" une fois le screenshot ajouté dans /public/projects/
-    image: null,
+    // Ajouter les images dans /public/projects/ : roadcrm-1.png, roadcrm-2.png...
+    images: [],
     color: "#0f2027",
     href: "https://roadcrm.vercel.app",
     isPublic: true,
@@ -32,8 +32,14 @@ const projects = [
     category: "Outil métier",
     description:
       "Configurateur commercial sur mesure pour une entreprise. Création d'offres, étude comparative et gestion documentaire avec cloud intégré.",
-    // Remplacer par : "/projects/risosales.png" une fois le screenshot ajouté dans /public/projects/
-    image: null,
+    // 5 images disponibles : risosales-1.png → risosales-5.png
+    images: [
+      "/projects/risosales-1.png",
+      "/projects/risosales-2.png",
+      "/projects/risosales-3.png",
+      "/projects/risosales-4.png",
+      "/projects/risosales-5.png",
+    ],
     color: "#1c1c1c",
     href: null,
     isPublic: false,
@@ -68,27 +74,25 @@ export default function Realisations() {
     <section id="realisations" className="bg-white px-6 py-24">
       <div className="mx-auto max-w-7xl">
         {/* Header */}
-        <div className="mb-12 flex items-end justify-between">
-          <div>
-            <motion.p
-              className="mb-2 text-sm font-semibold uppercase tracking-widest"
-              style={{ color: "#2563EB" }}
-              initial={{ opacity: 0, y: 10 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-            >
-              Réalisations
-            </motion.p>
-            <motion.h2
-              className="text-3xl font-bold text-dark md:text-5xl"
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ delay: 0.05 }}
-            >
-              Projets <span style={{ color: "#2563EB" }}>réalisés</span>
-            </motion.h2>
-          </div>
+        <div className="mb-12">
+          <motion.p
+            className="mb-2 text-sm font-semibold uppercase tracking-widest"
+            style={{ color: "#2563EB" }}
+            initial={{ opacity: 0, y: 10 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+          >
+            Réalisations
+          </motion.p>
+          <motion.h2
+            className="text-3xl font-bold text-dark md:text-5xl"
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ delay: 0.05 }}
+          >
+            Projets <span style={{ color: "#2563EB" }}>réalisés</span>
+          </motion.h2>
         </div>
 
         {/* Desktop: 3-column grid */}
@@ -126,6 +130,20 @@ function ProjectCard({
   project: (typeof projects)[number];
   index: number;
 }) {
+  const [current, setCurrent] = useState(0);
+  const hasImages = project.images.length > 0;
+  const hasMultiple = project.images.length > 1;
+
+  function prev(e: React.MouseEvent) {
+    e.preventDefault();
+    setCurrent((c) => (c - 1 + project.images.length) % project.images.length);
+  }
+
+  function next(e: React.MouseEvent) {
+    e.preventDefault();
+    setCurrent((c) => (c + 1) % project.images.length);
+  }
+
   return (
     <motion.div
       className="group overflow-hidden rounded-2xl border border-gray-100 bg-white shadow-sm transition-shadow hover:shadow-md"
@@ -134,18 +152,53 @@ function ProjectCard({
       viewport={{ once: true }}
       transition={{ delay: index * 0.1 }}
     >
-      {/* Image / placeholder */}
+      {/* Image area */}
       <div
         className="relative flex h-52 items-center justify-center overflow-hidden"
         style={{ backgroundColor: project.color }}
       >
-        {project.image ? (
-          // eslint-disable-next-line @next/next/no-img-element
-          <img
-            src={project.image}
-            alt={project.title}
-            className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
-          />
+        {hasImages ? (
+          <>
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img
+              src={project.images[current]}
+              alt={`${project.title} ${current + 1}`}
+              className="h-full w-full object-cover transition-opacity duration-300"
+            />
+
+            {/* Prev / Next arrows — visibles au hover si plusieurs images */}
+            {hasMultiple && (
+              <>
+                <button
+                  onClick={prev}
+                  className="absolute left-2 top-1/2 -translate-y-1/2 flex h-7 w-7 items-center justify-center rounded-full bg-black/40 text-white opacity-0 backdrop-blur-sm transition-opacity group-hover:opacity-100"
+                >
+                  <ChevronLeft size={14} />
+                </button>
+                <button
+                  onClick={next}
+                  className="absolute right-2 top-1/2 -translate-y-1/2 flex h-7 w-7 items-center justify-center rounded-full bg-black/40 text-white opacity-0 backdrop-blur-sm transition-opacity group-hover:opacity-100"
+                >
+                  <ChevronRight size={14} />
+                </button>
+
+                {/* Dot indicators */}
+                <div className="absolute bottom-3 left-1/2 flex -translate-x-1/2 gap-1.5">
+                  {project.images.map((_, i) => (
+                    <button
+                      key={i}
+                      onClick={(e) => { e.preventDefault(); setCurrent(i); }}
+                      className="h-1.5 rounded-full transition-all"
+                      style={{
+                        width: i === current ? "16px" : "6px",
+                        backgroundColor: i === current ? "#fff" : "rgba(255,255,255,0.4)",
+                      }}
+                    />
+                  ))}
+                </div>
+              </>
+            )}
+          </>
         ) : (
           <span
             className="select-none text-6xl font-bold opacity-20"
@@ -155,13 +208,10 @@ function ProjectCard({
           </span>
         )}
 
-        {/* Category badge over image */}
+        {/* Category badge */}
         <span
           className="absolute left-4 top-4 rounded-full px-3 py-1 text-xs font-medium backdrop-blur-sm"
-          style={{
-            color: "#2563EB",
-            backgroundColor: "rgba(255,255,255,0.9)",
-          }}
+          style={{ color: "#2563EB", backgroundColor: "rgba(255,255,255,0.9)" }}
         >
           {project.category}
         </span>
