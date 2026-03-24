@@ -1,8 +1,8 @@
 "use client";
 
-import { useRef, useState } from "react";
+import { useRef, useState, useEffect } from "react";
 import { motion } from "framer-motion";
-import { ArrowUpRight, Lock, ChevronLeft, ChevronRight } from "lucide-react";
+import { ArrowUpRight, Lock } from "lucide-react";
 
 const projects = [
   {
@@ -10,7 +10,6 @@ const projects = [
     category: "App mobile / web",
     description:
       "Application de motivation quotidienne. Citations, objectifs et routines pensés pour booster la progression personnelle — disponible sur mobile et navigateur.",
-    // Ajouter les images dans /public/projects/ : eleve-toi-1.png, eleve-toi-2.png...
     images: [],
     color: "#1a1a2e",
     href: "https://eleve-toi.vercel.app",
@@ -21,7 +20,6 @@ const projects = [
     category: "App mobile / CRM",
     description:
       "Mini CRM de terrain pour commerciaux. Gestion des prospects, suivi des rendez-vous et pipeline de vente — optimisé mobile pour les équipes en déplacement.",
-    // Ajouter les images dans /public/projects/ : roadcrm-1.png, roadcrm-2.png...
     images: [],
     color: "#0f2027",
     href: "https://roadcrm.vercel.app",
@@ -32,7 +30,6 @@ const projects = [
     category: "Outil métier",
     description:
       "Configurateur commercial sur mesure pour une entreprise. Création d'offres, étude comparative et gestion documentaire avec cloud intégré.",
-    // 5 images disponibles : risosales-1.png → risosales-5.png
     images: [
       "/projects/risosales-1.png",
       "/projects/risosales-2.png",
@@ -45,6 +42,93 @@ const projects = [
     isPublic: false,
   },
 ];
+
+function MacBookMockup({ images }: { images: string[] }) {
+  const [current, setCurrent] = useState(0);
+
+  useEffect(() => {
+    if (images.length <= 1) return;
+    const interval = setInterval(() => {
+      setCurrent((c) => (c + 1) % images.length);
+    }, 2800);
+    return () => clearInterval(interval);
+  }, [images.length]);
+
+  return (
+    <div style={{ padding: "24px 20px 0", backgroundColor: "#f0f0f0" }}>
+      {/* Lid */}
+      <div
+        style={{
+          position: "relative",
+          backgroundColor: "#1c1c1e",
+          borderRadius: "10px 10px 0 0",
+          padding: "10px 10px 7px",
+          boxShadow:
+            "0 0 0 1px #3a3a3c, inset 0 1px 0 rgba(255,255,255,0.06)",
+        }}
+      >
+        {/* Camera */}
+        <div
+          style={{
+            position: "absolute",
+            top: 4,
+            left: "50%",
+            transform: "translateX(-50%)",
+            width: 5,
+            height: 5,
+            borderRadius: "50%",
+            backgroundColor: "#3a3a3c",
+          }}
+        />
+        {/* Screen */}
+        <div
+          style={{
+            position: "relative",
+            aspectRatio: "16 / 10",
+            overflow: "hidden",
+            borderRadius: "3px",
+            backgroundColor: "#000",
+          }}
+        >
+          {images.map((img, i) => (
+            // eslint-disable-next-line @next/next/no-img-element
+            <img
+              key={img}
+              src={img}
+              alt={`Screenshot ${i + 1}`}
+              style={{
+                position: "absolute",
+                inset: 0,
+                width: "100%",
+                height: "100%",
+                objectFit: "cover",
+                opacity: i === current ? 1 : 0,
+                transition: "opacity 0.9s ease",
+              }}
+            />
+          ))}
+        </div>
+      </div>
+      {/* Hinge bar */}
+      <div
+        style={{
+          height: 6,
+          background: "linear-gradient(to bottom, #2c2c2e, #1c1c1e)",
+          boxShadow: "0 3px 10px rgba(0,0,0,0.35)",
+        }}
+      />
+      {/* Foot */}
+      <div
+        style={{
+          height: 3,
+          backgroundColor: "#2a2a2c",
+          borderRadius: "0 0 6px 6px",
+          margin: "0 28px",
+        }}
+      />
+    </div>
+  );
+}
 
 export default function Realisations() {
   const scrollRef = useRef<HTMLDivElement>(null);
@@ -130,19 +214,7 @@ function ProjectCard({
   project: (typeof projects)[number];
   index: number;
 }) {
-  const [current, setCurrent] = useState(0);
   const hasImages = project.images.length > 0;
-  const hasMultiple = project.images.length > 1;
-
-  function prev(e: React.MouseEvent) {
-    e.preventDefault();
-    setCurrent((c) => (c - 1 + project.images.length) % project.images.length);
-  }
-
-  function next(e: React.MouseEvent) {
-    e.preventDefault();
-    setCurrent((c) => (c + 1) % project.images.length);
-  }
 
   return (
     <motion.div
@@ -152,67 +224,25 @@ function ProjectCard({
       viewport={{ once: true }}
       transition={{ delay: index * 0.1 }}
     >
-      {/* Image area */}
-      <div
-        className="relative flex h-52 items-center justify-center overflow-hidden"
-        style={{ backgroundColor: project.color }}
-      >
-        {hasImages ? (
-          <>
-            {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img
-              src={project.images[current]}
-              alt={`${project.title} ${current + 1}`}
-              className="h-full w-full object-cover transition-opacity duration-300"
-            />
-
-            {/* Prev / Next arrows — visibles au hover si plusieurs images */}
-            {hasMultiple && (
-              <>
-                <button
-                  onClick={prev}
-                  className="absolute left-2 top-1/2 -translate-y-1/2 flex h-7 w-7 items-center justify-center rounded-full bg-black/40 text-white opacity-0 backdrop-blur-sm transition-opacity group-hover:opacity-100"
-                >
-                  <ChevronLeft size={14} />
-                </button>
-                <button
-                  onClick={next}
-                  className="absolute right-2 top-1/2 -translate-y-1/2 flex h-7 w-7 items-center justify-center rounded-full bg-black/40 text-white opacity-0 backdrop-blur-sm transition-opacity group-hover:opacity-100"
-                >
-                  <ChevronRight size={14} />
-                </button>
-
-                {/* Dot indicators */}
-                <div className="absolute bottom-3 left-1/2 flex -translate-x-1/2 gap-1.5">
-                  {project.images.map((_, i) => (
-                    <button
-                      key={i}
-                      onClick={(e) => { e.preventDefault(); setCurrent(i); }}
-                      className="h-1.5 rounded-full transition-all"
-                      style={{
-                        width: i === current ? "16px" : "6px",
-                        backgroundColor: i === current ? "#fff" : "rgba(255,255,255,0.4)",
-                      }}
-                    />
-                  ))}
-                </div>
-              </>
-            )}
-          </>
-        ) : (
+      {/* Visual area */}
+      {hasImages ? (
+        <MacBookMockup images={project.images} />
+      ) : (
+        <div
+          className="flex h-52 items-center justify-center"
+          style={{ backgroundColor: project.color }}
+        >
           <span
             className="select-none text-6xl font-bold opacity-20"
             style={{ color: "#ffffff" }}
           >
             {project.title.charAt(0)}
           </span>
-        )}
-
-      </div>
+        </div>
+      )}
 
       {/* Content */}
       <div className="p-5">
-        {/* Badges */}
         <div className="mb-3 flex flex-wrap items-center gap-2">
           <span
             className="rounded-full px-3 py-1 text-xs font-medium"
