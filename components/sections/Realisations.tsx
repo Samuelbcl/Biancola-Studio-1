@@ -20,26 +20,22 @@ const projects = [
 ];
 
 function MacBookCarousel({ images }: { images: string[] }) {
-  // Clone first image at end → seamless infinite left-to-right loop
   const ext = useMemo(() => [...images, images[0]], [images]);
-  const [idx, setIdx]           = useState(0);
-  const [animated, setAnimated] = useState(true);
+  const [idx, setIdx]             = useState(0);
+  const [animated, setAnimated]   = useState(true);
 
-  // Auto-play
   useEffect(() => {
     if (images.length <= 1) return;
-    const t = setInterval(() => { setAnimated(true); setIdx((c) => c + 1); }, 3200);
+    const t = setInterval(() => { setAnimated(true); setIdx((c) => c + 1); }, 3500);
     return () => clearInterval(t);
   }, [images.length]);
 
-  // When we reach the clone → jump back to 0 without animation
   useEffect(() => {
     if (idx !== ext.length - 1) return;
-    const t = setTimeout(() => { setAnimated(false); setIdx(0); }, 880);
+    const t = setTimeout(() => { setAnimated(false); setIdx(0); }, 900);
     return () => clearTimeout(t);
   }, [idx, ext.length]);
 
-  // Re-enable animation on next frame after the instant jump
   useEffect(() => {
     if (animated || idx !== 0) return;
     const id = requestAnimationFrame(() => requestAnimationFrame(() => setAnimated(true)));
@@ -49,40 +45,67 @@ function MacBookCarousel({ images }: { images: string[] }) {
   const activeDot = idx % images.length;
 
   return (
-    <div style={{ maxWidth: 860, margin: "0 auto" }}>
+    <div style={{ maxWidth: 880, margin: "0 auto" }}>
 
       {/* ── MacBook lid ── */}
       <div style={{
         backgroundColor: "#1c1c1e",
-        borderRadius: "14px 14px 2px 2px",
-        padding: "14px 12px 0",
-        boxShadow: "0 0 0 1px #3a3a3c, 0 30px 80px rgba(0,0,0,0.25), 0 8px 20px rgba(0,0,0,0.15)",
+        borderRadius: "16px 16px 3px 3px",
+        padding: "16px 14px 0",
         position: "relative",
+        boxShadow: [
+          "0 0 0 1px #3a3a3c",
+          "0 2px 4px rgba(0,0,0,0.4)",
+          "0 12px 30px rgba(0,0,0,0.25)",
+          "0 40px 80px rgba(0,0,0,0.2)",
+          "0 80px 120px rgba(0,0,0,0.1)",
+        ].join(", "),
       }}>
-        {/* Camera */}
+        {/* Aluminium top edge shine */}
         <div style={{
-          position: "absolute", top: 5, left: "50%",
-          transform: "translateX(-50%)",
-          width: 6, height: 6, borderRadius: "50%",
-          backgroundColor: "#3d3d3f",
+          position: "absolute",
+          top: 0, left: "15%", right: "15%", height: 1,
+          background: "linear-gradient(to right, transparent, rgba(255,255,255,0.12), transparent)",
+          borderRadius: "50%",
         }} />
 
-        {/* Screen — images live here, overflow:hidden guarantees they fill it */}
+        {/* Camera */}
+        <div style={{
+          position: "absolute",
+          top: 6, left: "50%",
+          transform: "translateX(-50%)",
+          width: 7, height: 7,
+          borderRadius: "50%",
+          backgroundColor: "#0a0a0a",
+          boxShadow: "0 0 0 1px #2a2a2c, inset 0 0 3px rgba(0,0,0,0.8)",
+        }}>
+          {/* Camera dot */}
+          <div style={{
+            position: "absolute",
+            top: "50%", left: "50%",
+            transform: "translate(-50%, -50%)",
+            width: 3, height: 3,
+            borderRadius: "50%",
+            backgroundColor: "#1a2a1a",
+          }} />
+        </div>
+
+        {/* Screen */}
         <div style={{
           aspectRatio: "16 / 10",
           overflow: "hidden",
-          borderRadius: "0",
+          borderRadius: "4px 4px 0 0",
           backgroundColor: "#000",
           position: "relative",
         }}>
-          {/* Slide track — percentage-based, no pixel measurement needed */}
+          {/* Slide track */}
           <div style={{
             display: "flex",
             height: "100%",
             width: `${ext.length * 100}%`,
             transform: `translateX(-${(idx * 100) / ext.length}%)`,
             transition: animated
-              ? "transform 0.85s cubic-bezier(0.25, 0.46, 0.45, 0.94)"
+              ? "transform 0.9s cubic-bezier(0.25, 0.46, 0.45, 0.94)"
               : "none",
             willChange: "transform",
           }}>
@@ -97,38 +120,47 @@ function MacBookCarousel({ images }: { images: string[] }) {
               </div>
             ))}
           </div>
+
+          {/* Screen glass reflection */}
+          <div style={{
+            position: "absolute",
+            inset: 0,
+            background: "linear-gradient(135deg, rgba(255,255,255,0.04) 0%, transparent 60%)",
+            pointerEvents: "none",
+          }} />
         </div>
       </div>
 
       {/* ── Hinge ── */}
       <div style={{
-        height: 9,
-        background: "linear-gradient(to bottom, #2c2c2e, #1a1a1a)",
-        boxShadow: "0 4px 16px rgba(0,0,0,0.4)",
+        height: 10,
+        background: "linear-gradient(to bottom, #2c2c2e 0%, #1a1a1c 60%, #141416 100%)",
+        boxShadow: "0 6px 20px rgba(0,0,0,0.5), 0 2px 4px rgba(0,0,0,0.4)",
       }} />
 
-      {/* ── Foot ── */}
+      {/* ── Base ── */}
       <div style={{
-        height: 4,
-        backgroundColor: "#1c1c1e",
-        borderRadius: "0 0 10px 10px",
-        margin: "0 40px",
-        boxShadow: "0 4px 10px rgba(0,0,0,0.25)",
+        height: 5,
+        background: "linear-gradient(to bottom, #242426, #1c1c1e)",
+        borderRadius: "0 0 12px 12px",
+        margin: "0 50px",
+        boxShadow: "0 6px 16px rgba(0,0,0,0.35)",
       }} />
 
-      {/* Progress dots */}
+      {/* ── Progress dots ── */}
       {images.length > 1 && (
-        <div style={{ display: "flex", justifyContent: "center", gap: 6, marginTop: 20 }}>
+        <div style={{ display: "flex", justifyContent: "center", gap: 6, marginTop: 24 }}>
           {images.map((_, i) => (
             <button
               key={i}
               onClick={() => { setAnimated(true); setIdx(i); }}
               style={{
-                height: 6, width: i === activeDot ? 20 : 6,
+                height: 5,
+                width: i === activeDot ? 22 : 5,
                 borderRadius: 3,
-                backgroundColor: i === activeDot ? "#2563EB" : "rgba(37,99,235,0.2)",
+                backgroundColor: i === activeDot ? "#2563EB" : "rgba(37,99,235,0.18)",
                 border: "none", padding: 0, cursor: "pointer",
-                transition: "all 0.3s ease",
+                transition: "all 0.35s ease",
               }}
             />
           ))}
@@ -142,9 +174,16 @@ export default function Realisations() {
   const project = projects[0];
 
   return (
-    <section id="realisations" className="overflow-hidden bg-white py-24">
-      <div className="mx-auto max-w-5xl px-6">
+    <section
+      id="realisations"
+      style={{
+        background: "linear-gradient(180deg, #f7f8fc 0%, #ffffff 40%, #f7f8fc 100%)",
+      }}
+      className="overflow-hidden py-24 px-6"
+    >
+      <div className="mx-auto max-w-5xl">
 
+        {/* Header */}
         <div className="mb-16">
           <motion.p
             className="mb-2 text-sm font-semibold uppercase tracking-widest"
@@ -166,21 +205,23 @@ export default function Realisations() {
           </motion.h2>
         </div>
 
+        {/* MacBook */}
         <motion.div
-          initial={{ opacity: 0, y: 40 }}
+          initial={{ opacity: 0, y: 50 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          transition={{ delay: 0.1 }}
+          transition={{ delay: 0.1, duration: 0.7, ease: [0.25, 0.46, 0.45, 0.94] }}
         >
           <MacBookCarousel images={project.images} />
         </motion.div>
 
+        {/* Project info */}
         <motion.div
-          className="mt-12"
+          className="mt-14"
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          transition={{ delay: 0.2 }}
+          transition={{ delay: 0.3 }}
         >
           <div className="mb-3 flex flex-wrap items-center gap-2">
             <span
