@@ -6,4 +6,8 @@
   --color-light: #FFFFFF;
 }
 
+::-webkit-scrollbar {
+  display: none;
+}
+
 
