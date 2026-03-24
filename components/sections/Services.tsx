@@ -1,6 +1,6 @@
 "use client";
 
-import { useRef, useState } from "react";
+import { useRef, useState, useEffect } from "react";
 import { motion, useMotionValue, useSpring, useInView } from "framer-motion";
 import { Monitor, ShoppingCart, Layers, Cloud } from "lucide-react";
 
@@ -107,10 +107,9 @@ function AnimatedCounter({
   const ref = useRef<HTMLDivElement>(null);
   const isInView = useInView(ref, { once: true });
   const [count, setCount] = useState(0);
-  const hasAnimated = useRef(false);
 
-  if (isInView && !hasAnimated.current) {
-    hasAnimated.current = true;
+  useEffect(() => {
+    if (!isInView) return;
     let start = 0;
     const duration = 1500;
     const stepTime = duration / value;
@@ -119,7 +118,8 @@ function AnimatedCounter({
       setCount(start);
       if (start >= value) clearInterval(timer);
     }, stepTime);
-  }
+    return () => clearInterval(timer);
+  }, [isInView, value]);
 
   return (
     <div ref={ref} className="text-center">

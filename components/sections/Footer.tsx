@@ -11,7 +11,7 @@ const footerLinks = [
       { label: "Services", href: "#services" },
       { label: "Réalisations", href: "#realisations" },
       { label: "Processus", href: "#processus" },
-      { label: "Abonnements", href: "#abonnements" },
+      { label: "Tarifs", href: "#tarifs" },
       { label: "FAQ", href: "#faq" },
     ],
   },
@@ -68,7 +68,7 @@ export default function Footer() {
               <ArrowUpRight size={16} />
             </a>
             <a
-              href="#"
+              href="#realisations"
               className="magnetic inline-flex items-center gap-2 rounded-full border border-white/20 px-8 py-3 text-sm font-medium text-white transition-colors hover:border-white/50"
             >
               Voir nos réalisations

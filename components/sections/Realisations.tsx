@@ -1,6 +1,6 @@
 "use client";
 
-import { useRef } from "react";
+import { useRef, useState } from "react";
 import { motion } from "framer-motion";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 
@@ -15,6 +15,9 @@ const projects = [
 
 export default function Realisations() {
   const scrollRef = useRef<HTMLDivElement>(null);
+  const [isDragging, setIsDragging] = useState(false);
+  const startX = useRef(0);
+  const startScrollLeft = useRef(0);
 
   function scroll(dir: "left" | "right") {
     if (!scrollRef.current) return;
@@ -23,6 +26,24 @@ export default function Realisations() {
       left: dir === "left" ? -amount : amount,
       behavior: "smooth",
     });
+  }
+
+  function onMouseDown(e: React.MouseEvent<HTMLDivElement>) {
+    if (!scrollRef.current) return;
+    setIsDragging(true);
+    startX.current = e.pageX;
+    startScrollLeft.current = scrollRef.current.scrollLeft;
+  }
+
+  function onMouseMove(e: React.MouseEvent<HTMLDivElement>) {
+    if (!isDragging || !scrollRef.current) return;
+    e.preventDefault();
+    const dx = e.pageX - startX.current;
+    scrollRef.current.scrollLeft = startScrollLeft.current - dx;
+  }
+
+  function onMouseUp() {
+    setIsDragging(false);
   }
 
   return (
@@ -51,12 +72,14 @@ export default function Realisations() {
         </div>
 
         {/* Horizontal scroll / drag */}
-        <motion.div
+        <div
           ref={scrollRef}
-          className="flex cursor-grab gap-6 overflow-x-auto pb-4 scrollbar-hide"
-          drag="x"
-          dragConstraints={scrollRef}
+          className={`flex gap-6 overflow-x-auto pb-4 select-none ${isDragging ? "cursor-grabbing" : "cursor-grab"}`}
           style={{ scrollbarWidth: "none" }}
+          onMouseDown={onMouseDown}
+          onMouseMove={onMouseMove}
+          onMouseUp={onMouseUp}
+          onMouseLeave={onMouseUp}
         >
           {projects.map((project, i) => (
             <motion.div
@@ -88,7 +111,7 @@ export default function Realisations() {
               </div>
             </motion.div>
           ))}
-        </motion.div>
+        </div>
       </div>
     </section>
   );
