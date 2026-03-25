@@ -10,11 +10,11 @@ const faqs = [
   },
   {
     q: "Combien de temps prend la création d'un site ?",
-    a: "En moyenne, un site vitrine est livré en 2 à 4 semaines. Pour un e-commerce ou une application web, comptez 4 à 8 semaines selon la complexité du projet.",
+    a: "Un site vitrine est généralement livré en 1 à 2 semaines. Pour une application web ou un projet plus complexe, les délais varient selon l'ampleur du projet — on en discute ensemble dès le premier échange.",
   },
   {
-    q: "Mon site sera-t-il adapté aux mobiles ?",
-    a: "Bien sûr. Tous les sites sont conçus mobile-first et testés sur tous les appareils (smartphone, tablette, desktop) et navigateurs principaux.",
+    q: "Mon site fonctionnera-t-il sur téléphone et tablette ?",
+    a: "Évidemment. Chaque site est pensé dès le départ pour s'afficher parfaitement sur tous les écrans : smartphone, tablette et ordinateur.",
   },
   {
     q: "Pourrai-je modifier mon site moi-même ?",
@@ -34,7 +34,7 @@ const faqs = [
   },
   {
     q: "Comment se déroule le paiement ?",
-    a: "Le paiement se fait en deux temps : un acompte au démarrage du projet, puis le solde à la livraison. Un échelonnement est possible sur demande.",
+    a: "Simple et transparent : un acompte au démarrage du projet, puis le solde après votre validation finale. Vous ne payez le reste que lorsque vous êtes satisfait du résultat.",
   },
 ];
 
