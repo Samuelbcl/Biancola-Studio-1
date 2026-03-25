@@ -48,8 +48,7 @@ function MacBookCarousel({ images }: { images: string[] }) {
   const activeDot = idx % images.length;
 
   return (
-    <div style={{ maxWidth: 900, margin: "0 auto" }}>
-
+    <div>
       {/* Wrapper — PNG determines the height */}
       <div style={{ position: "relative" }}>
 
@@ -108,7 +107,7 @@ function MacBookCarousel({ images }: { images: string[] }) {
 
       {/* Progress dots */}
       {images.length > 1 && (
-        <div style={{ display: "flex", justifyContent: "center", gap: 6, marginTop: 16 }}>
+        <div style={{ display: "flex", justifyContent: "center", gap: 6, marginTop: 12 }}>
           {images.map((_, i) => (
             <button
               key={i}
@@ -138,7 +137,7 @@ export default function Realisations() {
       style={{ background: "linear-gradient(180deg, #f7f8fc 0%, #ffffff 40%, #f7f8fc 100%)" }}
       className="overflow-hidden py-24 px-6"
     >
-      <div className="mx-auto max-w-5xl">
+      <div className="mx-auto max-w-6xl">
 
         {/* Header */}
         <div className="mb-16">
@@ -162,43 +161,47 @@ export default function Realisations() {
           </motion.h2>
         </div>
 
-        {/* MacBook showcase */}
+        {/* Project row — MacBook left, description right */}
         <motion.div
-          initial={{ opacity: 0, y: 50 }}
+          className="flex flex-col gap-10 md:flex-row md:items-center md:gap-14"
+          initial={{ opacity: 0, y: 40 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ delay: 0.1, duration: 0.7, ease: [0.25, 0.46, 0.45, 0.94] }}
         >
-          <MacBookCarousel images={project.images} />
-        </motion.div>
-
-        {/* Project info */}
-        <motion.div
-          className="mt-10"
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ delay: 0.3 }}
-        >
-          <div className="mb-3 flex flex-wrap items-center gap-2">
-            <span
-              className="rounded-full px-3 py-1 text-xs font-medium"
-              style={{ color: "#2563EB", backgroundColor: "rgba(37,99,235,0.08)" }}
-            >
-              {project.category}
-            </span>
-            {!project.isPublic && (
-              <span className="flex items-center gap-1 rounded-full bg-gray-100 px-3 py-1 text-xs font-medium text-gray-500">
-                <Lock size={10} />
-                Projet interne
-              </span>
-            )}
+          {/* MacBook carousel — 60% width on desktop */}
+          <div className="w-full md:w-3/5">
+            <MacBookCarousel images={project.images} />
           </div>
-          <h3 className="mb-2 text-2xl font-bold text-dark">{project.title}</h3>
-          <p className="mb-5 max-w-xl text-sm leading-relaxed text-gray-500">
-            {project.description}
-          </p>
-          <span className="text-sm text-gray-400">Usage interne · Non public</span>
+
+          {/* Description — 40% width on desktop */}
+          <motion.div
+            className="w-full md:w-2/5"
+            initial={{ opacity: 0, x: 20 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            viewport={{ once: true }}
+            transition={{ delay: 0.25 }}
+          >
+            <div className="mb-3 flex flex-wrap items-center gap-2">
+              <span
+                className="rounded-full px-3 py-1 text-xs font-medium"
+                style={{ color: "#2563EB", backgroundColor: "rgba(37,99,235,0.08)" }}
+              >
+                {project.category}
+              </span>
+              {!project.isPublic && (
+                <span className="flex items-center gap-1 rounded-full bg-gray-100 px-3 py-1 text-xs font-medium text-gray-500">
+                  <Lock size={10} />
+                  Projet interne
+                </span>
+              )}
+            </div>
+            <h3 className="mb-3 text-2xl font-bold text-dark">{project.title}</h3>
+            <p className="mb-5 text-sm leading-relaxed text-gray-500">
+              {project.description}
+            </p>
+            <span className="text-sm text-gray-400">Usage interne · Non public</span>
+          </motion.div>
         </motion.div>
 
       </div>
