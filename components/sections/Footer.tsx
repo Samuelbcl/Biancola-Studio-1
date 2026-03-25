@@ -1,6 +1,6 @@
 "use client";
 
-import { motion } from "framer-motion";
+
 import { Mail, Phone, MapPin } from "lucide-react";
 import Marquee from "@/components/ui/Marquee";
 
@@ -12,6 +12,7 @@ const footerLinks = [
       { label: "Réalisations", href: "/realisations" },
       { label: "Processus", href: "/processus" },
       { label: "Tarifs", href: "/tarifs" },
+      { label: "À propos", href: "/a-propos" },
       { label: "FAQ", href: "/faq" },
     ],
   },
