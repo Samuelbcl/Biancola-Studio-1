@@ -51,7 +51,7 @@ export default function Hero() {
         style={{ y: contentY, opacity: contentOpacity }}
       >
         {/* Title - line by line reveal */}
-        <h1 className="font-display text-5xl font-bold leading-[1.1] tracking-tight md:text-7xl lg:text-8xl">
+        <h1 className="font-display text-4xl font-bold leading-[1.1] tracking-tight md:text-5xl lg:text-6xl">
           {lines.map((line, i) => (
             <span key={i} className="block overflow-hidden">
               <motion.span

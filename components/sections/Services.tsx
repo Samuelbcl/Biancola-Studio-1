@@ -161,12 +161,6 @@ export default function Services() {
           ))}
         </div>
 
-        {/* Counters */}
-        <div className="mt-20 flex flex-wrap items-center justify-center gap-12 md:gap-20">
-          {stats.map((stat) => (
-            <AnimatedCounter key={stat.label} {...stat} />
-          ))}
-        </div>
       </div>
     </section>
   );
