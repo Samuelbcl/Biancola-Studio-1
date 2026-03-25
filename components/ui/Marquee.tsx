@@ -1,51 +1,54 @@
 "use client";
 
+import { useEffect, useRef } from "react";
+
 interface MarqueeProps {
-  items: string[];
+  text: string;
+  repeat?: number;
   speed?: number;
   variant?: "light" | "filled";
 }
 
 export default function Marquee({
-  items,
-  speed = 30,
+  text,
+  repeat = 12,
+  speed = 20,
   variant = "light",
 }: MarqueeProps) {
   const isFilled = variant === "filled";
   const color = isFilled ? "#FFFFFF" : "#2563EB";
   const bg = isFilled ? "#2563EB" : "#FFFFFF";
+  const trackRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const el = trackRef.current;
+    if (!el) return;
+    let raf: number;
+    let pos = 0;
+    const half = el.scrollWidth / 2;
+
+    function step() {
+      pos -= 1;
+      if (pos <= -half) pos = 0;
+      el!.style.transform = `translateX(${pos}px)`;
+      raf = requestAnimationFrame(step);
+    }
+    raf = requestAnimationFrame(step);
+    return () => cancelAnimationFrame(raf);
+  }, []);
+
+  const items = Array.from({ length: repeat }, (_, i) => (
+    <span key={i} className="mx-4 text-lg font-medium" style={{ color }}>
+      {text}
+    </span>
+  ));
 
   return (
-    <div
-      className="overflow-hidden whitespace-nowrap"
-      style={{ backgroundColor: bg }}
-    >
-      <div
-        className="inline-flex py-3"
-        style={{
-          animation: `marquee ${speed}s linear infinite`,
-        }}
-      >
-        {/* Two identical sets for seamless loop */}
-        {[0, 1].map((set) =>
-          items.map((item, i) => (
-            <span
-              key={`${set}-${i}`}
-              className="mx-8 text-lg font-medium"
-              style={{ color }}
-            >
-              {item}
-            </span>
-          ))
-        )}
+    <div className="overflow-hidden whitespace-nowrap" style={{ backgroundColor: bg }}>
+      <div ref={trackRef} className="inline-flex py-3 will-change-transform">
+        {items}
+        {items}
       </div>
-
-      <style jsx>{`
-        @keyframes marquee {
-          0% { transform: translateX(0); }
-          100% { transform: translateX(-50%); }
-        }
-      `}</style>
     </div>
   );
 }

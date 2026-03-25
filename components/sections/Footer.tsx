@@ -31,7 +31,7 @@ export default function Footer() {
     <footer className="bg-dark text-white">
       {/* Marquee divider */}
       <Marquee
-        items={["Biancola Studio", "Votre partenaire digital", "Liège, Belgique", "Sites & Applications"]}
+        text="Biancola Studio · Votre partenaire digital ·"
         variant="filled"
         speed={25}
       />

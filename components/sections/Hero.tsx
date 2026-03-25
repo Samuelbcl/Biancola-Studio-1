@@ -115,7 +115,7 @@ export default function Hero() {
 
       {/* Marquee bottom */}
       <div className="relative z-10 border-t border-gray-200 bg-white py-4">
-        <Marquee items={["Sites Vitrines", "E-commerce", "Applications Web", "SaaS", "Design", "Développement"]} />
+        <Marquee text="Sites Vitrines · E-commerce · Applications · SaaS ·" />
       </div>
     </section>
   );
