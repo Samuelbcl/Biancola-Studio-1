@@ -5,8 +5,7 @@ import { motion, useScroll, useTransform } from "framer-motion";
 import Marquee from "@/components/ui/Marquee";
 
 const lines = [
-  { text: "Votre présence", accent: false },
-  { text: "digitale,", accent: false },
+  { text: "Votre présence digitale,", accent: false },
   { text: "réinventée.", accent: true },
 ];
 
@@ -51,7 +50,7 @@ export default function Hero() {
         style={{ y: contentY, opacity: contentOpacity }}
       >
         {/* Title - line by line reveal */}
-        <h1 className="font-display text-4xl font-bold leading-[1.1] tracking-tight md:text-5xl lg:text-6xl">
+        <h1 className="font-display text-5xl font-bold leading-[1.1] tracking-tight md:text-7xl lg:text-8xl">
           {lines.map((line, i) => (
             <span key={i} className="block overflow-hidden">
               <motion.span
