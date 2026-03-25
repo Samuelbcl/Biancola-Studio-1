@@ -116,7 +116,7 @@ function PhoneCarousel({ images }: { images: string[] }) {
       <div style={{ position: "relative" }}>
         <div style={{
           position: "absolute",
-          top: "12.5%", left: "12.68%", right: "12.74%", bottom: "5.0%",
+          top: "15.5%", left: "12.68%", right: "12.74%", bottom: "5.0%",
           zIndex: 1, overflow: "hidden", backgroundColor: "#000",
           borderRadius: "22px",
         }}>
