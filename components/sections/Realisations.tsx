@@ -7,30 +7,32 @@ import { Lock } from "lucide-react";
 
 const macbookProjects = [
   {
+    number: "01",
     title: "RisoSales",
-    category: "Outil métier",
+    category: "Application Web",
     description:
-      "Configurateur commercial sur mesure pour une entreprise. Création d'offres, étude comparative et gestion documentaire avec cloud intégré.",
+      "Configurateur commercial sur mesure développé pour une entreprise industrielle. L'outil permet de créer des offres commerciales complexes, de comparer les configurations et de gérer toute la documentation avec un cloud intégré.",
+    tech: ["React", "Node.js", "Cloud Storage"],
     images: [
       "/projects/risosales_1.png",
       "/projects/risosales_2.png",
     ],
-    href: null,
     isPublic: false,
   },
 ];
 
 const phoneProjects = [
   {
+    number: "02",
     title: "RoadCRM",
-    category: "Application mobile",
+    category: "Application Mobile",
     description:
-      "CRM mobile pensé pour les commerciaux terrain. Gestion des contacts, suivi des opportunités et tableau de bord en temps réel.",
+      "CRM mobile conçu pour les commerciaux terrain. Gestion des contacts, suivi des opportunités, synchronisation avec Google & Outlook Calendar, navigation Waze en un clic et notes vocales intégrées.",
+    tech: ["React Native", "API REST", "Google Calendar"],
     images: [
       "/projects/roadcrm_1.png",
       "/projects/roadcrm_2.png",
     ],
-    href: null,
     isPublic: false,
   },
 ];
@@ -162,12 +164,12 @@ export default function Realisations() {
     <section
       id="realisations"
       style={{ background: "linear-gradient(180deg, #f7f8fc 0%, #ffffff 40%, #f7f8fc 100%)" }}
-      className="overflow-hidden py-24 px-6"
+      className="overflow-hidden py-32 px-6"
     >
       <div className="mx-auto max-w-6xl">
 
         {/* Header */}
-        <div className="mb-16">
+        <div className="mb-20">
           <motion.p
             className="mb-2 text-sm font-semibold uppercase tracking-widest"
             style={{ color: "#2563EB" }}
@@ -184,8 +186,17 @@ export default function Realisations() {
             viewport={{ once: true }}
             transition={{ delay: 0.05 }}
           >
-            Projets <span className="text-gradient">réalisés</span>
+            Découvrez nos <span className="text-gradient">projets</span>
           </motion.h2>
+          <motion.p
+            className="mt-4 max-w-xl text-gray-500"
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ delay: 0.1 }}
+          >
+            Chaque projet est une solution unique, conçue pour répondre à un besoin précis.
+          </motion.p>
         </div>
 
         {/* RisoSales — MacBook gauche, description droite */}
@@ -240,7 +251,10 @@ export default function Realisations() {
 function ProjectInfo({ project }: { project: typeof macbookProjects[0] }) {
   return (
     <>
-      <div className="mb-3 flex flex-wrap items-center gap-2">
+      <span className="font-display text-sm font-bold tracking-widest text-primary">
+        {project.number}
+      </span>
+      <div className="mt-2 mb-3 flex flex-wrap items-center gap-2">
         <span
           className="rounded-full px-3 py-1 text-xs font-medium"
           style={{ color: "#2563EB", backgroundColor: "rgba(37,99,235,0.08)" }}
@@ -254,9 +268,20 @@ function ProjectInfo({ project }: { project: typeof macbookProjects[0] }) {
           </span>
         )}
       </div>
-      <h3 className="mb-3 text-2xl font-bold text-dark">{project.title}</h3>
-      <p className="mb-5 text-sm leading-relaxed text-gray-500">{project.description}</p>
-      <span className="text-sm text-gray-400">Usage interne · Non public</span>
+      <h3 className="font-display mb-4 text-2xl font-bold tracking-tight text-dark md:text-3xl">
+        {project.title}
+      </h3>
+      <p className="mb-6 leading-relaxed text-gray-500">{project.description}</p>
+      <div className="flex flex-wrap gap-2">
+        {project.tech.map((t) => (
+          <span
+            key={t}
+            className="rounded-lg border border-gray-200 px-3 py-1 text-xs font-medium text-gray-500"
+          >
+            {t}
+          </span>
+        ))}
+      </div>
     </>
   );
 }
