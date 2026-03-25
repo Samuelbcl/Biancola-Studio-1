@@ -56,8 +56,8 @@ export default function About() {
           <p className="text-gray-500 leading-relaxed">
             Je suis Samuel, développeur web passionné basé à Liège.
             Je crée des sites et applications sur mesure pour les entreprises qui veulent
-            une présence digitale à la hauteur de leurs ambitions. Chaque projet est
-            traité avec le même soin — comme si c&apos;était le mien.
+            une présence digitale à la hauteur de leurs ambitions. Rigueur,
+            transparence et résultats — c&apos;est ce qui guide chaque projet.
           </p>
         </motion.div>
 
