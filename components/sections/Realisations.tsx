@@ -26,8 +26,8 @@ const phoneProjects = [
     description:
       "CRM mobile pensé pour les commerciaux terrain. Gestion des contacts, suivi des opportunités et tableau de bord en temps réel.",
     images: [
-      "/projects/roadcrm_1.png.png",
-      "/projects/roadcrm_2.png.png",
+      "/projects/roadcrm_1.png",
+      "/projects/roadcrm_2.png",
     ],
     href: null,
     isPublic: false,
