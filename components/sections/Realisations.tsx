@@ -10,7 +10,7 @@ const macbookProjects = [
     title: "Automatisation des offres commerciales",
     category: "Outil métier",
     description:
-      "RisoSales — Plateforme développée pour Riso, leader mondial de l'impression professionnelle. L'outil automatise la création d'études comparatives et d'offres commerciales, remplaçant des heures de travail manuel sur Excel par un processus rapide et fiable.",
+      "RisoSales — Plateforme développée pour RISO, pionnier de l'impression jet d'encre à froid écoresponsable. L'outil automatise la création d'études comparatives et d'offres commerciales, remplaçant des heures de travail manuel sur Excel par un processus rapide et fiable.",
     images: [
       "/projects/risosales_1.png",
       "/projects/risosales_2.png",
@@ -25,7 +25,7 @@ const phoneProjects = [
     title: "Optimisation du suivi commercial terrain",
     category: "Application mobile",
     description:
-      "RoadCRM — CRM mobile conçu pour les commerciaux sur le terrain. Gestion optimisée des rendez-vous, comptes et activités avec synchronisation calendrier, navigation Waze en un clic et notes vocales.",
+      "RoadCRM — CRM mobile conçu pour les commerciaux sur le terrain. Gestion optimisée des rendez-vous, comptes et activités avec synchronisation calendrier, navigation GPS en un clic et notes vocales.",
     images: [
       "/projects/roadcrm_1.png",
       "/projects/roadcrm_2.png",
