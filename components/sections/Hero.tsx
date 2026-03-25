@@ -48,7 +48,7 @@ export default function Hero() {
       {/* White overlay */}
       <div
         className="absolute inset-0"
-        style={{ backgroundColor: "rgba(255,255,255,0.85)" }}
+        style={{ backgroundColor: "rgba(255,255,255,0.72)" }}
       />
 
       {/* Content with parallax */}
