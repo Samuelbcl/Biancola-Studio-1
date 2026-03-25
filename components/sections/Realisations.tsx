@@ -4,7 +4,7 @@ import { useState, useEffect, useMemo } from "react";
 import { motion } from "framer-motion";
 import { Lock } from "lucide-react";
 
-const projects = [
+const macbookProjects = [
   {
     title: "RisoSales",
     category: "Outil métier",
@@ -19,108 +19,136 @@ const projects = [
   },
 ];
 
-function MacBookCarousel({ images }: { images: string[] }) {
+const phoneProjects = [
+  {
+    title: "RoadCRM",
+    category: "Application mobile",
+    description:
+      "CRM mobile pensé pour les commerciaux terrain. Gestion des contacts, suivi des opportunités et tableau de bord en temps réel.",
+    images: [
+      "/projects/roadcrm_1.png.png",
+      "/projects/roadcrm_2.png.png",
+    ],
+    href: null,
+    isPublic: false,
+  },
+];
+
+function useCarousel(images: string[]) {
   const ext = useMemo(() => [...images, images[0]], [images]);
   const [idx, setIdx]           = useState(0);
   const [animated, setAnimated] = useState(true);
 
-  // Auto-play — always forward
   useEffect(() => {
     if (images.length <= 1) return;
     const t = setInterval(() => { setAnimated(true); setIdx((c) => c + 1); }, 3500);
     return () => clearInterval(t);
   }, [images.length]);
 
-  // Jump back to 0 after reaching the clone
   useEffect(() => {
     if (idx !== ext.length - 1) return;
     const t = setTimeout(() => { setAnimated(false); setIdx(0); }, 920);
     return () => clearTimeout(t);
   }, [idx, ext.length]);
 
-  // Re-enable animation after the instant jump
   useEffect(() => {
     if (animated || idx !== 0) return;
     const id = requestAnimationFrame(() => requestAnimationFrame(() => setAnimated(true)));
     return () => cancelAnimationFrame(id);
   }, [animated, idx]);
 
-  const activeDot = idx % images.length;
+  return { ext, idx, setIdx, animated, setAnimated, activeDot: idx % images.length };
+}
+
+function MacBookCarousel({ images }: { images: string[] }) {
+  const { ext, idx, setIdx, animated, setAnimated, activeDot } = useCarousel(images);
 
   return (
     <div>
-      {/* Wrapper — PNG determines the height */}
       <div style={{ position: "relative" }}>
-
-        {/* Screen area — sits behind the PNG, aligned to the transparent screen window */}
         <div style={{
           position: "absolute",
-          top: "9.7%",
-          left: "9.9%",
-          right: "10.0%",
-          bottom: "10.3%",
-          zIndex: 1,
-          overflow: "hidden",
-          backgroundColor: "#000",
+          top: "9.7%", left: "9.9%", right: "10.0%", bottom: "10.3%",
+          zIndex: 1, overflow: "hidden", backgroundColor: "#000",
           borderRadius: "12px 12px 0 0",
         }}>
-          {/* Slide track */}
           <div style={{
-            display: "flex",
-            height: "100%",
+            display: "flex", height: "100%",
             width: `${ext.length * 100}%`,
             transform: `translateX(-${(idx * 100) / ext.length}%)`,
-            transition: animated
-              ? "transform 0.9s cubic-bezier(0.25, 0.46, 0.45, 0.94)"
-              : "none",
+            transition: animated ? "transform 0.9s cubic-bezier(0.25, 0.46, 0.45, 0.94)" : "none",
             willChange: "transform",
           }}>
             {ext.map((img, i) => (
               <div key={i} style={{ width: `${100 / ext.length}%`, height: "100%", flexShrink: 0 }}>
                 {/* eslint-disable-next-line @next/next/no-img-element */}
-                <img
-                  src={img}
-                  alt={`Screenshot ${i + 1}`}
-                  style={{ width: "100%", height: "100%", objectFit: "cover", objectPosition: "top", display: "block" }}
-                />
+                <img src={img} alt={`Screenshot ${i + 1}`}
+                  style={{ width: "100%", height: "100%", objectFit: "cover", objectPosition: "top", display: "block" }} />
               </div>
             ))}
           </div>
         </div>
-
-        {/* MacBook PNG frame — on top, transparent screen shows images behind */}
         {/* eslint-disable-next-line @next/next/no-img-element */}
-        <img
-          src="/projects/macbook-frame.png.png"
-          alt=""
-          style={{
-            width: "100%",
-            height: "auto",
-            display: "block",
-            position: "relative",
-            zIndex: 2,
-            pointerEvents: "none",
-            userSelect: "none",
-          }}
-        />
+        <img src="/projects/macbook-frame.png.png" alt=""
+          style={{ width: "100%", height: "auto", display: "block", position: "relative", zIndex: 2, pointerEvents: "none", userSelect: "none" }} />
       </div>
-
-      {/* Progress dots */}
       {images.length > 1 && (
         <div style={{ display: "flex", justifyContent: "center", gap: 6, marginTop: 12 }}>
           {images.map((_, i) => (
-            <button
-              key={i}
-              onClick={() => { setAnimated(true); setIdx(i); }}
+            <button key={i} onClick={() => { setAnimated(true); setIdx(i); }}
               style={{
-                height: 5,
-                width: i === activeDot ? 22 : 5,
-                borderRadius: 3,
+                height: 5, width: i === activeDot ? 22 : 5, borderRadius: 3,
                 backgroundColor: i === activeDot ? "#2563EB" : "rgba(37,99,235,0.18)",
-                border: "none", padding: 0, cursor: "pointer",
-                transition: "all 0.35s ease",
-              }}
-            />
+                border: "none", padding: 0, cursor: "pointer", transition: "all 0.35s ease",
+              }} />
+          ))}
+        </div>
+      )}
+    </div>
+  );
+}
+
+function PhoneCarousel({ images }: { images: string[] }) {
+  const { ext, idx, setIdx, animated, setAnimated, activeDot } = useCarousel(images);
+
+  return (
+    <div style={{ maxWidth: 280, margin: "0 auto" }}>
+      <div style={{ position: "relative" }}>
+        <div style={{
+          position: "absolute",
+          top: "5.5%", left: "10.2%", right: "10.4%", bottom: "5.5%",
+          zIndex: 1, overflow: "hidden", backgroundColor: "#000",
+          borderRadius: "22px",
+        }}>
+          <div style={{
+            display: "flex", height: "100%",
+            width: `${ext.length * 100}%`,
+            transform: `translateX(-${(idx * 100) / ext.length}%)`,
+            transition: animated ? "transform 0.9s cubic-bezier(0.25, 0.46, 0.45, 0.94)" : "none",
+            willChange: "transform",
+          }}>
+            {ext.map((img, i) => (
+              <div key={i} style={{ width: `${100 / ext.length}%`, height: "100%", flexShrink: 0 }}>
+                {/* eslint-disable-next-line @next/next/no-img-element */}
+                <img src={img} alt={`Screenshot ${i + 1}`}
+                  style={{ width: "100%", height: "100%", objectFit: "cover", objectPosition: "top", display: "block" }} />
+              </div>
+            ))}
+          </div>
+        </div>
+        {/* eslint-disable-next-line @next/next/no-img-element */}
+        <img src="/projects/iphone-frame.png.png" alt=""
+          style={{ width: "100%", height: "auto", display: "block", position: "relative", zIndex: 2, pointerEvents: "none", userSelect: "none" }} />
+      </div>
+      {images.length > 1 && (
+        <div style={{ display: "flex", justifyContent: "center", gap: 6, marginTop: 12 }}>
+          {images.map((_, i) => (
+            <button key={i} onClick={() => { setAnimated(true); setIdx(i); }}
+              style={{
+                height: 5, width: i === activeDot ? 22 : 5, borderRadius: 3,
+                backgroundColor: i === activeDot ? "#2563EB" : "rgba(37,99,235,0.18)",
+                border: "none", padding: 0, cursor: "pointer", transition: "all 0.35s ease",
+              }} />
           ))}
         </div>
       )}
@@ -129,8 +157,6 @@ function MacBookCarousel({ images }: { images: string[] }) {
 }
 
 export default function Realisations() {
-  const project = projects[0];
-
   return (
     <section
       id="realisations"
@@ -161,20 +187,17 @@ export default function Realisations() {
           </motion.h2>
         </div>
 
-        {/* Project row — MacBook left, description right */}
+        {/* RisoSales — MacBook gauche, description droite */}
         <motion.div
-          className="flex flex-col gap-10 md:flex-row md:items-center md:gap-14"
+          className="mb-24 flex flex-col gap-10 md:flex-row md:items-center md:gap-14"
           initial={{ opacity: 0, y: 40 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ delay: 0.1, duration: 0.7, ease: [0.25, 0.46, 0.45, 0.94] }}
         >
-          {/* MacBook carousel — 60% width on desktop */}
           <div className="w-full md:w-3/5">
-            <MacBookCarousel images={project.images} />
+            <MacBookCarousel images={macbookProjects[0].images} />
           </div>
-
-          {/* Description — 40% width on desktop */}
           <motion.div
             className="w-full md:w-2/5"
             initial={{ opacity: 0, x: 20 }}
@@ -182,29 +205,57 @@ export default function Realisations() {
             viewport={{ once: true }}
             transition={{ delay: 0.25 }}
           >
-            <div className="mb-3 flex flex-wrap items-center gap-2">
-              <span
-                className="rounded-full px-3 py-1 text-xs font-medium"
-                style={{ color: "#2563EB", backgroundColor: "rgba(37,99,235,0.08)" }}
-              >
-                {project.category}
-              </span>
-              {!project.isPublic && (
-                <span className="flex items-center gap-1 rounded-full bg-gray-100 px-3 py-1 text-xs font-medium text-gray-500">
-                  <Lock size={10} />
-                  Projet interne
-                </span>
-              )}
-            </div>
-            <h3 className="mb-3 text-2xl font-bold text-dark">{project.title}</h3>
-            <p className="mb-5 text-sm leading-relaxed text-gray-500">
-              {project.description}
-            </p>
-            <span className="text-sm text-gray-400">Usage interne · Non public</span>
+            <ProjectInfo project={macbookProjects[0]} />
           </motion.div>
+        </motion.div>
+
+        {/* RoadCRM — description gauche, iPhone droite */}
+        <motion.div
+          className="flex flex-col gap-10 md:flex-row md:items-center md:gap-14"
+          initial={{ opacity: 0, y: 40 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ delay: 0.1, duration: 0.7, ease: [0.25, 0.46, 0.45, 0.94] }}
+        >
+          <motion.div
+            className="w-full md:w-2/5 md:order-1"
+            initial={{ opacity: 0, x: -20 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            viewport={{ once: true }}
+            transition={{ delay: 0.25 }}
+          >
+            <ProjectInfo project={phoneProjects[0]} />
+          </motion.div>
+          <div className="w-full md:w-3/5 md:order-2">
+            <PhoneCarousel images={phoneProjects[0].images} />
+          </div>
         </motion.div>
 
       </div>
     </section>
+  );
+}
+
+function ProjectInfo({ project }: { project: typeof macbookProjects[0] }) {
+  return (
+    <>
+      <div className="mb-3 flex flex-wrap items-center gap-2">
+        <span
+          className="rounded-full px-3 py-1 text-xs font-medium"
+          style={{ color: "#2563EB", backgroundColor: "rgba(37,99,235,0.08)" }}
+        >
+          {project.category}
+        </span>
+        {!project.isPublic && (
+          <span className="flex items-center gap-1 rounded-full bg-gray-100 px-3 py-1 text-xs font-medium text-gray-500">
+            <Lock size={10} />
+            Projet interne
+          </span>
+        )}
+      </div>
+      <h3 className="mb-3 text-2xl font-bold text-dark">{project.title}</h3>
+      <p className="mb-5 text-sm leading-relaxed text-gray-500">{project.description}</p>
+      <span className="text-sm text-gray-400">Usage interne · Non public</span>
+    </>
   );
 }
