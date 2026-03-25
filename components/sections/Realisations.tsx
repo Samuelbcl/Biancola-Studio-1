@@ -7,10 +7,10 @@ import { Lock } from "lucide-react";
 
 const macbookProjects = [
   {
-    title: "RisoSales",
+    title: "Augmentation des ventes de l'entreprise",
     category: "Outil métier",
     description:
-      "Configurateur commercial sur mesure pour une entreprise. Création d'offres, étude comparative et gestion documentaire avec cloud intégré.",
+      "RisoSales — Configurateur commercial sur mesure développé pour une entreprise industrielle. Création d'offres, étude comparative et gestion documentaire avec cloud intégré.",
     images: [
       "/projects/risosales_1.png",
       "/projects/risosales_2.png",
@@ -22,10 +22,10 @@ const macbookProjects = [
 
 const phoneProjects = [
   {
-    title: "RoadCRM",
+    title: "Optimisation du suivi commercial terrain",
     category: "Application mobile",
     description:
-      "CRM mobile pensé pour les commerciaux terrain. Gestion des contacts, suivi des opportunités et tableau de bord en temps réel.",
+      "RoadCRM — CRM mobile pensé pour les commerciaux terrain. Gestion des contacts, suivi des opportunités, synchronisation calendrier et tableau de bord en temps réel.",
     images: [
       "/projects/roadcrm_1.png",
       "/projects/roadcrm_2.png",
