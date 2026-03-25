@@ -116,7 +116,7 @@ function PhoneCarousel({ images }: { images: string[] }) {
       <div style={{ position: "relative" }}>
         <div style={{
           position: "absolute",
-          top: "6.0%", left: "12.68%", right: "12.74%", bottom: "9.0%",
+          top: "10.37%", left: "12.68%", right: "12.74%", bottom: "6.82%",
           zIndex: 1, overflow: "hidden", backgroundColor: "#000",
           borderRadius: "22px",
         }}>
@@ -131,7 +131,7 @@ function PhoneCarousel({ images }: { images: string[] }) {
               <div key={i} style={{ width: `${100 / ext.length}%`, height: "100%", flexShrink: 0 }}>
                 {/* eslint-disable-next-line @next/next/no-img-element */}
                 <img src={img} alt={`Screenshot ${i + 1}`}
-                  style={{ width: "100%", height: "100%", objectFit: "cover", objectPosition: "top", display: "block" }} />
+                  style={{ width: "100%", height: "100%", objectFit: "cover", objectPosition: "center", display: "block" }} />
               </div>
             ))}
           </div>
