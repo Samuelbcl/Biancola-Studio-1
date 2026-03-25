@@ -138,12 +138,12 @@ export default function Services() {
       <div className="mx-auto max-w-7xl">
         {/* Title */}
         <motion.h2
-          className="mb-16 text-center text-3xl font-bold text-dark md:text-5xl"
+          className="font-display mb-16 text-center text-3xl font-bold tracking-tight text-dark md:text-5xl"
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
         >
-          Nos <span style={{ color: "#2563EB" }}>Services</span>
+          Nos <span className="text-gradient">Services</span>
         </motion.h2>
 
         {/* Cards */}

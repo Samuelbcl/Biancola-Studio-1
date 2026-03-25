@@ -39,8 +39,8 @@ export default function Processus() {
   return (
     <section id="processus" className="bg-white px-6 py-24">
       <div className="mx-auto max-w-3xl">
-        <h2 className="mb-20 text-center text-3xl font-bold text-dark md:text-5xl">
-          Notre <span style={{ color: "#2563EB" }}>Processus</span>
+        <h2 className="mb-20 font-display text-center text-3xl font-bold tracking-tight text-dark md:text-5xl">
+          Notre <span className="text-gradient">Processus</span>
         </h2>
 
         {/* Mobile: single column */}

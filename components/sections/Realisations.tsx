@@ -178,13 +178,13 @@ export default function Realisations() {
             Réalisations
           </motion.p>
           <motion.h2
-            className="text-3xl font-bold text-dark md:text-5xl"
+            className="font-display text-3xl font-bold tracking-tight text-dark md:text-5xl"
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ delay: 0.05 }}
           >
-            Projets <span style={{ color: "#2563EB" }}>réalisés</span>
+            Projets <span className="text-gradient">réalisés</span>
           </motion.h2>
         </div>
 

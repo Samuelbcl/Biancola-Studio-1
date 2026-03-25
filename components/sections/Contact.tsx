@@ -40,13 +40,13 @@ export default function Contact() {
             Contact
           </motion.p>
           <motion.h2
-            className="text-3xl font-bold text-dark md:text-5xl"
+            className="font-display text-3xl font-bold tracking-tight text-dark md:text-5xl"
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ delay: 0.05 }}
           >
-            Démarrons votre <span style={{ color: "#2563EB" }}>projet</span>
+            Démarrons votre <span className="text-gradient">projet</span>
           </motion.h2>
           <motion.p
             className="mx-auto mt-4 max-w-lg text-gray-500"

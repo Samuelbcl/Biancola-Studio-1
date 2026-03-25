@@ -4,21 +4,15 @@ import { useRef } from "react";
 import { motion, useScroll, useTransform } from "framer-motion";
 import Marquee from "@/components/ui/Marquee";
 
-const titleText = "Votre présence digitale,";
-const highlightText = "réinventée.";
+const lines = [
+  { text: "Votre présence", accent: false },
+  { text: "digitale,", accent: false },
+  { text: "réinventée.", accent: true },
+];
 
-const letterVariants = {
-  hidden: { opacity: 0, y: 20 },
-  visible: { opacity: 1, y: 0 },
-};
-
-const containerVariants = {
-  hidden: {},
-  visible: {
-    transition: {
-      staggerChildren: 0.03,
-    },
-  },
+const lineVariants = {
+  hidden: { y: "100%", opacity: 0 },
+  visible: { y: "0%", opacity: 1 },
 };
 
 export default function Hero() {
@@ -29,8 +23,8 @@ export default function Hero() {
   });
 
   const videoY = useTransform(scrollYProgress, [0, 1], ["0%", "30%"]);
-  const contentY = useTransform(scrollYProgress, [0, 1], ["0%", "15%"]);
-  const contentOpacity = useTransform(scrollYProgress, [0, 0.8], [1, 0]);
+  const contentY = useTransform(scrollYProgress, [0, 1], ["0%", "20%"]);
+  const contentOpacity = useTransform(scrollYProgress, [0, 0.6], [1, 0]);
 
   return (
     <section ref={sectionRef} className="relative flex min-h-screen flex-col overflow-hidden">
@@ -45,7 +39,7 @@ export default function Hero() {
         style={{ y: videoY }}
       />
 
-      {/* White overlay */}
+      {/* Overlay */}
       <div
         className="absolute inset-0"
         style={{ backgroundColor: "rgba(255,255,255,0.72)" }}
@@ -56,57 +50,54 @@ export default function Hero() {
         className="relative z-10 flex flex-1 flex-col items-center justify-center px-6 text-center"
         style={{ y: contentY, opacity: contentOpacity }}
       >
-        {/* Title - letter by letter */}
-        <motion.h1
-          className="text-4xl font-bold leading-tight tracking-tight text-dark md:text-6xl lg:text-7xl"
-          variants={containerVariants}
-          initial="hidden"
-          animate="visible"
-        >
-          {titleText.split("").map((char, i) => (
-            <motion.span key={i} variants={letterVariants}>
-              {char}
-            </motion.span>
+        {/* Title - line by line reveal */}
+        <h1 className="font-display text-5xl font-bold leading-[1.1] tracking-tight md:text-7xl lg:text-8xl">
+          {lines.map((line, i) => (
+            <span key={i} className="block overflow-hidden">
+              <motion.span
+                className={`block ${line.accent ? "text-gradient" : "text-dark"}`}
+                variants={lineVariants}
+                initial="hidden"
+                animate="visible"
+                transition={{
+                  duration: 0.8,
+                  delay: 0.3 + i * 0.15,
+                  ease: [0.25, 0.46, 0.45, 0.94],
+                }}
+              >
+                {line.text}
+              </motion.span>
+            </span>
           ))}
-          <br />
-          {highlightText.split("").map((char, i) => (
-            <motion.span
-              key={`h-${i}`}
-              variants={letterVariants}
-              style={{ color: "#2563EB" }}
-            >
-              {char}
-            </motion.span>
-          ))}
-        </motion.h1>
+        </h1>
 
         {/* Subtitle */}
         <motion.p
-          className="mt-6 max-w-xl text-lg text-gray-600"
-          initial={{ opacity: 0, y: 10 }}
+          className="mt-8 max-w-lg text-lg text-gray-500"
+          initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 1.2, duration: 0.8 }}
+          transition={{ delay: 1.0, duration: 0.8 }}
         >
-          Nous concevons des expériences web modernes, performantes et sur
-          mesure pour propulser votre activité.
+          Des expériences web modernes, performantes et sur mesure
+          pour propulser votre activité.
         </motion.p>
 
         {/* CTAs */}
         <motion.div
           className="mt-10 flex flex-col gap-4 sm:flex-row"
-          initial={{ opacity: 0, y: 10 }}
+          initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 1.6, duration: 0.8 }}
+          transition={{ delay: 1.3, duration: 0.8 }}
         >
           <a
-            href="#realisations"
-            className="magnetic rounded-full bg-primary px-8 py-3 text-sm font-medium text-white transition-opacity hover:opacity-90"
+            href="/realisations"
+            className="rounded-full bg-primary px-8 py-3.5 text-sm font-medium text-white transition-all glow-blue-hover hover:scale-105"
           >
             Voir nos réalisations
           </a>
           <a
             href="/contact"
-            className="magnetic rounded-full border-2 border-primary bg-white px-8 py-3 text-sm font-medium text-primary transition-colors hover:bg-primary hover:text-white"
+            className="rounded-full border-2 border-gray-200 bg-white px-8 py-3.5 text-sm font-medium text-dark transition-all hover:border-primary hover:text-primary"
           >
             Démarrer un projet
           </a>

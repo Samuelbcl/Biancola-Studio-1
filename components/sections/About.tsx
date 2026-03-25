@@ -36,13 +36,13 @@ export default function About() {
             À propos
           </motion.p>
           <motion.h2
-            className="text-3xl font-bold text-dark md:text-5xl"
+            className="font-display text-3xl font-bold tracking-tight text-dark md:text-5xl"
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ delay: 0.05 }}
           >
-            Qui est derrière <span style={{ color: "#2563EB" }}>Biancola Studio</span> ?
+            Qui est derrière <span className="text-gradient">Biancola Studio</span> ?
           </motion.h2>
         </div>
 

@@ -1,9 +1,14 @@
 import type { Metadata, Viewport } from "next";
-import { Inter } from "next/font/google";
+import { Inter, Space_Grotesk } from "next/font/google";
 import SmoothScroll from "@/components/SmoothScroll";
 import "./globals.css";
 
-const inter = Inter({ subsets: ["latin"] });
+const inter = Inter({ subsets: ["latin"], variable: "--font-body" });
+const spaceGrotesk = Space_Grotesk({
+  subsets: ["latin"],
+  variable: "--font-display",
+  weight: ["500", "600", "700"],
+});
 
 export const viewport: Viewport = {
   width: "device-width",
@@ -53,8 +58,8 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="fr" className={inter.className}>
-      <body style={{ backgroundColor: "#FFFFFF" }}>
+    <html lang="fr" className={`${inter.variable} ${spaceGrotesk.variable}`}>
+      <body className="font-body" style={{ backgroundColor: "#FFFFFF" }}>
         <SmoothScroll>{children}</SmoothScroll>
       </body>
     </html>

@@ -42,7 +42,7 @@ export default function Footer() {
         <div className="mx-auto grid max-w-7xl gap-12 md:grid-cols-4">
           {/* Brand */}
           <div className="md:col-span-2">
-            <h3 className="text-xl font-bold">Biancola Studio</h3>
+            <h3 className="font-display text-xl font-bold tracking-tight">Biancola Studio</h3>
             <p className="mt-4 max-w-sm text-sm leading-relaxed text-gray-400">
               Nous concevons des expériences digitales modernes et performantes
               pour propulser votre activité.

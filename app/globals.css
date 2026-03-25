@@ -4,10 +4,56 @@
   --color-primary: #2563EB;
   --color-dark: #0A0A0A;
   --color-light: #FFFFFF;
+  --color-navy: #0f1729;
+  --color-blue-light: #60a5fa;
+  --font-body: var(--font-body);
+  --font-display: var(--font-display);
 }
 
 ::-webkit-scrollbar {
   display: none;
 }
 
+/* Display font for headings */
+.font-display {
+  font-family: var(--font-display), system-ui, sans-serif;
+}
 
+.font-body {
+  font-family: var(--font-body), system-ui, sans-serif;
+}
+
+/* Text gradient effect */
+.text-gradient {
+  background: linear-gradient(135deg, #2563EB 0%, #60a5fa 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* Glow effect for buttons */
+.glow-blue {
+  box-shadow: 0 0 20px rgba(37, 99, 235, 0.3), 0 0 40px rgba(37, 99, 235, 0.1);
+}
+
+.glow-blue-hover:hover {
+  box-shadow: 0 0 30px rgba(37, 99, 235, 0.4), 0 0 60px rgba(37, 99, 235, 0.15);
+}
+
+/* Animated underline */
+.underline-anim {
+  position: relative;
+}
+.underline-anim::after {
+  content: "";
+  position: absolute;
+  bottom: -2px;
+  left: 0;
+  width: 0;
+  height: 2px;
+  background: #2563EB;
+  transition: width 0.3s ease;
+}
+.underline-anim:hover::after {
+  width: 100%;
+}

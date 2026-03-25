@@ -39,7 +39,7 @@ export default function Header() {
         }`}
       >
         <div className="mx-auto flex max-w-7xl items-center justify-between px-6 py-4">
-          <a href="/" className="text-xl font-bold" style={{ color: "#0F172A" }}>
+          <a href="/" className="font-display text-xl font-bold tracking-tight" style={{ color: "#0F172A" }}>
             Biancola Studio
           </a>
 
@@ -49,7 +49,7 @@ export default function Header() {
               <a
                 key={link.href}
                 href={link.href}
-                className="text-sm text-gray-600 transition-colors hover:text-gray-900"
+                className="underline-anim text-sm text-gray-600 transition-colors hover:text-gray-900"
               >
                 {link.label}
               </a>
@@ -58,7 +58,7 @@ export default function Header() {
 
           <a
             href="/contact"
-            className="magnetic hidden rounded-full bg-primary px-5 py-2.5 text-sm font-medium text-white transition-opacity hover:opacity-90 md:inline-block"
+            className="hidden rounded-full bg-primary px-5 py-2.5 text-sm font-medium text-white transition-all glow-blue-hover hover:scale-105 md:inline-block"
           >
             Démarrer un projet
           </a>

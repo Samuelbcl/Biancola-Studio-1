@@ -38,14 +38,14 @@ export default function Tarifs() {
             Tarifs
           </motion.p>
           <motion.h2
-            className="text-3xl font-bold text-dark md:text-5xl"
+            className="font-display text-3xl font-bold tracking-tight text-dark md:text-5xl"
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ delay: 0.05 }}
           >
             Un prix juste,{" "}
-            <span style={{ color: "#2563EB" }}>adapté à votre projet</span>
+            <span className="text-gradient">adapté à votre projet</span>
           </motion.h2>
           <motion.p
             className="mt-5 text-gray-500"
