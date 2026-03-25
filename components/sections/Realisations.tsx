@@ -7,10 +7,10 @@ import { Lock } from "lucide-react";
 
 const macbookProjects = [
   {
-    title: "Augmentation des ventes de l'entreprise",
+    title: "Automatisation des offres commerciales",
     category: "Outil métier",
     description:
-      "RisoSales — Configurateur commercial sur mesure développé pour une entreprise industrielle. Création d'offres, étude comparative et gestion documentaire avec cloud intégré.",
+      "RisoSales — Plateforme développée pour Riso, leader mondial de l'impression professionnelle. L'outil automatise la création d'études comparatives et d'offres commerciales, remplaçant des heures de travail manuel sur Excel par un processus rapide et fiable.",
     images: [
       "/projects/risosales_1.png",
       "/projects/risosales_2.png",
@@ -25,7 +25,7 @@ const phoneProjects = [
     title: "Optimisation du suivi commercial terrain",
     category: "Application mobile",
     description:
-      "RoadCRM — CRM mobile pensé pour les commerciaux terrain. Gestion des contacts, suivi des opportunités, synchronisation calendrier et tableau de bord en temps réel.",
+      "RoadCRM — CRM mobile conçu pour les commerciaux sur le terrain. Gestion optimisée des rendez-vous, comptes et activités avec synchronisation calendrier, navigation Waze en un clic et notes vocales.",
     images: [
       "/projects/roadcrm_1.png",
       "/projects/roadcrm_2.png",
