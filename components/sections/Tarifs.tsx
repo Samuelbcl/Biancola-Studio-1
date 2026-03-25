@@ -114,7 +114,7 @@ export default function Tarifs() {
             href="/contact"
             className="magnetic inline-flex items-center gap-2 rounded-full bg-primary px-8 py-3.5 text-sm font-medium text-white transition-opacity hover:opacity-90"
           >
-            Obtenir un devis gratuit
+            Démarrer un projet
             <ArrowUpRight size={16} />
           </a>
           <p className="text-sm text-gray-400">

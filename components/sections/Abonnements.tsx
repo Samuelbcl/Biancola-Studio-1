@@ -144,7 +144,7 @@ export default function Abonnements() {
                     : "bg-primary text-white"
                 }`}
               >
-                Choisir {plan.name}
+                Démarrer un projet
               </a>
             </motion.div>
           ))}
