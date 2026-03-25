@@ -105,7 +105,7 @@ export default function Hero() {
             Voir nos réalisations
           </a>
           <a
-            href="#contact"
+            href="/contact"
             className="magnetic rounded-full border-2 border-primary bg-white px-8 py-3 text-sm font-medium text-primary transition-colors hover:bg-primary hover:text-white"
           >
             Discutons de votre projet

@@ -137,7 +137,7 @@ export default function Abonnements() {
               </ul>
 
               <a
-                href="#contact"
+                href="/contact"
                 className={`block rounded-full py-3 text-center text-sm font-medium transition-opacity hover:opacity-90 ${
                   plan.highlighted
                     ? "bg-white text-primary"

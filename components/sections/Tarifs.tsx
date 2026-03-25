@@ -111,7 +111,7 @@ export default function Tarifs() {
           transition={{ delay: 0.25 }}
         >
           <a
-            href="#contact"
+            href="/contact"
             className="magnetic inline-flex items-center gap-2 rounded-full bg-primary px-8 py-3.5 text-sm font-medium text-white transition-opacity hover:opacity-90"
           >
             Obtenir un devis gratuit

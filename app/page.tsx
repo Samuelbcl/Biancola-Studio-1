@@ -6,7 +6,7 @@ import Processus from "@/components/sections/Processus";
 import Tarifs from "@/components/sections/Tarifs";
 import Abonnements from "@/components/sections/Abonnements";
 import FAQ from "@/components/sections/FAQ";
-import Contact from "@/components/sections/Contact";
+
 import Footer from "@/components/sections/Footer";
 
 export default function Home() {
@@ -21,7 +21,7 @@ export default function Home() {
         <Tarifs />
         <Abonnements />
         <FAQ />
-        <Contact />
+
       </main>
       <Footer />
     </>

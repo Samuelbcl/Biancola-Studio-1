@@ -9,7 +9,7 @@ const navLinks = [
   { label: "Réalisations", href: "#realisations" },
   { label: "Processus", href: "#processus" },
   { label: "Tarifs", href: "#tarifs" },
-  { label: "Contact", href: "#contact" },
+  { label: "Contact", href: "/contact" },
 ];
 
 export default function Header() {
@@ -56,7 +56,7 @@ export default function Header() {
           </nav>
 
           <a
-            href="#contact"
+            href="/contact"
             className="magnetic hidden rounded-full bg-primary px-5 py-2.5 text-sm font-medium text-white transition-opacity hover:opacity-90 md:inline-block"
           >
             Démarrer un projet
@@ -100,7 +100,7 @@ export default function Header() {
             </nav>
 
             <a
-              href="#contact"
+              href="/contact"
               onClick={() => setMenuOpen(false)}
               className="mt-10 inline-flex w-full items-center justify-center rounded-full bg-primary px-8 py-4 text-sm font-medium text-white"
             >
