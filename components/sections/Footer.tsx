@@ -57,7 +57,7 @@ export default function Footer() {
               </p>
               <p className="flex items-center gap-2">
                 <MapPin size={14} className="text-primary" />
-                Paris, France
+                Liège, Belgique
               </p>
             </div>
           </div>
