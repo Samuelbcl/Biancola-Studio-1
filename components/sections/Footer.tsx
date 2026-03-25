@@ -8,20 +8,20 @@ const footerLinks = [
   {
     title: "Navigation",
     links: [
-      { label: "Services", href: "#services" },
-      { label: "Réalisations", href: "#realisations" },
-      { label: "Processus", href: "#processus" },
-      { label: "Tarifs", href: "#tarifs" },
-      { label: "FAQ", href: "#faq" },
+      { label: "Services", href: "/services" },
+      { label: "Réalisations", href: "/realisations" },
+      { label: "Processus", href: "/processus" },
+      { label: "Tarifs", href: "/tarifs" },
+      { label: "FAQ", href: "/faq" },
     ],
   },
   {
     title: "Services",
     links: [
-      { label: "Site Vitrine", href: "#services" },
-      { label: "E-commerce", href: "#services" },
-      { label: "Application Web", href: "#services" },
-      { label: "SaaS", href: "#services" },
+      { label: "Site Vitrine", href: "/services" },
+      { label: "E-commerce", href: "/services" },
+      { label: "Application Web", href: "/services" },
+      { label: "SaaS", href: "/services" },
     ],
   },
 ];
