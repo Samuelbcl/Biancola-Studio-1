@@ -25,7 +25,7 @@ const phoneProjects = [
     title: "Optimisation du suivi commercial terrain",
     category: "Application mobile",
     description:
-      "RoadCRM — CRM mobile conçu pour les commerciaux sur le terrain. Gestion optimisée des rendez-vous, comptes et activités avec synchronisation calendrier, navigation GPS en un clic et notes vocales.",
+      "RoadCRM — Application mobile développée pour structurer le quotidien des commerciaux terrain. L'outil centralise la gestion des rendez-vous, le suivi des comptes et les activités dans une interface pensée pour la mobilité.",
     images: [
       "/projects/roadcrm_1.png",
       "/projects/roadcrm_2.png",
