@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useEffect, useMemo } from "react";
+import Image from "next/image";
 import { motion } from "framer-motion";
 import { Lock } from "lucide-react";
 
@@ -80,16 +81,16 @@ function MacBookCarousel({ images }: { images: string[] }) {
             willChange: "transform",
           }}>
             {ext.map((img, i) => (
-              <div key={i} style={{ width: `${100 / ext.length}%`, height: "100%", flexShrink: 0 }}>
-                {/* eslint-disable-next-line @next/next/no-img-element */}
-                <img src={img} alt={`Screenshot ${i + 1}`}
-                  style={{ width: "100%", height: "100%", objectFit: "cover", objectPosition: "top", display: "block" }} />
+              <div key={i} style={{ width: `${100 / ext.length}%`, height: "100%", flexShrink: 0, position: "relative" }}>
+                <Image src={img} alt={`Screenshot ${i + 1}`} fill
+                  sizes="(max-width: 768px) 100vw, 60vw"
+                  style={{ objectFit: "cover", objectPosition: "top" }} />
               </div>
             ))}
           </div>
         </div>
-        {/* eslint-disable-next-line @next/next/no-img-element */}
-        <img src="/projects/macbook-frame.png.png" alt=""
+        <Image src="/projects/macbook-frame.png.png" alt="" width={3220} height={2100}
+          sizes="(max-width: 768px) 100vw, 60vw" priority
           style={{ width: "100%", height: "auto", display: "block", position: "relative", zIndex: 2, pointerEvents: "none", userSelect: "none" }} />
       </div>
       {images.length > 1 && (
@@ -128,16 +129,16 @@ function PhoneCarousel({ images }: { images: string[] }) {
             willChange: "transform",
           }}>
             {ext.map((img, i) => (
-              <div key={i} style={{ width: `${100 / ext.length}%`, height: "100%", flexShrink: 0 }}>
-                {/* eslint-disable-next-line @next/next/no-img-element */}
-                <img src={img} alt={`Screenshot ${i + 1}`}
-                  style={{ width: "100%", height: "100%", objectFit: "cover", objectPosition: "top", display: "block" }} />
+              <div key={i} style={{ width: `${100 / ext.length}%`, height: "100%", flexShrink: 0, position: "relative" }}>
+                <Image src={img} alt={`Screenshot ${i + 1}`} fill
+                  sizes="280px"
+                  style={{ objectFit: "cover", objectPosition: "top" }} />
               </div>
             ))}
           </div>
         </div>
-        {/* eslint-disable-next-line @next/next/no-img-element */}
-        <img src="/projects/iphone-frame.png.png" alt=""
+        <Image src="/projects/iphone-frame.png.png" alt="" width={1570} height={2932}
+          sizes="280px" priority
           style={{ width: "100%", height: "auto", display: "block", position: "relative", zIndex: 2, pointerEvents: "none", userSelect: "none" }} />
       </div>
       {images.length > 1 && (
