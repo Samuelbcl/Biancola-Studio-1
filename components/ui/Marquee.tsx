@@ -1,44 +1,51 @@
 "use client";
 
-import { motion } from "framer-motion";
-
 interface MarqueeProps {
-  text: string;
-  repeat?: number;
+  items: string[];
   speed?: number;
   variant?: "light" | "filled";
 }
 
 export default function Marquee({
-  text,
-  repeat = 8,
-  speed = 20,
+  items,
+  speed = 30,
   variant = "light",
 }: MarqueeProps) {
   const isFilled = variant === "filled";
+  const color = isFilled ? "#FFFFFF" : "#2563EB";
+  const bg = isFilled ? "#2563EB" : "#FFFFFF";
 
   return (
     <div
       className="overflow-hidden whitespace-nowrap"
-      style={{
-        backgroundColor: isFilled ? "#2563EB" : "#FFFFFF",
-      }}
+      style={{ backgroundColor: bg }}
     >
-      <motion.div
+      <div
         className="inline-flex py-3"
-        animate={{ x: ["0%", "-50%"] }}
-        transition={{ duration: speed, repeat: Infinity, ease: "linear" }}
+        style={{
+          animation: `marquee ${speed}s linear infinite`,
+        }}
       >
-        {Array.from({ length: repeat }).map((_, i) => (
-          <span
-            key={i}
-            className="mx-4 text-lg font-medium"
-            style={{ color: isFilled ? "#FFFFFF" : "#2563EB" }}
-          >
-            {text}
-          </span>
-        ))}
-      </motion.div>
+        {/* Two identical sets for seamless loop */}
+        {[0, 1].map((set) =>
+          items.map((item, i) => (
+            <span
+              key={`${set}-${i}`}
+              className="mx-8 text-lg font-medium"
+              style={{ color }}
+            >
+              {item}
+            </span>
+          ))
+        )}
+      </div>
+
+      <style jsx>{`
+        @keyframes marquee {
+          0% { transform: translateX(0); }
+          100% { transform: translateX(-50%); }
+        }
+      `}</style>
     </div>
   );
 }
