@@ -5,32 +5,36 @@ import { motion, AnimatePresence } from "framer-motion";
 
 const faqs = [
   {
+    q: "Combien coûte un site web ?",
+    a: "Chaque projet est unique, donc le prix aussi. Après un premier échange gratuit, je vous envoie un devis détaillé adapté à vos besoins. Pas de surprise, vous savez exactement ce que vous payez.",
+  },
+  {
     q: "Combien de temps prend la création d'un site ?",
-    a: "En moyenne, un site vitrine est livré en 2 à 4 semaines. Pour un e-commerce ou une application web, comptez 4 à 8 semaines selon la complexité.",
+    a: "En moyenne, un site vitrine est livré en 2 à 4 semaines. Pour un e-commerce ou une application web, comptez 4 à 8 semaines selon la complexité du projet.",
   },
   {
-    q: "Est-ce que le site sera responsive ?",
-    a: "Absolument. Tous nos sites sont conçus mobile-first et testés sur tous les appareils et navigateurs principaux.",
+    q: "Mon site sera-t-il adapté aux mobiles ?",
+    a: "Bien sûr. Tous les sites sont conçus mobile-first et testés sur tous les appareils (smartphone, tablette, desktop) et navigateurs principaux.",
   },
   {
-    q: "Puis-je modifier mon site moi-même après la livraison ?",
-    a: "Oui, nous intégrons un CMS intuitif qui vous permet de modifier vos contenus, images et pages en toute autonomie.",
+    q: "Pourrai-je modifier mon site moi-même ?",
+    a: "Oui, selon le type de projet, j'intègre un espace d'administration qui vous permet de modifier vos contenus en toute autonomie. Une formation à la prise en main est incluse dans chaque projet.",
   },
   {
-    q: "L'hébergement et le nom de domaine sont-ils inclus ?",
-    a: "L'hébergement première année est inclus dans tous nos plans. Le nom de domaine peut être inclus ou transféré selon votre choix.",
+    q: "Que se passe-t-il après la mise en ligne ?",
+    a: "Je reste disponible. Une maintenance mensuelle couvre les mises à jour de sécurité, les sauvegardes et les petites évolutions. Pour des besoins plus importants, on définit un nouveau périmètre ensemble.",
   },
   {
-    q: "Proposez-vous un accompagnement SEO ?",
-    a: "Oui, nos plans Pro et Premium incluent un référencement SEO avancé : optimisation technique, contenu, et suivi de positionnement.",
+    q: "Quelles technologies utilisez-vous ?",
+    a: "Je travaille principalement avec React, Next.js et TypeScript pour le front-end, et Node.js pour le back-end. Des outils modernes, performants et évolutifs.",
   },
   {
-    q: "Quels sont les moyens de paiement acceptés ?",
-    a: "Nous acceptons les virements bancaires, cartes de crédit et PayPal. Le paiement peut être échelonné sur demande.",
+    q: "Le référencement (SEO) est-il inclus ?",
+    a: "Oui, chaque site est optimisé pour le référencement naturel : structure technique propre, balises méta, vitesse de chargement et bonnes pratiques Google.",
   },
   {
-    q: "Que se passe-t-il après le lancement ?",
-    a: "Nous assurons un suivi post-lancement avec monitoring, corrections de bugs et support technique selon votre formule.",
+    q: "Comment se déroule le paiement ?",
+    a: "Le paiement se fait en deux temps : un acompte au démarrage du projet, puis le solde à la livraison. Un échelonnement est possible sur demande.",
   },
 ];
 
