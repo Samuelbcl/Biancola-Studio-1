@@ -37,7 +37,7 @@ const steps = [
 
 export default function Processus() {
   return (
-    <section id="processus" className="bg-white px-6 py-24">
+    <section id="processus" className="bg-white px-6 py-32">
       <div className="mx-auto max-w-3xl">
         <h2 className="mb-20 font-display text-center text-3xl font-bold tracking-tight text-dark md:text-5xl">
           Notre <span className="text-gradient">Processus</span>

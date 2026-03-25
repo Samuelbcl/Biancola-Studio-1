@@ -1,6 +1,7 @@
 import Header from "@/components/Header";
 import Hero from "@/components/sections/Hero";
 import Services from "@/components/sections/Services";
+import CTABanner from "@/components/ui/CTABanner";
 import Realisations from "@/components/sections/Realisations";
 import About from "@/components/sections/About";
 import Processus from "@/components/sections/Processus";
@@ -15,6 +16,7 @@ export default function Home() {
       <main>
         <Hero />
         <Services />
+        <CTABanner />
         <Realisations />
         <About />
         <Processus />

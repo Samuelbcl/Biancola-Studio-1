@@ -46,7 +46,7 @@ export default function FAQ() {
   }
 
   return (
-    <section id="faq" className="bg-white px-6 py-24">
+    <section id="faq" className="bg-white px-6 py-32">
       <div className="mx-auto max-w-3xl">
         <h2 className="mb-16 font-display text-center text-3xl font-bold tracking-tight text-dark md:text-5xl">
           Questions <span className="text-gradient">Fréquentes</span>

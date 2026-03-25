@@ -24,7 +24,7 @@ const phases = [
 
 export default function Tarifs() {
   return (
-    <section id="tarifs" className="bg-white px-6 py-24">
+    <section id="tarifs" className="bg-white px-6 py-32">
       <div className="mx-auto max-w-7xl">
         {/* Header */}
         <div className="mb-16 max-w-2xl">

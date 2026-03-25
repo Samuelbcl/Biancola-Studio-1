@@ -27,7 +27,7 @@ export default function Contact() {
   }
 
   return (
-    <section id="contact" className="bg-white px-6 py-24">
+    <section id="contact" className="bg-white px-6 py-32">
       <div className="mx-auto max-w-3xl">
         <div className="mb-12 text-center">
           <motion.p
