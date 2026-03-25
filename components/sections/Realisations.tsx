@@ -70,7 +70,7 @@ function MacBookCarousel({ images }: { images: string[] }) {
           position: "absolute",
           top: "9.7%", left: "9.9%", right: "10.0%", bottom: "10.3%",
           zIndex: 1, overflow: "hidden", backgroundColor: "#000",
-          borderRadius: "12px 12px 0 0",
+          borderRadius: "clamp(8px, 2vw, 16px) clamp(8px, 2vw, 16px) 0 0",
         }}>
           <div style={{
             display: "flex", height: "100%",
@@ -112,7 +112,7 @@ function PhoneCarousel({ images }: { images: string[] }) {
   const { ext, idx, setIdx, animated, setAnimated, activeDot } = useCarousel(images);
 
   return (
-    <div style={{ maxWidth: 280, margin: "0 auto" }}>
+    <div style={{ maxWidth: 340, margin: "0 auto" }}>
       <div style={{ position: "relative" }}>
         <div style={{
           position: "absolute",

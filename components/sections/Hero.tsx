@@ -40,7 +40,7 @@ export default function Hero() {
         muted
         loop
         playsInline
-        className="absolute inset-0 h-full w-full object-cover"
+        className="absolute inset-0 hidden h-full w-full object-cover md:block"
         src="/hero-video.mp4"
         style={{ y: videoY }}
       />
