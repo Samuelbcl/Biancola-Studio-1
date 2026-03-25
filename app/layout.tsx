@@ -1,13 +1,50 @@
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import { Inter } from "next/font/google";
 import SmoothScroll from "@/components/SmoothScroll";
 import "./globals.css";
 
 const inter = Inter({ subsets: ["latin"] });
 
+export const viewport: Viewport = {
+  width: "device-width",
+  initialScale: 1,
+  themeColor: "#2563EB",
+};
+
 export const metadata: Metadata = {
-  title: "Biancola Studio",
-  description: "Biancola Studio",
+  title: "Biancola Studio | Agence Web — Sites & Applications sur mesure",
+  description:
+    "Biancola Studio conçoit des sites vitrines, e-commerces et applications web performantes. Design moderne, développement sur mesure et accompagnement personnalisé.",
+  keywords: [
+    "agence web",
+    "création site internet",
+    "développement web",
+    "site vitrine",
+    "e-commerce",
+    "application web",
+    "SaaS",
+    "Biancola Studio",
+  ],
+  authors: [{ name: "Biancola Studio" }],
+  creator: "Biancola Studio",
+  openGraph: {
+    type: "website",
+    locale: "fr_FR",
+    siteName: "Biancola Studio",
+    title: "Biancola Studio | Agence Web — Sites & Applications sur mesure",
+    description:
+      "Nous concevons des expériences digitales modernes et performantes pour propulser votre activité.",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Biancola Studio | Agence Web",
+    description:
+      "Sites vitrines, e-commerces et applications web sur mesure.",
+  },
+  robots: {
+    index: true,
+    follow: true,
+  },
 };
 
 export default function RootLayout({

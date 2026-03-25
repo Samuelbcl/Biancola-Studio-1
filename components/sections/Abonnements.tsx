@@ -5,43 +5,43 @@ import { Check } from "lucide-react";
 
 const plans = [
   {
-    name: "Starter",
-    price: "490",
-    description: "Idéal pour lancer votre présence en ligne rapidement.",
+    name: "Essentiel",
+    price: "79",
+    description: "Pour garder votre site en bonne santé, sans stress.",
     features: [
-      "Site vitrine jusqu'à 5 pages",
-      "Design responsive",
-      "Formulaire de contact",
-      "Hébergement 1 an inclus",
-      "Support email",
+      "Maintenance technique mensuelle",
+      "Mises à jour de sécurité",
+      "Sauvegardes automatiques",
+      "Monitoring & uptime",
+      "Support email (48h)",
     ],
     highlighted: false,
   },
   {
-    name: "Pro",
-    price: "990",
-    description: "La solution complète pour développer votre activité.",
+    name: "Évolution",
+    price: "199",
+    description: "Maintenance + petites évolutions chaque mois.",
     features: [
-      "Site jusqu'à 15 pages",
-      "Design sur mesure",
-      "SEO avancé",
-      "Blog intégré",
-      "Analytics & reporting",
-      "Support prioritaire",
+      "Tout le pack Essentiel",
+      "Jusqu'à 3h d'évolutions/mois",
+      "Ajout de contenu & pages",
+      "Optimisations SEO",
+      "Rapports mensuels",
+      "Support prioritaire (24h)",
     ],
     highlighted: true,
   },
   {
-    name: "Premium",
-    price: "1990",
-    description: "Pour les projets ambitieux qui visent l'excellence.",
+    name: "Croissance",
+    price: "449",
+    description: "Un partenaire dédié pour faire évoluer votre produit.",
     features: [
-      "Application web complète",
-      "E-commerce ou SaaS",
-      "Intégrations API",
-      "Dashboard admin",
-      "Formation équipe",
-      "Support 24/7 dédié",
+      "Tout le pack Évolution",
+      "Jusqu'à 8h d'évolutions/mois",
+      "Nouvelles fonctionnalités",
+      "Intégrations & API",
+      "Conseil stratégique",
+      "Support réactif (même jour)",
     ],
     highlighted: false,
   },
@@ -49,14 +49,38 @@ const plans = [
 
 export default function Abonnements() {
   return (
-    <section id="abonnements" className="bg-white px-6 py-24">
+    <section id="maintenance" className="px-6 py-24" style={{ background: "linear-gradient(180deg, #f7f8fc 0%, #ffffff 40%, #f7f8fc 100%)" }}>
       <div className="mx-auto max-w-7xl">
-        <h2 className="mb-4 text-center text-3xl font-bold text-dark md:text-5xl">
-          Nos <span style={{ color: "#2563EB" }}>Abonnements</span>
-        </h2>
-        <p className="mx-auto mb-16 max-w-xl text-center text-gray-500">
-          Des formules adaptées à chaque besoin, sans surprise.
-        </p>
+        <div className="mb-16 text-center">
+          <motion.p
+            className="mb-2 text-sm font-semibold uppercase tracking-widest"
+            style={{ color: "#2563EB" }}
+            initial={{ opacity: 0, y: 10 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+          >
+            Maintenance & Évolutions
+          </motion.p>
+          <motion.h2
+            className="text-3xl font-bold text-dark md:text-5xl"
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ delay: 0.05 }}
+          >
+            Votre site <span style={{ color: "#2563EB" }}>grandit</span> avec vous
+          </motion.h2>
+          <motion.p
+            className="mx-auto mt-4 max-w-xl text-gray-500"
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ delay: 0.1 }}
+          >
+            Après la mise en ligne, choisissez le niveau d&apos;accompagnement
+            adapté à vos besoins.
+          </motion.p>
+        </div>
 
         <div className="grid gap-8 md:grid-cols-3">
           {plans.map((plan, i) => (
@@ -65,7 +89,7 @@ export default function Abonnements() {
               className={`relative rounded-2xl p-8 ${
                 plan.highlighted
                   ? "bg-primary text-white shadow-xl shadow-primary/20"
-                  : "border-2 border-primary bg-white text-dark"
+                  : "border-2 border-gray-100 bg-white text-dark"
               }`}
               initial={{ opacity: 0, y: 30 }}
               whileInView={{ opacity: 1, y: 0 }}
@@ -114,7 +138,7 @@ export default function Abonnements() {
 
               <a
                 href="#contact"
-                className={`magnetic block rounded-full py-3 text-center text-sm font-medium transition-opacity hover:opacity-90 ${
+                className={`block rounded-full py-3 text-center text-sm font-medium transition-opacity hover:opacity-90 ${
                   plan.highlighted
                     ? "bg-white text-primary"
                     : "bg-primary text-white"

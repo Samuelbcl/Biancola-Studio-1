@@ -54,7 +54,7 @@ export default function Tarifs() {
             viewport={{ once: true }}
             transition={{ delay: 0.1 }}
           >
-            Pas d&apos;abonnement opaque. Vous savez exactement pour quoi vous payez,
+            Transparence totale. Vous savez exactement pour quoi vous payez,
             dès le départ.
           </motion.p>
         </div>

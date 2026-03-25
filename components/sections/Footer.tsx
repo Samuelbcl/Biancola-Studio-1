@@ -1,7 +1,7 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { ArrowUpRight, Mail, Phone, MapPin } from "lucide-react";
+import { Mail, Phone, MapPin } from "lucide-react";
 import Marquee from "@/components/ui/Marquee";
 
 const footerLinks = [
@@ -29,54 +29,6 @@ const footerLinks = [
 export default function Footer() {
   return (
     <footer className="bg-dark text-white">
-      {/* CTA Section */}
-      <section id="contact" className="px-6 py-24">
-        <div className="mx-auto max-w-4xl text-center">
-          <motion.h2
-            className="text-3xl font-bold md:text-5xl"
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-          >
-            Prêt à <span style={{ color: "#2563EB" }}>transformer</span> votre
-            présence digitale ?
-          </motion.h2>
-
-          <motion.p
-            className="mx-auto mt-6 max-w-xl text-gray-400"
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ delay: 0.15 }}
-          >
-            Discutons de votre projet et construisons ensemble une solution qui
-            fera la différence.
-          </motion.p>
-
-          <motion.div
-            className="mt-10 flex flex-col items-center justify-center gap-4 sm:flex-row"
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ delay: 0.3 }}
-          >
-            <a
-              href="mailto:hello@biancolastudio.com"
-              className="magnetic inline-flex items-center gap-2 rounded-full bg-primary px-8 py-3 text-sm font-medium text-white transition-opacity hover:opacity-90"
-            >
-              Démarrer un projet
-              <ArrowUpRight size={16} />
-            </a>
-            <a
-              href="#realisations"
-              className="magnetic inline-flex items-center gap-2 rounded-full border border-white/20 px-8 py-3 text-sm font-medium text-white transition-colors hover:border-white/50"
-            >
-              Voir nos réalisations
-            </a>
-          </motion.div>
-        </div>
-      </section>
-
       {/* Marquee divider */}
       <Marquee
         text="Biancola Studio · Votre partenaire digital ·"
@@ -101,7 +53,7 @@ export default function Footer() {
               </p>
               <p className="flex items-center gap-2">
                 <Phone size={14} className="text-primary" />
-                +33 1 23 45 67 89
+                +32 498 73 71 62
               </p>
               <p className="flex items-center gap-2">
                 <MapPin size={14} className="text-primary" />
