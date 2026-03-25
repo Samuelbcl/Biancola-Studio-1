@@ -112,7 +112,7 @@ function PhoneCarousel({ images }: { images: string[] }) {
   const { ext, idx, setIdx, animated, setAnimated, activeDot } = useCarousel(images);
 
   return (
-    <div style={{ maxWidth: 340, margin: "0 auto" }}>
+    <div style={{ maxWidth: 420, margin: "0 auto" }}>
       <div style={{ position: "relative" }}>
         <div style={{
           position: "absolute",
