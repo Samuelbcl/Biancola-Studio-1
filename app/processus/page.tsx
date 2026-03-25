@@ -4,9 +4,9 @@ import Processus from "@/components/sections/Processus";
 import Footer from "@/components/sections/Footer";
 
 export const metadata: Metadata = {
-  title: "Processus | Biancola Studio — Notre méthode de travail",
+  title: "Processus | Biancola Studio — Ma méthode de travail",
   description:
-    "De l'analyse de vos besoins à la mise en ligne : découvrez notre processus de travail étape par étape.",
+    "De l'analyse de vos besoins à la mise en ligne : découvrez mon processus de travail étape par étape.",
 };
 
 export default function ProcessusPage() {

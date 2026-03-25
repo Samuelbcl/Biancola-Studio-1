@@ -6,7 +6,7 @@ import Footer from "@/components/sections/Footer";
 export const metadata: Metadata = {
   title: "Services | Biancola Studio — Sites, E-commerce & Applications",
   description:
-    "Découvrez nos services : sites vitrines, e-commerce, applications web et SaaS. Des solutions sur mesure pour chaque besoin.",
+    "Découvrez mes services : sites vitrines, e-commerce, applications web et SaaS. Des solutions sur mesure pour chaque besoin.",
 };
 
 export default function ServicesPage() {

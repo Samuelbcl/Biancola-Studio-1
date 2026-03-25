@@ -38,7 +38,7 @@ export const metadata: Metadata = {
     siteName: "Biancola Studio",
     title: "Biancola Studio | Agence Web — Sites & Applications sur mesure",
     description:
-      "Nous concevons des expériences digitales modernes et performantes pour propulser votre activité.",
+      "Je conçois des expériences digitales modernes et performantes pour propulser votre activité.",
   },
   twitter: {
     card: "summary_large_image",

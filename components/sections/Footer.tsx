@@ -44,7 +44,7 @@ export default function Footer() {
           <div className="md:col-span-2">
             <h3 className="font-display text-xl font-bold tracking-tight">Biancola Studio</h3>
             <p className="mt-4 max-w-sm text-sm leading-relaxed text-gray-400">
-              Nous concevons des expériences digitales modernes et performantes
+              Je conçois des expériences digitales modernes et performantes
               pour propulser votre activité.
             </p>
             <div className="mt-6 space-y-2 text-sm text-gray-400">

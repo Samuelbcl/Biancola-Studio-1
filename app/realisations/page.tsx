@@ -4,9 +4,9 @@ import Realisations from "@/components/sections/Realisations";
 import Footer from "@/components/sections/Footer";
 
 export const metadata: Metadata = {
-  title: "Réalisations | Biancola Studio — Nos projets",
+  title: "Réalisations | Biancola Studio — Mes projets",
   description:
-    "Découvrez nos réalisations : applications métier, CRM mobile et sites web sur mesure pour nos clients.",
+    "Découvrez mes réalisations : applications métier, CRM mobile et sites web sur mesure pour mes clients.",
 };
 
 export default function RealisationsPage() {

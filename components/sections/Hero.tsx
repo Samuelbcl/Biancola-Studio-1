@@ -92,7 +92,7 @@ export default function Hero() {
             href="/realisations"
             className="rounded-full bg-primary px-8 py-3.5 text-sm font-medium text-white transition-all glow-blue-hover hover:scale-105"
           >
-            Voir nos réalisations
+            Voir mes réalisations
           </a>
           <a
             href="/contact"

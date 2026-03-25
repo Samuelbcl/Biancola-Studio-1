@@ -36,7 +36,7 @@ export default function Services() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
         >
-          Nos <span className="text-gradient">Services</span>
+          Mes <span className="text-gradient">Services</span>
         </motion.h2>
 
         <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-4">

@@ -6,7 +6,7 @@ import Footer from "@/components/sections/Footer";
 export const metadata: Metadata = {
   title: "FAQ | Biancola Studio — Questions fréquentes",
   description:
-    "Retrouvez les réponses aux questions les plus fréquentes sur nos services, tarifs et processus de travail.",
+    "Retrouvez les réponses aux questions les plus fréquentes sur mes services, tarifs et processus de travail.",
 };
 
 export default function FAQPage() {
