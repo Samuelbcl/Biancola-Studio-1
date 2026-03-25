@@ -4,7 +4,7 @@ import Services from "@/components/sections/Services";
 import Realisations from "@/components/sections/Realisations";
 import Processus from "@/components/sections/Processus";
 import Tarifs from "@/components/sections/Tarifs";
-import Abonnements from "@/components/sections/Abonnements";
+
 import FAQ from "@/components/sections/FAQ";
 
 import Footer from "@/components/sections/Footer";
@@ -19,7 +19,7 @@ export default function Home() {
         <Realisations />
         <Processus />
         <Tarifs />
-        <Abonnements />
+
         <FAQ />
 
       </main>
