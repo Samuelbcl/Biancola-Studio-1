@@ -31,6 +31,29 @@
   background-clip: text;
 }
 
+/* Animated liquid gradient on text */
+.text-gradient-animated {
+  background: linear-gradient(
+    135deg,
+    #2563EB 0%,
+    #3b82f6 25%,
+    #60a5fa 50%,
+    #3b82f6 75%,
+    #2563EB 100%
+  );
+  background-size: 300% 300%;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  animation: liquid-shift 6s ease infinite;
+}
+
+@keyframes liquid-shift {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
 /* Glow effect for buttons */
 .glow-blue {
   box-shadow: 0 0 20px rgba(37, 99, 235, 0.3), 0 0 40px rgba(37, 99, 235, 0.1);

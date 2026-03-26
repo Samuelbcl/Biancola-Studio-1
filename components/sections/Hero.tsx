@@ -54,7 +54,7 @@ export default function Hero() {
           {lines.map((line, i) => (
             <span key={i} className="block overflow-hidden">
               <motion.span
-                className={`block ${line.accent ? "text-gradient" : "text-dark"}`}
+                className={`block ${line.accent ? "text-gradient-animated" : "text-dark"}`}
                 variants={lineVariants}
                 initial="hidden"
                 animate="visible"
