@@ -69,7 +69,7 @@ function ProcessStep({
   const opacity = useTransform(scrollYProgress, [0.0, 0.4], [0, 1]);
   const circleScale = useTransform(scrollYProgress, [0.0, 0.4], [0.5, 1]);
 
-  if (isMobile || simple) {
+  if (isMobile && !simple) {
     return (
       <motion.div
         className="relative mb-12 pl-14 last:mb-0"
