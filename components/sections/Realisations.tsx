@@ -176,12 +176,12 @@ export default function Realisations() {
   const macTextX = useTransform(scrollYProgress, [0.1, 0.3], isMobile ? [0, 0] : [100, 0]);
   const macTextOpacity = useTransform(scrollYProgress, [0.1, 0.3], [0, 1]);
 
-  // iPhone block — apparaît plus tard, reste visible longtemps
-  const phoneX = useTransform(scrollYProgress, [0.5, 0.7], isMobile ? [0, 0] : [200, 0]);
-  const phoneRotateY = useTransform(scrollYProgress, [0.5, 0.7], isMobile ? [0, 0] : [-25, 0]);
-  const phoneOpacity = useTransform(scrollYProgress, [0.5, 0.7], [0, 1]);
-  const phoneTextX = useTransform(scrollYProgress, [0.55, 0.75], isMobile ? [0, 0] : [-100, 0]);
-  const phoneTextOpacity = useTransform(scrollYProgress, [0.55, 0.75], [0, 1]);
+  // iPhone block
+  const phoneX = useTransform(scrollYProgress, [0.35, 0.55], isMobile ? [0, 0] : [200, 0]);
+  const phoneRotateY = useTransform(scrollYProgress, [0.35, 0.55], isMobile ? [0, 0] : [-25, 0]);
+  const phoneOpacity = useTransform(scrollYProgress, [0.35, 0.55], [0, 1]);
+  const phoneTextX = useTransform(scrollYProgress, [0.4, 0.6], isMobile ? [0, 0] : [-100, 0]);
+  const phoneTextOpacity = useTransform(scrollYProgress, [0.4, 0.6], [0, 1]);
 
   return (
     <section
