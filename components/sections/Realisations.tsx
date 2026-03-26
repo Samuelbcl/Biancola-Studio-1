@@ -158,7 +158,7 @@ function PhoneCarousel({ images }: { images: string[] }) {
   );
 }
 
-export default function Realisations() {
+export default function Realisations({ simple = false }: { simple?: boolean }) {
   const sectionRef = useRef<HTMLElement>(null);
   const isMobile = useIsMobile();
   const { scrollYProgress } = useScroll({
@@ -185,7 +185,7 @@ export default function Realisations() {
 
   return (
     <section
-      ref={sectionRef}
+      ref={simple ? undefined : sectionRef}
       id="realisations"
       style={{ background: "linear-gradient(180deg, #f7f8fc 0%, #ffffff 40%, #f7f8fc 100%)" }}
       className="overflow-hidden py-32 px-6"
@@ -193,7 +193,13 @@ export default function Realisations() {
       <div className="mx-auto max-w-6xl">
 
         {/* Header */}
-        <motion.div className="mb-16" style={{ opacity: headerOpacity, y: headerY, willChange: "transform, opacity" }}>
+        <motion.div
+          className="mb-16"
+          {...(simple
+            ? { initial: { opacity: 0, y: 20 }, whileInView: { opacity: 1, y: 0 }, viewport: { once: true } }
+            : { style: { opacity: headerOpacity, y: headerY, willChange: "transform, opacity" } }
+          )}
+        >
           <p
             className="mb-2 text-sm font-semibold uppercase tracking-widest"
             style={{ color: "#2563EB" }}
@@ -208,17 +214,23 @@ export default function Realisations() {
         {/* RisoSales — MacBook gauche, description droite */}
         <div
           className="mb-24 flex flex-col gap-10 md:flex-row md:items-center md:gap-14"
-          style={{ perspective: 1000 }}
+          style={simple ? {} : { perspective: 1000 }}
         >
           <motion.div
             className="w-full md:w-3/5"
-            style={{ x: macX, rotateY: macRotateY, opacity: macOpacity, willChange: "transform, opacity" }}
+            {...(simple
+              ? { initial: { opacity: 0, y: 30 }, whileInView: { opacity: 1, y: 0 }, viewport: { once: true }, transition: { duration: 0.7 } }
+              : { style: { x: macX, rotateY: macRotateY, opacity: macOpacity, willChange: "transform, opacity" } }
+            )}
           >
             <MacBookCarousel images={macbookProjects[0].images} />
           </motion.div>
           <motion.div
             className="w-full md:w-2/5"
-            style={{ x: macTextX, opacity: macTextOpacity, willChange: "transform, opacity" }}
+            {...(simple
+              ? { initial: { opacity: 0, y: 20 }, whileInView: { opacity: 1, y: 0 }, viewport: { once: true }, transition: { delay: 0.2 } }
+              : { style: { x: macTextX, opacity: macTextOpacity, willChange: "transform, opacity" } }
+            )}
           >
             <ProjectInfo project={macbookProjects[0]} />
           </motion.div>
@@ -227,17 +239,23 @@ export default function Realisations() {
         {/* RoadCRM — description gauche, iPhone droite */}
         <div
           className="flex flex-col gap-10 md:flex-row md:items-center md:gap-14"
-          style={{ perspective: 1000 }}
+          style={simple ? {} : { perspective: 1000 }}
         >
           <motion.div
             className="w-full md:w-2/5 md:order-1"
-            style={{ x: phoneTextX, opacity: phoneTextOpacity, willChange: "transform, opacity" }}
+            {...(simple
+              ? { initial: { opacity: 0, y: 20 }, whileInView: { opacity: 1, y: 0 }, viewport: { once: true }, transition: { delay: 0.2 } }
+              : { style: { x: phoneTextX, opacity: phoneTextOpacity, willChange: "transform, opacity" } }
+            )}
           >
             <ProjectInfo project={phoneProjects[0]} />
           </motion.div>
           <motion.div
             className="w-full md:w-3/5 md:order-2"
-            style={{ x: phoneX, rotateY: phoneRotateY, opacity: phoneOpacity, willChange: "transform, opacity" }}
+            {...(simple
+              ? { initial: { opacity: 0, y: 30 }, whileInView: { opacity: 1, y: 0 }, viewport: { once: true }, transition: { duration: 0.7 } }
+              : { style: { x: phoneX, rotateY: phoneRotateY, opacity: phoneOpacity, willChange: "transform, opacity" } }
+            )}
           >
             <PhoneCarousel images={phoneProjects[0].images} />
           </motion.div>

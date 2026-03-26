@@ -14,7 +14,7 @@ export default function RealisationsPage() {
     <>
       <Header />
       <main className="pt-20">
-        <Realisations />
+        <Realisations simple />
       </main>
       <Footer />
     </>

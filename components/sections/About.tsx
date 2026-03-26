@@ -36,10 +36,12 @@ function PillarBlock({
   pillar,
   index,
   isMobile,
+  simple = false,
 }: {
   pillar: (typeof pillars)[number];
   index: number;
   isMobile: boolean;
+  simple?: boolean;
 }) {
   const ref = useRef<HTMLDivElement>(null);
   const { scrollYProgress } = useScroll({
@@ -64,14 +66,12 @@ function PillarBlock({
 
   return (
     <motion.div
-      ref={ref}
+      ref={simple ? undefined : ref}
       className={`flex flex-col items-center gap-10 md:flex-row md:gap-16 ${isReversed ? "md:flex-row-reverse" : ""}`}
-      style={{
-        x: blockX,
-        opacity: blockOpacity,
-        perspective: 800,
-        willChange: "transform, opacity",
-      }}
+      {...(simple
+        ? { initial: { opacity: 0, y: 30 }, whileInView: { opacity: 1, y: 0 }, viewport: { once: true }, transition: { duration: 0.6 } }
+        : { style: { x: blockX, opacity: blockOpacity, perspective: 800, willChange: "transform, opacity" } }
+      )}
     >
       <div className="flex w-full items-center justify-center md:w-2/5">
         <motion.div
@@ -79,10 +79,9 @@ function PillarBlock({
           style={{
             background:
               "linear-gradient(135deg, rgba(37,99,235,0.08) 0%, rgba(96,165,250,0.12) 100%)",
-            rotateY: iconRotateY,
-            transformStyle: "preserve-3d",
-            backfaceVisibility: "hidden",
-            willChange: "transform",
+            ...(simple
+              ? {}
+              : { rotateY: iconRotateY, transformStyle: "preserve-3d", backfaceVisibility: "hidden", willChange: "transform" }),
           }}
         >
           <Icon size={48} className="text-primary" />
@@ -107,7 +106,7 @@ function PillarBlock({
   );
 }
 
-export default function About() {
+export default function About({ simple = false }: { simple?: boolean }) {
   const sectionRef = useRef<HTMLElement>(null);
   const isMobile = useIsMobile();
   const { scrollYProgress } = useScroll({
@@ -120,7 +119,7 @@ export default function About() {
 
   return (
     <section
-      ref={sectionRef}
+      ref={simple ? undefined : sectionRef}
       id="about"
       className="px-6 py-32"
       style={{
@@ -131,7 +130,10 @@ export default function About() {
       <div className="mx-auto max-w-5xl">
         <motion.div
           className="mb-20 text-center"
-          style={{ opacity: headerOpacity, y: headerY, willChange: "transform, opacity" }}
+          {...(simple
+            ? { initial: { opacity: 0, y: 20 }, whileInView: { opacity: 1, y: 0 }, viewport: { once: true } }
+            : { style: { opacity: headerOpacity, y: headerY, willChange: "transform, opacity" } }
+          )}
         >
           <p
             className="mb-2 text-sm font-semibold uppercase tracking-widest"
@@ -157,6 +159,7 @@ export default function About() {
               key={pillar.number}
               pillar={pillar}
               index={i}
+              simple={simple}
               isMobile={isMobile}
             />
           ))}
