@@ -1,7 +1,7 @@
 "use client";
 
-import { useRef, useState, useEffect, useCallback } from "react";
-import { motion, useInView, useAnimationControls } from "framer-motion";
+import { useRef, useState, useEffect } from "react";
+import { motion, useInView } from "framer-motion";
 import { Monitor, ShoppingCart, Layers, Cloud } from "lucide-react";
 import { useIsMobile } from "@/hooks/useIsMobile";
 
@@ -28,197 +28,158 @@ const services = [
   },
 ];
 
-const RADIUS_X = 280;
-const RADIUS_Z = 120;
-const ROTATION_DURATION = 3; // seconds for full rotation
-const DEPLOY_DURATION = 0.8;
-const TOTAL_CARDS = 4;
+const RADIUS_X = 250;
+const RADIUS_Z = 100;
+const ROTATION_DURATION = 3500; // ms
+const TOTAL = 4;
 
-// Get card position on the carousel at a given angle
-function getCarouselTransform(angle: number) {
-  const x = Math.sin(angle) * RADIUS_X;
-  const z = Math.cos(angle) * RADIUS_Z;
-  const normalizedDepth = (z + RADIUS_Z) / (RADIUS_Z * 2); // 0 (back) to 1 (front)
-  const scale = 0.55 + 0.45 * normalizedDepth;
-  const opacity = 0.3 + 0.7 * normalizedDepth;
-  const rotateY = -(angle * 180) / Math.PI * 0.15; // subtle face rotation
-  return { x, z, scale, opacity, rotateY };
+function CardContent({ service }: { service: (typeof services)[number] }) {
+  const Icon = service.icon;
+  return (
+    <>
+      <div
+        className="mb-5 flex h-12 w-12 items-center justify-center rounded-xl transition-colors group-hover:bg-primary"
+        style={{ backgroundColor: "rgba(37,99,235,0.08)" }}
+      >
+        <Icon size={24} className="text-primary transition-colors group-hover:text-white" />
+      </div>
+      <h3 className="mb-2 text-lg font-bold text-dark">{service.title}</h3>
+      <p className="text-sm leading-relaxed text-gray-500">{service.description}</p>
+    </>
+  );
 }
 
-function CarouselStage({
-  isVisible,
-  isMobile,
-}: {
-  isVisible: boolean;
-  isMobile: boolean;
-}) {
-  const [phase, setPhase] = useState<"idle" | "rotating" | "deploying" | "deployed">("idle");
-  const [rotationAngle, setRotationAngle] = useState(0);
-  const rafRef = useRef<number>(0);
-  const startTimeRef = useRef<number>(0);
+function CarouselStage({ isVisible, isMobile }: { isVisible: boolean; isMobile: boolean }) {
+  const [deployed, setDeployed] = useState(false);
+  const containerRef = useRef<HTMLDivElement>(null);
+  const cardRefs = useRef<(HTMLDivElement | null)[]>([]);
+  const rafRef = useRef(0);
+  const startRef = useRef(0);
 
   // Reset when leaving viewport
   useEffect(() => {
     if (!isVisible) {
-      setPhase("idle");
-      setRotationAngle(0);
-      if (rafRef.current) cancelAnimationFrame(rafRef.current);
+      setDeployed(false);
+      startRef.current = 0;
+      cancelAnimationFrame(rafRef.current);
+      // Reset card styles
+      cardRefs.current.forEach((el) => {
+        if (!el) return;
+        el.style.transform = "translate(-50%, -50%) scale(0)";
+        el.style.opacity = "0";
+      });
     }
   }, [isVisible]);
 
-  // Start rotation when visible
+  // Start rotation when visible (desktop only)
   useEffect(() => {
-    if (isVisible && phase === "idle" && !isMobile) {
-      setPhase("rotating");
-      startTimeRef.current = 0;
-    }
-  }, [isVisible, phase, isMobile]);
+    if (!isVisible || isMobile || deployed) return;
 
-  // Animation loop for rotation
-  useEffect(() => {
-    if (phase !== "rotating") return;
-
-    function animate(timestamp: number) {
-      if (!startTimeRef.current) startTimeRef.current = timestamp;
-      const elapsed = (timestamp - startTimeRef.current) / 1000;
+    function tick(ts: number) {
+      if (!startRef.current) startRef.current = ts;
+      const elapsed = ts - startRef.current;
       const progress = Math.min(elapsed / ROTATION_DURATION, 1);
 
-      // Ease in-out for smooth rotation
-      const eased = progress < 0.5
-        ? 2 * progress * progress
-        : 1 - Math.pow(-2 * progress + 2, 2) / 2;
+      // Ease in-out
+      const eased =
+        progress < 0.5
+          ? 2 * progress * progress
+          : 1 - Math.pow(-2 * progress + 2, 2) / 2;
 
-      setRotationAngle(eased * Math.PI * 2); // full rotation
+      const angle = eased * Math.PI * 2;
+
+      // Update each card via DOM (no React re-render)
+      for (let i = 0; i < TOTAL; i++) {
+        const el = cardRefs.current[i];
+        if (!el) continue;
+
+        const a = (i / TOTAL) * Math.PI * 2 + angle;
+        const x = Math.sin(a) * RADIUS_X;
+        const z = Math.cos(a) * RADIUS_Z;
+        const depth = (z + RADIUS_Z) / (RADIUS_Z * 2); // 0=back, 1=front
+        const scale = 0.6 + 0.4 * depth;
+        const opacity = 0.35 + 0.65 * depth;
+
+        el.style.transform = `translate(-50%, -50%) translate3d(${x}px, 0, ${z}px) scale(${scale})`;
+        el.style.opacity = `${opacity}`;
+        el.style.zIndex = `${Math.round(depth * 10)}`;
+      }
 
       if (progress < 1) {
-        rafRef.current = requestAnimationFrame(animate);
+        rafRef.current = requestAnimationFrame(tick);
       } else {
-        setPhase("deploying");
+        // Rotation done → deploy
+        setDeployed(true);
       }
     }
 
-    rafRef.current = requestAnimationFrame(animate);
-    return () => { if (rafRef.current) cancelAnimationFrame(rafRef.current); };
-  }, [phase]);
-
-  // Deploy transition
-  useEffect(() => {
-    if (phase !== "deploying") return;
-    const t = setTimeout(() => setPhase("deployed"), DEPLOY_DURATION * 1000);
-    return () => clearTimeout(t);
-  }, [phase]);
+    rafRef.current = requestAnimationFrame(tick);
+    return () => cancelAnimationFrame(rafRef.current);
+  }, [isVisible, isMobile, deployed]);
 
   if (isMobile) {
     return (
       <div className="grid gap-6 sm:grid-cols-2">
-        {services.map((service, i) => {
-          const Icon = service.icon;
-          return (
-            <motion.div
-              key={service.title}
-              className="group rounded-2xl border-2 border-gray-100 bg-white p-8 transition-colors duration-300 hover:border-primary hover:shadow-lg hover:shadow-primary/5"
-              initial={{ opacity: 0, y: 30 }}
-              animate={isVisible ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }}
-              transition={{ duration: 0.5, delay: i * 0.12 }}
-            >
-              <div className="mb-5 flex h-12 w-12 items-center justify-center rounded-xl transition-colors group-hover:bg-primary"
-                style={{ backgroundColor: "rgba(37,99,235,0.08)" }}>
-                <Icon size={24} className="text-primary transition-colors group-hover:text-white" />
-              </div>
-              <h3 className="mb-2 text-lg font-bold text-dark">{service.title}</h3>
-              <p className="text-sm leading-relaxed text-gray-500">{service.description}</p>
-            </motion.div>
-          );
-        })}
+        {services.map((service, i) => (
+          <motion.div
+            key={service.title}
+            className="group rounded-2xl border-2 border-gray-100 bg-white p-8 transition-colors duration-300 hover:border-primary hover:shadow-lg hover:shadow-primary/5"
+            initial={{ opacity: 0, y: 30 }}
+            animate={isVisible ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }}
+            transition={{ duration: 0.5, delay: i * 0.12 }}
+          >
+            <CardContent service={service} />
+          </motion.div>
+        ))}
       </div>
     );
   }
 
-  const isCarousel = phase === "rotating" || phase === "idle";
-  const isDeploying = phase === "deploying";
-  const isDeployed = phase === "deployed";
-
-  return (
-    <div
-      className="relative"
-      style={{
-        perspective: 1000,
-        height: isCarousel || isDeploying ? 350 : "auto",
-        transition: "height 0.8s ease",
-      }}
-    >
-      {services.map((service, i) => {
-        const Icon = service.icon;
-        const baseAngle = (i / TOTAL_CARDS) * Math.PI * 2;
-        const currentAngle = baseAngle + rotationAngle;
-        const carousel = getCarouselTransform(currentAngle);
-
-        // Z-index: cards in front should be on top
-        const zIndex = Math.round((carousel.z + RADIUS_Z) / (RADIUS_Z * 2) * 10);
-
-        return (
+  if (deployed) {
+    return (
+      <div className="grid gap-6 lg:grid-cols-4 sm:grid-cols-2">
+        {services.map((service, i) => (
           <motion.div
             key={service.title}
             className="group rounded-2xl border-2 border-gray-100 bg-white p-8 transition-colors duration-300 hover:border-primary hover:shadow-lg hover:shadow-primary/5"
-            style={{
-              position: isDeployed ? "relative" : "absolute",
-              top: isDeployed ? "auto" : "50%",
-              left: isDeployed ? "auto" : "50%",
-              width: isDeployed ? "auto" : 250,
-              marginTop: isDeployed ? 0 : -100,
-              marginLeft: isDeployed ? 0 : -125,
-              zIndex: isDeployed ? 1 : zIndex,
-              willChange: "transform, opacity",
+            initial={{ opacity: 0, scale: 0.8, y: 20 }}
+            animate={{ opacity: 1, scale: 1, y: 0 }}
+            transition={{
+              duration: 0.6,
+              delay: i * 0.08,
+              ease: [0.25, 0.46, 0.45, 0.94],
             }}
-            animate={
-              isCarousel
-                ? {
-                    x: carousel.x,
-                    z: carousel.z,
-                    scale: carousel.scale,
-                    opacity: phase === "idle" ? 0 : carousel.opacity,
-                    rotateY: carousel.rotateY,
-                  }
-                : isDeploying
-                ? {
-                    x: 0,
-                    z: 0,
-                    scale: 1,
-                    opacity: 1,
-                    rotateY: 0,
-                  }
-                : {
-                    x: 0,
-                    z: 0,
-                    scale: 1,
-                    opacity: 1,
-                    rotateY: 0,
-                  }
-            }
-            transition={
-              isCarousel
-                ? { duration: 0, ease: "linear" }
-                : { duration: DEPLOY_DURATION, ease: [0.25, 0.46, 0.45, 0.94], delay: i * 0.08 }
-            }
           >
-            <div
-              className="mb-5 flex h-12 w-12 items-center justify-center rounded-xl transition-colors group-hover:bg-primary"
-              style={{ backgroundColor: "rgba(37,99,235,0.08)" }}
-            >
-              <Icon size={24} className="text-primary transition-colors group-hover:text-white" />
-            </div>
-            <h3 className="mb-2 text-lg font-bold text-dark">{service.title}</h3>
-            <p className="text-sm leading-relaxed text-gray-500">{service.description}</p>
+            <CardContent service={service} />
           </motion.div>
-        );
-      })}
+        ))}
+      </div>
+    );
+  }
 
-      {/* Grid placeholder to take space when deployed */}
-      {isDeployed && (
-        <style>{`
-          #services .relative { display: grid; grid-template-columns: repeat(4, 1fr); gap: 24px; }
-        `}</style>
-      )}
+  // Carousel phase
+  return (
+    <div
+      ref={containerRef}
+      className="relative mx-auto"
+      style={{ height: 320, perspective: 800, perspectiveOrigin: "50% 50%" }}
+    >
+      {services.map((service, i) => (
+        <div
+          key={service.title}
+          ref={(el) => { cardRefs.current[i] = el; }}
+          className="group absolute left-1/2 top-1/2 w-[240px] rounded-2xl border-2 border-gray-100 bg-white p-8"
+          style={{
+            transform: "translate(-50%, -50%) scale(0)",
+            opacity: 0,
+            transformStyle: "preserve-3d",
+            willChange: "transform, opacity",
+            transition: "none",
+          }}
+        >
+          <CardContent service={service} />
+        </div>
+      ))}
     </div>
   );
 }
