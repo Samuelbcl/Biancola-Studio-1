@@ -14,7 +14,7 @@ export default function ProcessusPage() {
     <>
       <Header />
       <main className="pt-20">
-        <Processus simple />
+        <Processus />
       </main>
       <Footer />
     </>
