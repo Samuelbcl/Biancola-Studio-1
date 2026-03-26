@@ -1,9 +1,10 @@
 "use client";
 
-import { useState, useEffect, useMemo } from "react";
+import { useRef, useState, useEffect, useMemo } from "react";
 import Image from "next/image";
-import { motion } from "framer-motion";
+import { motion, useScroll, useTransform } from "framer-motion";
 import { Lock } from "lucide-react";
+import { useIsMobile } from "@/hooks/useIsMobile";
 
 const macbookProjects = [
   {
@@ -158,79 +159,89 @@ function PhoneCarousel({ images }: { images: string[] }) {
 }
 
 export default function Realisations() {
+  const sectionRef = useRef<HTMLElement>(null);
+  const isMobile = useIsMobile();
+  const { scrollYProgress } = useScroll({
+    target: sectionRef,
+    offset: ["start end", "end start"],
+  });
+
+  const headerOpacity = useTransform(scrollYProgress, [0.05, 0.18], [0, 1]);
+  const headerY = useTransform(scrollYProgress, [0.05, 0.18], [30, 0]);
+
+  // MacBook block
+  const macX = useTransform(scrollYProgress, [0.12, 0.35], isMobile ? [0, 0] : [-200, 0]);
+  const macRotateY = useTransform(scrollYProgress, [0.12, 0.35], isMobile ? [0, 0] : [25, 0]);
+  const macOpacity = useTransform(scrollYProgress, [0.12, 0.35], [0, 1]);
+  const macTextX = useTransform(scrollYProgress, [0.18, 0.4], isMobile ? [0, 0] : [100, 0]);
+  const macTextOpacity = useTransform(scrollYProgress, [0.18, 0.4], [0, 1]);
+
+  // iPhone block
+  const phoneX = useTransform(scrollYProgress, [0.45, 0.68], isMobile ? [0, 0] : [200, 0]);
+  const phoneRotateY = useTransform(scrollYProgress, [0.45, 0.68], isMobile ? [0, 0] : [-25, 0]);
+  const phoneOpacity = useTransform(scrollYProgress, [0.45, 0.68], [0, 1]);
+  const phoneTextX = useTransform(scrollYProgress, [0.5, 0.72], isMobile ? [0, 0] : [-100, 0]);
+  const phoneTextOpacity = useTransform(scrollYProgress, [0.5, 0.72], [0, 1]);
+
   return (
     <section
+      ref={sectionRef}
       id="realisations"
       style={{ background: "linear-gradient(180deg, #f7f8fc 0%, #ffffff 40%, #f7f8fc 100%)" }}
-      className="overflow-hidden py-24 px-6"
+      className="overflow-hidden py-32 px-6"
     >
       <div className="mx-auto max-w-6xl">
 
         {/* Header */}
-        <div className="mb-16">
-          <motion.p
+        <motion.div className="mb-16" style={{ opacity: headerOpacity, y: headerY, willChange: "transform, opacity" }}>
+          <p
             className="mb-2 text-sm font-semibold uppercase tracking-widest"
             style={{ color: "#2563EB" }}
-            initial={{ opacity: 0, y: 10 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
           >
             Réalisations
-          </motion.p>
-          <motion.h2
-            className="font-display text-3xl font-bold tracking-tight text-dark md:text-5xl"
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ delay: 0.05 }}
-          >
+          </p>
+          <h2 className="font-display text-3xl font-bold tracking-tight text-dark md:text-5xl">
             Projets <span className="text-gradient">réalisés</span>
-          </motion.h2>
-        </div>
+          </h2>
+        </motion.div>
 
         {/* RisoSales — MacBook gauche, description droite */}
-        <motion.div
+        <div
           className="mb-24 flex flex-col gap-10 md:flex-row md:items-center md:gap-14"
-          initial={{ opacity: 0, y: 40 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ delay: 0.1, duration: 0.7, ease: [0.25, 0.46, 0.45, 0.94] }}
+          style={{ perspective: 1000 }}
         >
-          <div className="w-full md:w-3/5">
+          <motion.div
+            className="w-full md:w-3/5"
+            style={{ x: macX, rotateY: macRotateY, opacity: macOpacity, willChange: "transform, opacity" }}
+          >
             <MacBookCarousel images={macbookProjects[0].images} />
-          </div>
+          </motion.div>
           <motion.div
             className="w-full md:w-2/5"
-            initial={{ opacity: 0, x: 20 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            viewport={{ once: true }}
-            transition={{ delay: 0.25 }}
+            style={{ x: macTextX, opacity: macTextOpacity, willChange: "transform, opacity" }}
           >
             <ProjectInfo project={macbookProjects[0]} />
           </motion.div>
-        </motion.div>
+        </div>
 
         {/* RoadCRM — description gauche, iPhone droite */}
-        <motion.div
+        <div
           className="flex flex-col gap-10 md:flex-row md:items-center md:gap-14"
-          initial={{ opacity: 0, y: 40 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ delay: 0.1, duration: 0.7, ease: [0.25, 0.46, 0.45, 0.94] }}
+          style={{ perspective: 1000 }}
         >
           <motion.div
             className="w-full md:w-2/5 md:order-1"
-            initial={{ opacity: 0, x: -20 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            viewport={{ once: true }}
-            transition={{ delay: 0.25 }}
+            style={{ x: phoneTextX, opacity: phoneTextOpacity, willChange: "transform, opacity" }}
           >
             <ProjectInfo project={phoneProjects[0]} />
           </motion.div>
-          <div className="w-full md:w-3/5 md:order-2">
+          <motion.div
+            className="w-full md:w-3/5 md:order-2"
+            style={{ x: phoneX, rotateY: phoneRotateY, opacity: phoneOpacity, willChange: "transform, opacity" }}
+          >
             <PhoneCarousel images={phoneProjects[0].images} />
-          </div>
-        </motion.div>
+          </motion.div>
+        </div>
 
       </div>
     </section>
