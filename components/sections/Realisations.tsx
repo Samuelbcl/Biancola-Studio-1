@@ -261,6 +261,22 @@ export default function Realisations({ simple = false }: { simple?: boolean }) {
           </motion.div>
         </div>
 
+        {/* CTA */}
+        <motion.div
+          className="mt-16 text-center"
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ delay: 0.2 }}
+        >
+          <a
+            href="/realisations"
+            className="inline-flex items-center gap-2 rounded-full bg-primary px-8 py-3.5 text-sm font-medium text-white transition-all glow-blue-hover hover:scale-105"
+          >
+            Voir tous mes projets
+          </a>
+        </motion.div>
+
       </div>
     </section>
   );
