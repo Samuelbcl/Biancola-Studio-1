@@ -180,7 +180,16 @@ export default function Processus({ simple = false }: { simple?: boolean }) {
               className="absolute left-1/2 top-0 h-full w-px -translate-x-1/2"
               style={{ backgroundColor: "#E2E8F0" }}
             />
-            {!simple && (
+            {simple ? (
+              <motion.div
+                className="absolute left-1/2 top-0 h-full w-px -translate-x-1/2"
+                style={{ backgroundColor: "#2563EB", transformOrigin: "top" }}
+                initial={{ scaleY: 0 }}
+                whileInView={{ scaleY: 1 }}
+                viewport={{ once: true }}
+                transition={{ duration: 1.5, ease: "easeOut" }}
+              />
+            ) : (
               <motion.div
                 className="absolute left-1/2 top-0 h-full w-px -translate-x-1/2"
                 style={{
