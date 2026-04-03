@@ -49,16 +49,6 @@ export default function Hero() {
         className="relative z-10 flex flex-1 flex-col items-center justify-center px-6 text-center"
         style={{ y: contentY, opacity: contentOpacity }}
       >
-        {/* SEO label */}
-        <motion.p
-          className="mb-4 text-sm font-semibold uppercase tracking-widest text-primary"
-          initial={{ opacity: 0, y: 10 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.1, duration: 0.6 }}
-        >
-          Webdesigner freelance à Liège
-        </motion.p>
-
         {/* Title - line by line reveal */}
         <h1 className="font-display text-5xl font-bold leading-[1.1] tracking-tight md:text-7xl lg:text-8xl">
           {lines.map((line, i) => (
@@ -80,9 +70,19 @@ export default function Hero() {
           ))}
         </h1>
 
+        {/* SEO label */}
+        <motion.p
+          className="mt-4 text-sm font-semibold uppercase tracking-widest text-primary"
+          initial={{ opacity: 0, y: 10 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.8, duration: 0.6 }}
+        >
+          Webdesigner freelance à Liège
+        </motion.p>
+
         {/* Subtitle */}
         <motion.p
-          className="mt-8 max-w-lg text-lg text-gray-500"
+          className="mt-4 max-w-lg text-lg text-gray-500"
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 1.0, duration: 0.8 }}
