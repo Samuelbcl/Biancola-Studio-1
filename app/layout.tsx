@@ -17,6 +17,10 @@ export const viewport: Viewport = {
 };
 
 export const metadata: Metadata = {
+  icons: {
+    icon: "/favicon.png",
+    apple: "/favicon.png",
+  },
   title: "Biancola Studio | Agence Web — Sites & Applications sur mesure",
   description:
     "Biancola Studio conçoit des sites vitrines, e-commerces et applications web performantes. Design moderne, développement sur mesure et accompagnement personnalisé.",
