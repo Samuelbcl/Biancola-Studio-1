@@ -16,14 +16,22 @@ export default function Contact() {
   const [sent, setSent] = useState(false);
   const [loading, setLoading] = useState(false);
 
-  function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
+  async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
     setLoading(true);
-    // Simulate send — replace with real API later
-    setTimeout(() => {
-      setLoading(false);
+    const form = e.currentTarget;
+    const data = new FormData(form);
+
+    const res = await fetch("https://formspree.io/f/xqegyljz", {
+      method: "POST",
+      body: data,
+      headers: { Accept: "application/json" },
+    });
+
+    setLoading(false);
+    if (res.ok) {
       setSent(true);
-    }, 1200);
+    }
   }
 
   return (
