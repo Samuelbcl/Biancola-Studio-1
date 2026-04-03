@@ -21,13 +21,16 @@ const macbookProjects = [
   },
   {
     title: "Vitrine digitale pour fleuriste artisanale",
-    category: "Site Vitrine + Back-office",
+    category: "Projet démonstratif",
     description:
-      "Bloom Club — Site vitrine conçu pour une fleuriste artisanale à Liège. Présentation des créations, catalogue produits et gestion événementielle. Livré avec un back-office no-code permettant à la cliente de modifier elle-même ses contenus, photos, prix et SEO.",
+      "Bloom Club — Maquette fonctionnelle d'un site vitrine pour une fleuriste artisanale. Présentation des créations, catalogue produits et gestion événementielle. Livré avec un back-office no-code permettant de modifier contenus, photos, prix, SEO...",
     images: [
       "/projects/bloomclub_2.png",
       "/projects/bloomclub_3.png",
       "/projects/bloomclub_1.png",
+      "/projects/bloomclub_bo_1.png",
+      "/projects/bloomclub_bo_2.png",
+      "/projects/bloomclub_bo_3.png",
     ],
     href: null,
     isPublic: false,
