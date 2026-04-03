@@ -4,9 +4,10 @@ import Realisations from "@/components/sections/Realisations";
 import Footer from "@/components/sections/Footer";
 
 export const metadata: Metadata = {
-  title: "Réalisations | Biancola Studio — Mes projets",
+  title: "Réalisations | Biancola Studio — Projets Web à Liège",
   description:
-    "Découvrez mes réalisations : applications métier, CRM mobile et sites web sur mesure pour mes clients.",
+    "Découvrez mes réalisations : applications métier, CRM mobile et sites web sur mesure. Projets réalisés depuis Liège pour des clients en Belgique.",
+  alternates: { canonical: "/realisations" },
 };
 
 export default function RealisationsPage() {

@@ -20,7 +20,7 @@ export default function CTABanner() {
           Un projet en tête ?
         </h3>
         <p className="mx-auto mt-3 max-w-md text-sm text-white/60">
-          Discutons-en et trouvons la meilleure solution pour votre activité.
+          Discutons de votre projet web. Basé à Liège, je suis disponible pour un premier échange gratuit.
         </p>
         <a
           href="/contact"

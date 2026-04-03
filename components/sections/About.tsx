@@ -28,7 +28,7 @@ const pillars = [
     title: "Proximité",
     subtitle: "Un interlocuteur unique",
     description:
-      "De la première discussion à la mise en ligne, vous travaillez avec la même personne. Communication directe, réactivité et transparence totale.",
+      "Basé à Liège, je suis disponible pour des échanges en personne dans toute la Wallonie. Un interlocuteur unique, communication directe et transparence totale.",
   },
 ];
 
@@ -146,10 +146,11 @@ export default function About({ simple = false }: { simple?: boolean }) {
             <span className="text-gradient">Biancola Studio</span> ?
           </h2>
           <p className="mx-auto mt-5 max-w-2xl leading-relaxed text-gray-500">
-            Je suis Samuel, développeur web basé à Liège. Je crée des sites et
-            applications sur mesure pour les entreprises qui veulent une présence
-            digitale à la hauteur de leurs ambitions. Rigueur, transparence et
-            résultats — c&apos;est ce qui guide chaque projet.
+            Je suis Samuel, webdesigner et développeur web freelance basé à
+            Liège, en Wallonie. Je conçois des sites vitrines, e-commerces et
+            applications web sur mesure pour les entreprises et indépendants en
+            Belgique. Rigueur, transparence et résultats — c&apos;est ce qui
+            guide chaque projet.
           </p>
         </motion.div>
 

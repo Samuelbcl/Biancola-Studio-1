@@ -5,7 +5,8 @@ import { motion, useScroll, useTransform } from "framer-motion";
 import Marquee from "@/components/ui/Marquee";
 
 const lines = [
-  { text: "Votre présence digitale,", accent: false },
+  { text: "Webdesigner à Liège,", accent: false },
+  { text: "votre présence digitale", accent: false },
   { text: "réinventée.", accent: true },
 ];
 
@@ -77,8 +78,8 @@ export default function Hero() {
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 1.0, duration: 0.8 }}
         >
-          Des expériences web modernes, performantes et sur mesure
-          pour propulser votre activité.
+          Création de sites vitrines, e-commerces et applications web
+          sur mesure en Wallonie. Un développeur freelance à votre écoute.
         </motion.p>
 
         {/* CTAs */}
@@ -105,7 +106,7 @@ export default function Hero() {
 
       {/* Marquee bottom */}
       <div className="relative z-10 border-t border-gray-200 bg-white py-4">
-        <Marquee text="Sites Vitrines · E-commerce · Applications · SaaS ·" />
+        <Marquee text="Sites Vitrines · E-commerce · Applications Web · SaaS · Webdesigner Liège ·" />
       </div>
     </section>
   );

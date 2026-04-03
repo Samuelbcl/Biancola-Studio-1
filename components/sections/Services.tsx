@@ -6,22 +6,22 @@ import { Monitor, ShoppingCart, Layers, Cloud } from "lucide-react";
 const services = [
   {
     title: "Site Vitrine",
-    description: "Présentez votre activité et convertissez vos visiteurs.",
+    description: "Présentez votre activité avec un site moderne et performant. Idéal pour les entreprises et indépendants en région liégeoise.",
     icon: Monitor,
   },
   {
     title: "E-commerce",
-    description: "Vendez en ligne avec une boutique performante.",
+    description: "Vendez en ligne avec une boutique optimisée. Solution sur mesure pour les commerçants en Wallonie.",
     icon: ShoppingCart,
   },
   {
     title: "Application Web",
-    description: "Digitalisez vos processus avec un outil sur mesure.",
+    description: "Digitalisez vos processus avec une application web sur mesure, conçue et développée à Liège.",
     icon: Layers,
   },
   {
     title: "SaaS",
-    description: "Lancez votre plateforme, prête à scaler.",
+    description: "Lancez votre plateforme SaaS, conçue pour scaler. Développement complet depuis la Wallonie.",
     icon: Cloud,
   },
 ];
@@ -36,7 +36,7 @@ export default function Services() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
         >
-          Mes <span className="text-gradient">Services</span>
+          Mes <span className="text-gradient">Services</span> Web à Liège
         </motion.h2>
 
         <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-4">

@@ -32,7 +32,7 @@ export default function Footer() {
     <footer className="bg-dark text-white">
       {/* Marquee divider */}
       <Marquee
-        text="Biancola Studio · Votre partenaire digital ·"
+        text="Biancola Studio · Webdesigner à Liège · Wallonie, Belgique ·"
         variant="filled"
         speed={25}
       />
@@ -44,10 +44,10 @@ export default function Footer() {
           <div className="md:col-span-2">
             <h3 className="font-display text-xl font-bold tracking-tight">Biancola Studio</h3>
             <p className="mt-4 max-w-sm text-sm leading-relaxed text-gray-400">
-              Je conçois des expériences digitales modernes et performantes
-              pour propulser votre activité.
+              Webdesigner freelance à Liège, je conçois des sites vitrines
+              et applications web performantes pour les entreprises en Wallonie.
             </p>
-            <div className="mt-6 space-y-2 text-sm text-gray-400">
+            <address className="mt-6 space-y-2 text-sm not-italic text-gray-400">
               <a href="mailto:samuel@biancolastudio.com" className="flex items-center gap-2 transition-colors hover:text-white">
                 <Mail size={14} className="text-primary" />
                 samuel@biancolastudio.com
@@ -58,9 +58,9 @@ export default function Footer() {
               </a>
               <p className="flex items-center gap-2">
                 <MapPin size={14} className="text-primary" />
-                Liège, Belgique
+                Liège, Wallonie, Belgique
               </p>
-            </div>
+            </address>
           </div>
 
           {/* Links */}

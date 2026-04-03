@@ -4,9 +4,10 @@ import Services from "@/components/sections/Services";
 import Footer from "@/components/sections/Footer";
 
 export const metadata: Metadata = {
-  title: "Services | Biancola Studio — Sites, E-commerce & Applications",
+  title: "Services | Webdesigner à Liège — Sites Vitrines, E-commerce & Applications",
   description:
-    "Découvrez mes services : sites vitrines, e-commerce, applications web et SaaS. Des solutions sur mesure pour chaque besoin.",
+    "Découvrez mes services de création web à Liège : sites vitrines, e-commerce, applications web et SaaS. Solutions sur mesure en Wallonie.",
+  alternates: { canonical: "/services" },
 };
 
 export default function ServicesPage() {

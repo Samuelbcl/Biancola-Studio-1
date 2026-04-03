@@ -4,9 +4,10 @@ import About from "@/components/sections/About";
 import Footer from "@/components/sections/Footer";
 
 export const metadata: Metadata = {
-  title: "À propos | Biancola Studio — Qui est derrière le studio",
+  title: "À propos | Samuel Biancola — Développeur Web Freelance à Liège",
   description:
-    "Découvrez Samuel, développeur web basé à Liège. Technique, créativité et proximité au service de votre projet digital.",
+    "Découvrez Samuel Biancola, webdesigner et développeur web freelance basé à Liège en Wallonie. Technique, créativité et proximité au service de votre projet.",
+  alternates: { canonical: "/a-propos" },
 };
 
 export default function AboutPage() {

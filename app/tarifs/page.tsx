@@ -4,9 +4,10 @@ import Tarifs from "@/components/sections/Tarifs";
 import Footer from "@/components/sections/Footer";
 
 export const metadata: Metadata = {
-  title: "Tarifs | Biancola Studio — Un prix juste pour votre projet",
+  title: "Tarifs | Webdesigner Liège — Devis sur mesure pour votre projet",
   description:
-    "Devis sur mesure pour la création de votre site, puis maintenance et évolutions après lancement. Transparence totale.",
+    "Devis personnalisé pour la création de votre site vitrine, e-commerce ou application web à Liège. Tarifs transparents, sans surprise.",
+  alternates: { canonical: "/tarifs" },
 };
 
 export default function TarifsPage() {

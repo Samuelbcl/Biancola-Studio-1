@@ -37,7 +37,7 @@ export default function Image() {
             marginTop: 16,
           }}
         >
-          Sites & Applications sur mesure — Liège, Belgique
+          Webdesigner Freelance — Liège, Wallonie
         </div>
       </div>
     ),

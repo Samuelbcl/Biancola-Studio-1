@@ -36,6 +36,18 @@ const faqs = [
     q: "Comment se déroule le paiement ?",
     a: "Simple et transparent : un acompte au démarrage du projet, puis le solde après votre validation finale. Vous ne payez le reste que lorsque vous êtes satisfait du résultat.",
   },
+  {
+    q: "Travaillez-vous uniquement à Liège ?",
+    a: "Je suis basé à Liège, mais je travaille avec des clients dans toute la Wallonie et en Belgique. La plupart des échanges se font en visioconférence, mais je suis disponible pour des rencontres en personne dans la région liégeoise.",
+  },
+  {
+    q: "Pourquoi choisir un webdesigner freelance plutôt qu'une agence ?",
+    a: "En tant que freelance, vous bénéficiez d'un interlocuteur unique, de tarifs plus accessibles et d'une communication directe. Pas d'intermédiaire, pas de surprise. Chaque projet est suivi de A à Z par la même personne.",
+  },
+  {
+    q: "Pouvez-vous refondre un site existant ?",
+    a: "Absolument. Que votre site actuel soit vieillissant ou mal référencé, je peux le repenser entièrement : nouveau design, meilleures performances et optimisation pour le référencement local à Liège et en Wallonie.",
+  },
 ];
 
 export default function FAQ() {
