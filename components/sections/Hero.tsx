@@ -5,8 +5,7 @@ import { motion, useScroll, useTransform } from "framer-motion";
 import Marquee from "@/components/ui/Marquee";
 
 const lines = [
-  { text: "Webdesigner à Liège,", accent: false },
-  { text: "votre présence digitale", accent: false },
+  { text: "Votre présence digitale,", accent: false },
   { text: "réinventée.", accent: true },
 ];
 
@@ -50,6 +49,16 @@ export default function Hero() {
         className="relative z-10 flex flex-1 flex-col items-center justify-center px-6 text-center"
         style={{ y: contentY, opacity: contentOpacity }}
       >
+        {/* SEO label */}
+        <motion.p
+          className="mb-4 text-sm font-semibold uppercase tracking-widest text-primary"
+          initial={{ opacity: 0, y: 10 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.1, duration: 0.6 }}
+        >
+          Webdesigner freelance à Liège
+        </motion.p>
+
         {/* Title - line by line reveal */}
         <h1 className="font-display text-5xl font-bold leading-[1.1] tracking-tight md:text-7xl lg:text-8xl">
           {lines.map((line, i) => (
