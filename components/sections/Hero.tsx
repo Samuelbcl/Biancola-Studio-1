@@ -38,6 +38,12 @@ export default function Hero() {
         style={{ y: videoY }}
       />
 
+      {/* Mobile background gradient (replaces video) */}
+      <div
+        className="absolute inset-0 md:hidden"
+        style={{ background: "linear-gradient(135deg, #0f1729 0%, #1e3a5f 50%, #2563EB 100%)", opacity: 0.08 }}
+      />
+
       {/* Overlay */}
       <div
         className="absolute inset-0"

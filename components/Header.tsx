@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import Image from "next/image";
 import { motion, AnimatePresence } from "framer-motion";
 import { Menu, X } from "lucide-react";
 
@@ -39,7 +40,8 @@ export default function Header() {
         }`}
       >
         <div className="mx-auto flex max-w-7xl items-center justify-between px-6 py-4">
-          <a href="/" className="font-display text-xl font-bold tracking-tight" style={{ color: "#0F172A" }}>
+          <a href="/" className="flex items-center gap-2.5 font-display text-xl font-bold tracking-tight" style={{ color: "#0F172A" }}>
+            <Image src="/favicon.png" alt="" width={28} height={28} className="rounded-md" />
             Biancola Studio
           </a>
 

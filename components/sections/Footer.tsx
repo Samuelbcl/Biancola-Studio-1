@@ -48,14 +48,14 @@ export default function Footer() {
               pour propulser votre activité.
             </p>
             <div className="mt-6 space-y-2 text-sm text-gray-400">
-              <p className="flex items-center gap-2">
+              <a href="mailto:hello@biancolastudio.com" className="flex items-center gap-2 transition-colors hover:text-white">
                 <Mail size={14} className="text-primary" />
                 hello@biancolastudio.com
-              </p>
-              <p className="flex items-center gap-2">
+              </a>
+              <a href="tel:+32498737162" className="flex items-center gap-2 transition-colors hover:text-white">
                 <Phone size={14} className="text-primary" />
                 +32 498 73 71 62
-              </p>
+              </a>
               <p className="flex items-center gap-2">
                 <MapPin size={14} className="text-primary" />
                 Liège, Belgique
