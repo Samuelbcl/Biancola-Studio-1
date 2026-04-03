@@ -25,9 +25,9 @@ const macbookProjects = [
     description:
       "Bloom Club — Site vitrine conçu pour une fleuriste artisanale à Liège. Présentation des créations, catalogue produits et gestion événementielle. Livré avec un back-office no-code permettant à la cliente de modifier elle-même ses contenus, photos, prix et SEO.",
     images: [
-      "/projects/bloomclub_1.png",
       "/projects/bloomclub_2.png",
       "/projects/bloomclub_3.png",
+      "/projects/bloomclub_1.png",
     ],
     href: null,
     isPublic: false,
