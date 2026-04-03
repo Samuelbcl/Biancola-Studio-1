@@ -1,10 +1,9 @@
 "use client";
 
-import { useRef, useState, useEffect, useMemo } from "react";
+import { useState, useEffect, useMemo } from "react";
 import Image from "next/image";
-import { motion, useScroll, useTransform } from "framer-motion";
+import { motion } from "framer-motion";
 import { Lock } from "lucide-react";
-import { useIsMobile } from "@/hooks/useIsMobile";
 
 const macbookProjects = [
   {
@@ -175,33 +174,8 @@ function PhoneCarousel({ images }: { images: string[] }) {
 }
 
 export default function Realisations({ simple = false }: { simple?: boolean }) {
-  const sectionRef = useRef<HTMLElement>(null);
-  const isMobile = useIsMobile();
-  const { scrollYProgress } = useScroll({
-    target: sectionRef,
-    offset: ["start 0.8", "end 0.2"],
-  });
-
-  const headerOpacity = useTransform(scrollYProgress, [0.0, 0.1], [0, 1]);
-  const headerY = useTransform(scrollYProgress, [0.0, 0.1], [30, 0]);
-
-  // MacBook block — apparaît tôt, reste visible longtemps
-  const macX = useTransform(scrollYProgress, [0.05, 0.25], isMobile ? [0, 0] : [-200, 0]);
-  const macRotateY = useTransform(scrollYProgress, [0.05, 0.25], isMobile ? [0, 0] : [25, 0]);
-  const macOpacity = useTransform(scrollYProgress, [0.05, 0.25], [0, 1]);
-  const macTextX = useTransform(scrollYProgress, [0.1, 0.3], isMobile ? [0, 0] : [100, 0]);
-  const macTextOpacity = useTransform(scrollYProgress, [0.1, 0.3], [0, 1]);
-
-  // iPhone block
-  const phoneX = useTransform(scrollYProgress, [0.35, 0.55], isMobile ? [0, 0] : [200, 0]);
-  const phoneRotateY = useTransform(scrollYProgress, [0.35, 0.55], isMobile ? [0, 0] : [-25, 0]);
-  const phoneOpacity = useTransform(scrollYProgress, [0.35, 0.55], [0, 1]);
-  const phoneTextX = useTransform(scrollYProgress, [0.4, 0.6], isMobile ? [0, 0] : [-100, 0]);
-  const phoneTextOpacity = useTransform(scrollYProgress, [0.4, 0.6], [0, 1]);
-
   return (
     <section
-      ref={simple ? undefined : sectionRef}
       id="realisations"
       style={{ background: "linear-gradient(180deg, #f7f8fc 0%, #ffffff 40%, #f7f8fc 100%)" }}
       className="overflow-hidden py-32 px-6"
@@ -211,10 +185,9 @@ export default function Realisations({ simple = false }: { simple?: boolean }) {
         {/* Header */}
         <motion.div
           className="mb-16"
-          {...(simple
-            ? { initial: { opacity: 0, y: 20 }, whileInView: { opacity: 1, y: 0 }, viewport: { once: true } }
-            : { style: { opacity: headerOpacity, y: headerY, willChange: "transform, opacity" } }
-          )}
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
         >
           <p
             className="mb-2 text-sm font-semibold uppercase tracking-widest"
@@ -228,54 +201,48 @@ export default function Realisations({ simple = false }: { simple?: boolean }) {
         </motion.div>
 
         {/* RisoSales — MacBook gauche, description droite */}
-        <div
+        <motion.div
           className="mb-24 flex flex-col gap-10 md:flex-row md:items-center md:gap-14"
-          style={simple ? {} : { perspective: 1000 }}
+          initial={{ opacity: 0, y: 40 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.7, ease: [0.25, 0.46, 0.45, 0.94] }}
         >
-          <motion.div
-            className="w-full md:w-3/5"
-            {...(simple
-              ? { initial: { opacity: 0, y: 30 }, whileInView: { opacity: 1, y: 0 }, viewport: { once: true }, transition: { duration: 0.7 } }
-              : { style: { x: macX, rotateY: macRotateY, opacity: macOpacity, willChange: "transform, opacity" } }
-            )}
-          >
+          <div className="w-full md:w-3/5">
             <MacBookCarousel images={macbookProjects[0].images} />
-          </motion.div>
+          </div>
           <motion.div
             className="w-full md:w-2/5"
-            {...(simple
-              ? { initial: { opacity: 0, y: 20 }, whileInView: { opacity: 1, y: 0 }, viewport: { once: true }, transition: { delay: 0.2 } }
-              : { style: { x: macTextX, opacity: macTextOpacity, willChange: "transform, opacity" } }
-            )}
+            initial={{ opacity: 0, x: 20 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            viewport={{ once: true }}
+            transition={{ delay: 0.25 }}
           >
             <ProjectInfo project={macbookProjects[0]} />
           </motion.div>
-        </div>
+        </motion.div>
 
         {/* RoadCRM — description gauche, iPhone droite */}
-        <div
+        <motion.div
           className="flex flex-col gap-10 md:flex-row md:items-center md:gap-14"
-          style={simple ? {} : { perspective: 1000 }}
+          initial={{ opacity: 0, y: 40 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.7, ease: [0.25, 0.46, 0.45, 0.94] }}
         >
           <motion.div
             className="w-full md:w-2/5 md:order-1"
-            {...(simple
-              ? { initial: { opacity: 0, y: 20 }, whileInView: { opacity: 1, y: 0 }, viewport: { once: true }, transition: { delay: 0.2 } }
-              : { style: { x: phoneTextX, opacity: phoneTextOpacity, willChange: "transform, opacity" } }
-            )}
+            initial={{ opacity: 0, x: -20 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            viewport={{ once: true }}
+            transition={{ delay: 0.25 }}
           >
             <ProjectInfo project={phoneProjects[0]} />
           </motion.div>
-          <motion.div
-            className="w-full md:w-3/5 md:order-2"
-            {...(simple
-              ? { initial: { opacity: 0, y: 30 }, whileInView: { opacity: 1, y: 0 }, viewport: { once: true }, transition: { duration: 0.7 } }
-              : { style: { x: phoneX, rotateY: phoneRotateY, opacity: phoneOpacity, willChange: "transform, opacity" } }
-            )}
-          >
+          <div className="w-full md:w-3/5 md:order-2">
             <PhoneCarousel images={phoneProjects[0].images} />
-          </motion.div>
-        </div>
+          </div>
+        </motion.div>
 
         {/* Bloom Club — MacBook gauche, description droite (comme RisoSales) */}
         <motion.div
