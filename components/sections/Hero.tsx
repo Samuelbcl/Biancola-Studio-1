@@ -46,7 +46,7 @@ export default function Hero() {
 
       {/* Content with parallax */}
       <motion.div
-        className="relative z-10 flex flex-1 flex-col items-center justify-center px-6 text-center"
+        className="relative z-10 flex flex-1 flex-col items-center justify-center px-6 pt-20 text-center"
         style={{ y: contentY, opacity: contentOpacity }}
       >
         {/* Title - line by line reveal */}
