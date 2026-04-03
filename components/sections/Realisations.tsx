@@ -19,6 +19,19 @@ const macbookProjects = [
     href: null,
     isPublic: false,
   },
+  {
+    title: "Vitrine digitale pour fleuriste artisanale",
+    category: "Site Vitrine + Back-office",
+    description:
+      "Bloom Club — Site vitrine conçu pour une fleuriste artisanale à Liège. Présentation des créations, catalogue produits et gestion événementielle. Livré avec un back-office no-code permettant à la cliente de modifier elle-même ses contenus, photos, prix et SEO.",
+    images: [
+      "/projects/bloomclub_1.png",
+      "/projects/bloomclub_2.png",
+      "/projects/bloomclub_3.png",
+    ],
+    href: null,
+    isPublic: false,
+  },
 ];
 
 const phoneProjects = [
@@ -260,6 +273,28 @@ export default function Realisations({ simple = false }: { simple?: boolean }) {
             <PhoneCarousel images={phoneProjects[0].images} />
           </motion.div>
         </div>
+
+        {/* Bloom Club — MacBook gauche, description droite (comme RisoSales) */}
+        <motion.div
+          className="mt-24 flex flex-col gap-10 md:flex-row md:items-center md:gap-14"
+          initial={{ opacity: 0, y: 40 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ delay: 0.1, duration: 0.7, ease: [0.25, 0.46, 0.45, 0.94] }}
+        >
+          <div className="w-full md:w-3/5">
+            <MacBookCarousel images={macbookProjects[1].images} />
+          </div>
+          <motion.div
+            className="w-full md:w-2/5"
+            initial={{ opacity: 0, x: 20 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            viewport={{ once: true }}
+            transition={{ delay: 0.25 }}
+          >
+            <ProjectInfo project={macbookProjects[1]} />
+          </motion.div>
+        </motion.div>
 
         {/* CTA — only on homepage */}
         {!simple && (
