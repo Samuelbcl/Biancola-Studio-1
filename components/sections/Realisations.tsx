@@ -352,8 +352,11 @@ export default function Realisations({ simple = false }: { simple?: boolean }) {
 
 function ProjectHeader({ project }: { project: typeof macbookProjects[0] }) {
   return (
-    <>
-      <div className="mb-3 flex flex-wrap items-center gap-2">
+    <div className="flex flex-col">
+      {/* Title — mobile: above (JSX order). Desktop: below badges via order-2 */}
+      <h3 className="mb-3 text-2xl font-bold text-dark md:order-2">{project.title}</h3>
+      {/* Badges — mobile: below title (JSX order). Desktop: above title via order-1 */}
+      <div className="mb-3 flex flex-wrap items-center gap-2 md:order-1">
         <span
           className="rounded-full px-3 py-1 text-xs font-medium"
           style={{ color: "#2563EB", backgroundColor: "rgba(37,99,235,0.08)" }}
@@ -367,8 +370,7 @@ function ProjectHeader({ project }: { project: typeof macbookProjects[0] }) {
           </span>
         )}
       </div>
-      <h3 className="mb-3 text-2xl font-bold text-dark">{project.title}</h3>
-    </>
+    </div>
   );
 }
 
