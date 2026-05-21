@@ -3,7 +3,7 @@
 import { useState, useEffect, useMemo } from "react";
 import Image from "next/image";
 import { motion } from "framer-motion";
-import { Lock } from "lucide-react";
+import { Lock, ArrowUpRight } from "lucide-react";
 
 const macbookProjects = [
   {
@@ -31,8 +31,21 @@ const macbookProjects = [
       "/projects/bloomclub_bo_2.png",
       "/projects/bloomclub_bo_3.png",
     ],
-    href: null,
+    href: null as string | null,
     isPublic: false,
+  },
+  {
+    title: "Site vitrine & prise de rendez-vous pour naturopathe",
+    category: "Site vitrine",
+    description:
+      "Flonaturopathie — Site vitrine développé pour ma mère, naturopathe. Présentation de ses services, biographie et approche de soin. Système de prise de rendez-vous en ligne intégré pour faciliter l'agenda. Une boutique d'ebooks est en préparation pour étendre ses canaux de vente.",
+    images: [
+      "/projects/flonaturopathie_1.png",
+      "/projects/flonaturopathie_2.png",
+      "/projects/flonaturopathie_3.png",
+    ],
+    href: "https://www.flonaturopathie.com/" as string | null,
+    isPublic: true,
   },
 ];
 
@@ -266,6 +279,28 @@ export default function Realisations({ simple = false }: { simple?: boolean }) {
           </motion.div>
         </motion.div>
 
+        {/* Flonaturopathie — description gauche, MacBook droite */}
+        <motion.div
+          className="mt-24 flex flex-col gap-10 md:flex-row md:items-center md:gap-14"
+          initial={{ opacity: 0, y: 40 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ delay: 0.1, duration: 0.7, ease: [0.25, 0.46, 0.45, 0.94] }}
+        >
+          <motion.div
+            className="w-full md:w-2/5 md:order-1"
+            initial={{ opacity: 0, x: -20 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            viewport={{ once: true }}
+            transition={{ delay: 0.25 }}
+          >
+            <ProjectInfo project={macbookProjects[2]} />
+          </motion.div>
+          <div className="w-full md:w-3/5 md:order-2">
+            <MacBookCarousel images={macbookProjects[2].images} />
+          </div>
+        </motion.div>
+
         {/* CTA — only on homepage */}
         {!simple && (
           <motion.div
@@ -308,7 +343,20 @@ function ProjectInfo({ project }: { project: typeof macbookProjects[0] }) {
       </div>
       <h3 className="mb-3 text-2xl font-bold text-dark">{project.title}</h3>
       <p className="mb-5 text-sm leading-relaxed text-gray-500">{project.description}</p>
-      <span className="text-sm text-gray-400">Usage interne · Non public</span>
+      {project.isPublic && project.href ? (
+        <a
+          href={project.href}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="inline-flex items-center gap-1.5 text-sm font-medium transition-colors hover:underline"
+          style={{ color: "#2563EB" }}
+        >
+          Voir le site
+          <ArrowUpRight size={14} />
+        </a>
+      ) : (
+        <span className="text-sm text-gray-400">Usage interne · Non public</span>
+      )}
     </>
   );
 }
