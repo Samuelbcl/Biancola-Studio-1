@@ -216,91 +216,116 @@ export default function Realisations({ simple = false }: { simple?: boolean }) {
 
         {/* RisoSales — MacBook gauche, description droite */}
         <motion.div
-          className="mb-24 flex flex-col gap-10 md:flex-row md:items-center md:gap-14"
+          className="mb-24"
           initial={{ opacity: 0, y: 40 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.7, ease: [0.25, 0.46, 0.45, 0.94] }}
         >
-          <div className="w-full md:w-3/5">
-            <MacBookCarousel images={macbookProjects[0].images} />
+          {/* Mobile-only header above the carousel */}
+          <div className="mb-6 md:hidden">
+            <ProjectHeader project={macbookProjects[0]} />
           </div>
-          <motion.div
-            className="w-full md:w-2/5"
-            initial={{ opacity: 0, x: 20 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            viewport={{ once: true }}
-            transition={{ delay: 0.25 }}
-          >
-            <ProjectInfo project={macbookProjects[0]} />
-          </motion.div>
+          <div className="flex flex-col gap-10 md:flex-row md:items-center md:gap-14">
+            <div className="w-full md:w-3/5">
+              <MacBookCarousel images={macbookProjects[0].images} />
+            </div>
+            <motion.div
+              className="w-full md:w-2/5"
+              initial={{ opacity: 0, x: 20 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              viewport={{ once: true }}
+              transition={{ delay: 0.25 }}
+            >
+              <ProjectInfo project={macbookProjects[0]} />
+            </motion.div>
+          </div>
         </motion.div>
 
         {/* RoadCRM — description gauche, iPhone droite */}
         <motion.div
-          className="flex flex-col gap-10 md:flex-row md:items-center md:gap-14"
           initial={{ opacity: 0, y: 40 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.7, ease: [0.25, 0.46, 0.45, 0.94] }}
         >
-          <motion.div
-            className="w-full md:w-2/5 md:order-1"
-            initial={{ opacity: 0, x: -20 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            viewport={{ once: true }}
-            transition={{ delay: 0.25 }}
-          >
-            <ProjectInfo project={phoneProjects[0]} />
-          </motion.div>
-          <div className="w-full md:w-3/5 md:order-2">
-            <PhoneCarousel images={phoneProjects[0].images} />
+          {/* Mobile-only header above the carousel */}
+          <div className="mb-6 md:hidden">
+            <ProjectHeader project={phoneProjects[0]} />
+          </div>
+          <div className="flex flex-col gap-10 md:flex-row md:items-center md:gap-14">
+            <motion.div
+              className="order-2 w-full md:order-1 md:w-2/5"
+              initial={{ opacity: 0, x: -20 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              viewport={{ once: true }}
+              transition={{ delay: 0.25 }}
+            >
+              <ProjectInfo project={phoneProjects[0]} />
+            </motion.div>
+            <div className="order-1 w-full md:order-2 md:w-3/5">
+              <PhoneCarousel images={phoneProjects[0].images} />
+            </div>
           </div>
         </motion.div>
 
         {/* Bloom Club — MacBook gauche, description droite (comme RisoSales) */}
         <motion.div
-          className="mt-24 flex flex-col gap-10 md:flex-row md:items-center md:gap-14"
+          className="mt-24"
           initial={{ opacity: 0, y: 40 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ delay: 0.1, duration: 0.7, ease: [0.25, 0.46, 0.45, 0.94] }}
         >
-          <div className="w-full md:w-3/5">
-            <MacBookCarousel images={macbookProjects[1].images} />
+          {/* Mobile-only header above the carousel */}
+          <div className="mb-6 md:hidden">
+            <ProjectHeader project={macbookProjects[1]} />
           </div>
-          <motion.div
-            className="w-full md:w-2/5"
-            initial={{ opacity: 0, x: 20 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            viewport={{ once: true }}
-            transition={{ delay: 0.25 }}
-          >
-            <ProjectInfo project={macbookProjects[1]} />
-          </motion.div>
+          <div className="flex flex-col gap-10 md:flex-row md:items-center md:gap-14">
+            <div className="w-full md:w-3/5">
+              <MacBookCarousel images={macbookProjects[1].images} />
+            </div>
+            <motion.div
+              className="w-full md:w-2/5"
+              initial={{ opacity: 0, x: 20 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              viewport={{ once: true }}
+              transition={{ delay: 0.25 }}
+            >
+              <ProjectInfo project={macbookProjects[1]} />
+            </motion.div>
+          </div>
         </motion.div>
 
-        {/* Flonaturopathie — description gauche, MacBook droite */}
-        <motion.div
-          className="mt-24 flex flex-col gap-10 md:flex-row md:items-center md:gap-14"
-          initial={{ opacity: 0, y: 40 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ delay: 0.1, duration: 0.7, ease: [0.25, 0.46, 0.45, 0.94] }}
-        >
+        {/* Flonaturopathie — visible uniquement sur /realisations (page dédiée) */}
+        {simple && (
           <motion.div
-            className="w-full md:w-2/5 md:order-1"
-            initial={{ opacity: 0, x: -20 }}
-            whileInView={{ opacity: 1, x: 0 }}
+            className="mt-24"
+            initial={{ opacity: 0, y: 40 }}
+            whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            transition={{ delay: 0.25 }}
+            transition={{ delay: 0.1, duration: 0.7, ease: [0.25, 0.46, 0.45, 0.94] }}
           >
-            <ProjectInfo project={macbookProjects[2]} />
+            {/* Mobile-only header above the carousel */}
+            <div className="mb-6 md:hidden">
+              <ProjectHeader project={macbookProjects[2]} />
+            </div>
+            <div className="flex flex-col gap-10 md:flex-row md:items-center md:gap-14">
+              <motion.div
+                className="order-2 w-full md:order-1 md:w-2/5"
+                initial={{ opacity: 0, x: -20 }}
+                whileInView={{ opacity: 1, x: 0 }}
+                viewport={{ once: true }}
+                transition={{ delay: 0.25 }}
+              >
+                <ProjectInfo project={macbookProjects[2]} />
+              </motion.div>
+              <div className="order-1 w-full md:order-2 md:w-3/5">
+                <MacBookCarousel images={macbookProjects[2].images} />
+              </div>
+            </div>
           </motion.div>
-          <div className="w-full md:w-3/5 md:order-2">
-            <MacBookCarousel images={macbookProjects[2].images} />
-          </div>
-        </motion.div>
+        )}
 
         {/* CTA — only on homepage */}
         {!simple && (
@@ -325,7 +350,7 @@ export default function Realisations({ simple = false }: { simple?: boolean }) {
   );
 }
 
-function ProjectInfo({ project }: { project: typeof macbookProjects[0] }) {
+function ProjectHeader({ project }: { project: typeof macbookProjects[0] }) {
   return (
     <>
       <div className="mb-3 flex flex-wrap items-center gap-2">
@@ -343,6 +368,13 @@ function ProjectInfo({ project }: { project: typeof macbookProjects[0] }) {
         )}
       </div>
       <h3 className="mb-3 text-2xl font-bold text-dark">{project.title}</h3>
+    </>
+  );
+}
+
+function ProjectBody({ project }: { project: typeof macbookProjects[0] }) {
+  return (
+    <>
       <p className="mb-5 text-sm leading-relaxed text-gray-500">{project.description}</p>
       {project.isPublic && project.href ? (
         <a
@@ -358,6 +390,18 @@ function ProjectInfo({ project }: { project: typeof macbookProjects[0] }) {
       ) : (
         <span className="text-sm text-gray-400">Usage interne · Non public</span>
       )}
+    </>
+  );
+}
+
+function ProjectInfo({ project }: { project: typeof macbookProjects[0] }) {
+  return (
+    <>
+      {/* Header (badge + title) hidden on mobile — shown above carousel instead */}
+      <div className="hidden md:block">
+        <ProjectHeader project={project} />
+      </div>
+      <ProjectBody project={project} />
     </>
   );
 }
