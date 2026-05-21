@@ -43,6 +43,7 @@ const macbookProjects = [
       "/projects/flonaturopathie_1.png",
       "/projects/flonaturopathie_2.png",
       "/projects/flonaturopathie_3.png",
+      "/projects/flonaturopathie_4.png",
     ],
     href: "https://www.flonaturopathie.com/" as string | null,
     isPublic: true,
