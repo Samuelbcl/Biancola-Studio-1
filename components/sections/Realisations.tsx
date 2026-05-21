@@ -38,7 +38,7 @@ const macbookProjects = [
     title: "Site vitrine & prise de rendez-vous pour naturopathe",
     category: "Site vitrine",
     description:
-      "Flonaturopathie — Site vitrine développé pour ma mère, naturopathe. Présentation de ses services, biographie et approche de soin. Système de prise de rendez-vous en ligne intégré pour faciliter l'agenda. Une boutique d'ebooks est en préparation pour étendre ses canaux de vente.",
+      "Flonaturopathie — Site vitrine moderne pour une praticienne en naturopathie. Présentation des services et de l'approche thérapeutique, avec un module de prise de rendez-vous en ligne intégré. Une boutique d'ebooks est en préparation pour diversifier les canaux de vente.",
     images: [
       "/projects/flonaturopathie_1.png",
       "/projects/flonaturopathie_2.png",
