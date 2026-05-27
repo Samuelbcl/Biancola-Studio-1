@@ -92,3 +92,34 @@ video::-webkit-media-controls-overlay-play-button {
   width: 100%;
 }
 
+/* ===== Blu chatbot animations ===== */
+/* Idle: gentle floating up and down when closed */
+@keyframes blu-float {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-6px); }
+}
+
+.blu-idle {
+  animation: blu-float 3s ease-in-out infinite;
+  transition: transform 0.4s ease;
+}
+
+/* Hover: 360° spin then settle, with a little bounce */
+@keyframes blu-spin-bounce {
+  0% { transform: rotate(0deg) translateY(0) scale(1); }
+  40% { transform: rotate(360deg) translateY(-10px) scale(1.08); }
+  60% { transform: rotate(360deg) translateY(0) scale(1); }
+  75% { transform: rotate(360deg) translateY(-5px) scale(1.04); }
+  100% { transform: rotate(360deg) translateY(0) scale(1); }
+}
+
+.blu-trigger:hover .blu-idle {
+  animation: blu-spin-bounce 0.9s ease-in-out;
+}
+
+/* Stronger glow on hover */
+.blu-trigger:hover + span,
+.blu-trigger:hover {
+  filter: drop-shadow(0 0 14px rgba(37, 99, 235, 0.5));
+}
+
