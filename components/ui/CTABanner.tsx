@@ -6,7 +6,7 @@ import { ArrowUpRight } from "lucide-react";
 
 export default function CTABanner() {
   return (
-    <section className="px-6 py-16">
+    <section className="px-6 pb-16 pt-28">
       <motion.div
         className="relative mx-auto max-w-4xl rounded-2xl px-8 py-12 text-center md:px-16"
         style={{
