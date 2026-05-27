@@ -17,24 +17,23 @@ export default function CTABanner() {
         viewport={{ once: true }}
         transition={{ duration: 0.6 }}
       >
-        {/* Personnage Samuel + AI qui dépasse en haut à gauche */}
+        {/* Personnage Samuel + AI accoudé sur le bord supérieur gauche */}
         <div
           className="pointer-events-none absolute z-20 hidden md:block"
           style={{
-            top: "-90px",
-            left: "32px",
-            width: "180px",
+            bottom: "calc(100% - 30px)",
+            left: "40px",
+            width: "220px",
             height: "auto",
           }}
         >
           <Image
             src="/marketing/samuel-peek.png"
             alt="Samuel et son IA"
-            width={360}
-            height={300}
+            width={440}
+            height={400}
             priority
-            className="character-peek h-auto w-full select-none drop-shadow-2xl"
-            style={{ transformOrigin: "bottom center" }}
+            className="h-auto w-full select-none drop-shadow-2xl"
           />
         </div>
 

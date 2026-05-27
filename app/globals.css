@@ -92,23 +92,3 @@ video::-webkit-media-controls-overlay-play-button {
   width: 100%;
 }
 
-/* Idle bobbing animation for the peeking character on CTA banner */
-@keyframes peek-idle {
-  0%, 100% {
-    transform: translateY(0) rotate(0deg);
-  }
-  25% {
-    transform: translateY(-4px) rotate(-1.2deg);
-  }
-  50% {
-    transform: translateY(-2px) rotate(0deg);
-  }
-  75% {
-    transform: translateY(-4px) rotate(1.2deg);
-  }
-}
-
-.character-peek {
-  animation: peek-idle 4.5s ease-in-out infinite;
-  will-change: transform;
-}
