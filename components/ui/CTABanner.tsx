@@ -21,7 +21,7 @@ export default function CTABanner() {
         <div
           className="pointer-events-none absolute z-20 hidden md:block"
           style={{
-            bottom: "calc(100% - 30px)",
+            bottom: "calc(100% - 60px)",
             left: "40px",
             width: "220px",
             height: "auto",
