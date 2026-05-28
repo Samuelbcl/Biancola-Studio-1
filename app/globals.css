@@ -103,14 +103,12 @@ video::-webkit-media-controls-overlay-play-button {
   animation: blu-float 3s ease-in-out infinite;
 }
 
-/* Spin is handled by frame-cycling (real multi-angle images) in ChatBot.tsx.
-   On hover we just add a subtle lift + stronger glow. */
+/* On hover: just a blue glow, nothing else */
 .blu-trigger {
-  transition: transform 0.3s ease, filter 0.3s ease;
+  transition: filter 0.3s ease;
 }
 
 .blu-trigger:hover {
-  transform: translateY(-4px) scale(1.05);
-  filter: drop-shadow(0 0 16px rgba(37, 99, 235, 0.5));
+  filter: drop-shadow(0 0 18px rgba(37, 99, 235, 0.6));
 }
 

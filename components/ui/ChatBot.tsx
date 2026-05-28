@@ -21,7 +21,7 @@ type ChatNode = {
 const TREE: Record<string, ChatNode> = {
   welcome: {
     message:
-      "👋 Salut, moi c'est Blu, l'IA de Samuel ! Je peux t'aider à découvrir Biancola Studio. Tu veux savoir quoi ?",
+      "👋 Salut, moi c'est Blu, le compagnon de Samuel ! Je peux t'aider à découvrir Biancola Studio. Tu veux savoir quoi ?",
     buttons: [
       { label: "💼 Voir les services", next: "services" },
       { label: "💰 Combien ça coûte", next: "tarifs" },
@@ -76,26 +76,12 @@ const TREE: Record<string, ChatNode> = {
 
 type Message = { from: "bot" | "user"; text: string };
 
-// Rotation frames (front -> back) for the 3D-style spin on hover
-const ROTATION_FRAMES = [
-  "/marketing/blu_rot_0.png",
-  "/marketing/blu_rot_1.png",
-  "/marketing/blu_rot_2.png",
-  "/marketing/blu_rot_3.png",
-  "/marketing/blu_rot_4.png",
-  "/marketing/blu_rot_5.png",
-];
-// Oscillating sequence: front -> back -> front
-const SPIN_SEQUENCE = [0, 1, 2, 3, 4, 5, 4, 3, 2, 1, 0];
-
 export default function ChatBot() {
   const [isOpen, setIsOpen] = useState(false);
   const [messages, setMessages] = useState<Message[]>([
     { from: "bot", text: TREE.welcome.message },
   ]);
   const [buttons, setButtons] = useState<ChatButton[]>(TREE.welcome.buttons);
-  const [frame, setFrame] = useState(0);
-  const spinTimer = useRef<ReturnType<typeof setInterval> | null>(null);
   const scrollRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
@@ -103,35 +89,6 @@ export default function ChatBot() {
       scrollRef.current.scrollTop = scrollRef.current.scrollHeight;
     }
   }, [messages, isOpen]);
-
-  // Cleanup spin timer on unmount
-  useEffect(() => {
-    return () => {
-      if (spinTimer.current) clearInterval(spinTimer.current);
-    };
-  }, []);
-
-  function startSpin() {
-    if (spinTimer.current) clearInterval(spinTimer.current);
-    let i = 0;
-    spinTimer.current = setInterval(() => {
-      setFrame(SPIN_SEQUENCE[i]);
-      i++;
-      if (i >= SPIN_SEQUENCE.length) {
-        if (spinTimer.current) clearInterval(spinTimer.current);
-        spinTimer.current = null;
-        setFrame(0);
-      }
-    }, 75);
-  }
-
-  function stopSpin() {
-    if (spinTimer.current) {
-      clearInterval(spinTimer.current);
-      spinTimer.current = null;
-    }
-    setFrame(0);
-  }
 
   function handleButton(btn: ChatButton) {
     if (btn.href) {
@@ -157,8 +114,6 @@ export default function ChatBot() {
           <motion.button
             key="blu-button"
             onClick={() => setIsOpen(true)}
-            onMouseEnter={startSpin}
-            onMouseLeave={stopSpin}
             className="blu-trigger group fixed bottom-5 right-5 z-50 flex h-20 w-20 items-center justify-center"
             initial={{ scale: 0, opacity: 0 }}
             animate={{ scale: 1, opacity: 1 }}
@@ -166,19 +121,15 @@ export default function ChatBot() {
             transition={{ type: "spring", stiffness: 260, damping: 20 }}
             aria-label="Ouvrir le chat avec Blu"
           >
-            <span className="blu-idle relative block h-full w-full">
-              {ROTATION_FRAMES.map((src, i) => (
-                <Image
-                  key={i}
-                  src={src}
-                  alt={i === 0 ? "Blu — l'assistant de Biancola Studio" : ""}
-                  width={160}
-                  height={160}
-                  priority
-                  className="absolute inset-0 h-full w-full select-none object-contain drop-shadow-xl"
-                  style={{ opacity: frame === i ? 1 : 0 }}
-                />
-              ))}
+            <span className="blu-idle block h-full w-full">
+              <Image
+                src="/marketing/blu.png"
+                alt="Blu — le compagnon de Samuel"
+                width={160}
+                height={160}
+                priority
+                className="h-full w-full select-none object-contain drop-shadow-xl"
+              />
             </span>
             <span className="pointer-events-none absolute inset-3 -z-10 rounded-full bg-primary/20 blur-md" />
           </motion.button>
@@ -215,7 +166,7 @@ export default function ChatBot() {
                 <p className="font-display text-sm font-bold text-white">Blu</p>
                 <p className="flex items-center gap-1.5 text-xs text-white/60">
                   <span className="inline-block h-1.5 w-1.5 rounded-full bg-green-400" />
-                  En ligne · IA de Biancola Studio
+                  En ligne · Le compagnon de Samuel
                 </p>
               </div>
               <button
