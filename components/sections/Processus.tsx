@@ -69,26 +69,6 @@ function ProcessStep({
   const opacity = useTransform(scrollYProgress, [0.0, 0.4], [0, 1]);
   const circleScale = useTransform(scrollYProgress, [0.0, 0.4], [0.5, 1]);
 
-  if (isMobile) {
-    return (
-      <motion.div
-        className="relative mb-12 pl-14 last:mb-0"
-        initial={{ opacity: 0, y: 20 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true }}
-        transition={{ delay: index * 0.08 }}
-      >
-        <div className="absolute left-0 z-10 flex h-10 w-10 items-center justify-center rounded-full bg-primary text-sm font-bold text-white shadow-md">
-          {index + 1}
-        </div>
-        <h3 className="text-lg font-semibold text-dark">{step.title}</h3>
-        <p className="mt-1 text-sm leading-relaxed text-gray-500">
-          {step.description}
-        </p>
-      </motion.div>
-    );
-  }
-
   return (
     <motion.div
       ref={simple ? undefined : ref}
@@ -145,84 +125,43 @@ export default function Processus({ simple = false }: { simple?: boolean }) {
           Mon <span className="text-gradient">Processus</span>
         </motion.h2>
 
-        {/* Mobile */}
-        {isMobile && (
-          <div className="relative">
-            <div
-              className="absolute left-5 top-0 h-full w-px"
-              style={{ backgroundColor: "#E2E8F0" }}
-            />
-            {simple ? (
-              <motion.div
-                className="absolute left-5 top-0 h-full w-px"
-                style={{ backgroundColor: "#2563EB", transformOrigin: "top" }}
-                initial={{ scaleY: 0 }}
-                whileInView={{ scaleY: 1 }}
-                viewport={{ once: true }}
-                transition={{ duration: 1.5, ease: "easeOut" }}
-              />
-            ) : (
-              <motion.div
-                className="absolute left-5 top-0 h-full w-px"
-                style={{
-                  backgroundColor: "#2563EB",
-                  scaleY: timelineScale,
-                  transformOrigin: "top",
-                }}
-              />
-            )}
-            {steps.map((step, i) => (
-              <ProcessStep
-                key={step.title}
-                step={step}
-                index={i}
-                isLeft={i % 2 === 0}
-                isMobile={true}
-                simple={simple}
-              />
-            ))}
-          </div>
-        )}
-
-        {/* Desktop */}
-        {!isMobile && (
-          <div className="relative">
-            <div
+        {/* Timeline centrée (mobile + desktop) */}
+        <div className="relative">
+          <div
+            className="absolute left-1/2 top-0 h-full w-px -translate-x-1/2"
+            style={{ backgroundColor: "#E2E8F0" }}
+          />
+          {simple ? (
+            <motion.div
               className="absolute left-1/2 top-0 h-full w-px -translate-x-1/2"
-              style={{ backgroundColor: "#E2E8F0" }}
+              style={{ backgroundColor: "#2563EB", transformOrigin: "top" }}
+              initial={{ scaleY: 0 }}
+              whileInView={{ scaleY: 1 }}
+              viewport={{ once: true }}
+              transition={{ duration: 1.5, ease: "easeOut" }}
             />
-            {simple ? (
-              <motion.div
-                className="absolute left-1/2 top-0 h-full w-px -translate-x-1/2"
-                style={{ backgroundColor: "#2563EB", transformOrigin: "top" }}
-                initial={{ scaleY: 0 }}
-                whileInView={{ scaleY: 1 }}
-                viewport={{ once: true }}
-                transition={{ duration: 1.5, ease: "easeOut" }}
-              />
-            ) : (
-              <motion.div
-                className="absolute left-1/2 top-0 h-full w-px -translate-x-1/2"
-                style={{
-                  backgroundColor: "#2563EB",
-                  scaleY: timelineScale,
-                  transformOrigin: "top",
-                  willChange: "transform",
-                }}
-              />
-            )}
-            {steps.map((step, i) => (
-              <ProcessStep
-                key={step.title}
-                step={step}
-                index={i}
-                isLeft={i % 2 === 0}
-                isMobile={false}
-                simple={simple}
-              />
-            ))}
-          </div>
-        )}
+          ) : (
+            <motion.div
+              className="absolute left-1/2 top-0 h-full w-px -translate-x-1/2"
+              style={{
+                backgroundColor: "#2563EB",
+                scaleY: timelineScale,
+                transformOrigin: "top",
+                willChange: "transform",
+              }}
+            />
+          )}
+          {steps.map((step, i) => (
+            <ProcessStep
+              key={step.title}
+              step={step}
+              index={i}
+              isLeft={i % 2 === 0}
+              isMobile={isMobile}
+              simple={simple}
+            />
+          ))}
+        </div>
       </div>
     </section>
   );
