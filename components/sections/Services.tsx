@@ -1,5 +1,6 @@
 "use client";
 
+import Link from "next/link";
 import { motion } from "framer-motion";
 import { Monitor, ShoppingCart, Layers, Cloud } from "lucide-react";
 
@@ -45,22 +46,26 @@ export default function Services() {
             return (
               <motion.div
                 key={service.title}
-                className="group rounded-2xl border-2 border-gray-100 bg-white p-8 transition-all duration-300 hover:border-primary hover:shadow-lg hover:shadow-primary/5"
                 initial={{ opacity: 0, y: 30 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ delay: i * 0.1 }}
               >
-                <div
-                  className="mb-5 flex h-12 w-12 items-center justify-center rounded-xl transition-colors group-hover:bg-primary"
-                  style={{ backgroundColor: "rgba(37,99,235,0.08)" }}
+                <Link
+                  href="/services"
+                  className="group block h-full rounded-2xl border-2 border-gray-100 bg-white p-8 transition-all duration-300 hover:-translate-y-1 hover:border-primary hover:shadow-lg hover:shadow-primary/10"
                 >
-                  <Icon size={24} className="text-primary transition-colors group-hover:text-white" />
-                </div>
-                <h3 className="mb-2 text-lg font-bold text-dark">{service.title}</h3>
-                <p className="text-sm leading-relaxed text-gray-500">
-                  {service.description}
-                </p>
+                  <div
+                    className="mb-5 flex h-12 w-12 items-center justify-center rounded-xl transition-colors group-hover:bg-primary"
+                    style={{ backgroundColor: "rgba(37,99,235,0.08)" }}
+                  >
+                    <Icon size={24} className="text-primary transition-colors group-hover:text-white" />
+                  </div>
+                  <h3 className="mb-2 text-lg font-bold text-dark">{service.title}</h3>
+                  <p className="text-sm leading-relaxed text-gray-500">
+                    {service.description}
+                  </p>
+                </Link>
               </motion.div>
             );
           })}
