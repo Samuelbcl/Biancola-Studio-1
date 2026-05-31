@@ -69,7 +69,7 @@ function ProcessStep({
   const opacity = useTransform(scrollYProgress, [0.0, 0.4], [0, 1]);
   const circleScale = useTransform(scrollYProgress, [0.0, 0.4], [0.5, 1]);
 
-  if (isMobile && !simple) {
+  if (isMobile) {
     return (
       <motion.div
         className="relative mb-12 pl-14 last:mb-0"
@@ -152,14 +152,25 @@ export default function Processus({ simple = false }: { simple?: boolean }) {
               className="absolute left-5 top-0 h-full w-px"
               style={{ backgroundColor: "#E2E8F0" }}
             />
-            <motion.div
-              className="absolute left-5 top-0 h-full w-px"
-              style={{
-                backgroundColor: "#2563EB",
-                scaleY: timelineScale,
-                transformOrigin: "top",
-              }}
-            />
+            {simple ? (
+              <motion.div
+                className="absolute left-5 top-0 h-full w-px"
+                style={{ backgroundColor: "#2563EB", transformOrigin: "top" }}
+                initial={{ scaleY: 0 }}
+                whileInView={{ scaleY: 1 }}
+                viewport={{ once: true }}
+                transition={{ duration: 1.5, ease: "easeOut" }}
+              />
+            ) : (
+              <motion.div
+                className="absolute left-5 top-0 h-full w-px"
+                style={{
+                  backgroundColor: "#2563EB",
+                  scaleY: timelineScale,
+                  transformOrigin: "top",
+                }}
+              />
+            )}
             {steps.map((step, i) => (
               <ProcessStep
                 key={step.title}
