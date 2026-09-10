@@ -133,6 +133,8 @@ function PhoneCarousel({ images }: { images: string[] }) {
 type Props = {
   /** Mode page : pas de CTA « voir tous » par défaut */
   simple?: boolean;
+  /** Home : une ligne avant / une ligne après au lieu de problème / solution / résultat */
+  compact?: boolean;
   /** Filtre sur les identifiants de content/cas.ts (ordre conservé) */
   ids?: string[];
   id?: string;
@@ -145,6 +147,7 @@ type Props = {
 
 export default function Realisations({
   simple = false,
+  compact = false,
   ids,
   id = "realisations",
   label = "Cas concrets",
@@ -190,7 +193,7 @@ export default function Realisations({
           )}
         </motion.div>
 
-        <div className="space-y-24">
+        <div className={compact ? "space-y-20" : "space-y-24"}>
           {projects.map((project, i) => {
             const mediaLeft = i % 2 === 0;
             return (
@@ -220,7 +223,7 @@ export default function Realisations({
                     viewport={{ once: true }}
                     transition={{ delay: 0.25 }}
                   >
-                    <ProjectInfo project={project} />
+                    <ProjectInfo project={project} compact={compact} />
                   </motion.div>
                 </div>
               </motion.div>
@@ -274,6 +277,30 @@ function ProjectHeader({ project }: { project: Cas }) {
   );
 }
 
+function CompactBody({ project }: { project: Cas }) {
+  return (
+    <>
+      {project.name && (
+        <p className="mb-5 text-xs font-semibold text-gray-400">{project.name}</p>
+      )}
+      <div className="space-y-3">
+        <div className="flex items-start gap-3">
+          <span className="mt-0.5 w-16 flex-shrink-0 rounded-full bg-gray-100 py-1 text-center text-[11px] font-semibold uppercase tracking-wider text-gray-500">
+            Avant
+          </span>
+          <p className="text-sm leading-relaxed text-gray-500">{project.avant}</p>
+        </div>
+        <div className="flex items-start gap-3">
+          <span className="mt-0.5 w-16 flex-shrink-0 rounded-full bg-primary py-1 text-center text-[11px] font-semibold uppercase tracking-wider text-white">
+            Après
+          </span>
+          <p className="text-sm font-medium leading-relaxed text-dark">{project.apres}</p>
+        </div>
+      </div>
+    </>
+  );
+}
+
 function ProjectBody({ project }: { project: Cas }) {
   const psr = project.problem
     ? [
@@ -323,14 +350,18 @@ function ProjectBody({ project }: { project: Cas }) {
   );
 }
 
-function ProjectInfo({ project }: { project: Cas }) {
+function ProjectInfo({ project, compact = false }: { project: Cas; compact?: boolean }) {
   return (
     <>
       {/* Header (badge + title) hidden on mobile — shown above carousel instead */}
       <div className="hidden md:block">
         <ProjectHeader project={project} />
       </div>
-      <ProjectBody project={project} />
+      {compact && project.avant ? (
+        <CompactBody project={project} />
+      ) : (
+        <ProjectBody project={project} />
+      )}
     </>
   );
 }

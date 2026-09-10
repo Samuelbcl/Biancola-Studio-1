@@ -6,7 +6,7 @@ const principes = [
   "Une information n'est encodée qu'une seule fois.",
   "Une automatisation doit supprimer une vraie tâche.",
   "Un outil doit simplifier le travail, pas ajouter une contrainte.",
-  "Je ne reconstruis pas ce qu'un logiciel existant fait déjà bien : je le connecte.",
+  "Je ne reconstruis pas ce qu'un logiciel existant fait déjà bien : je le connecte.",
   "Du sur-mesure uniquement là où votre processus le justifie.",
   "Commencer petit quand c'est suffisant, mesurer, puis faire évoluer.",
 ];

@@ -8,7 +8,7 @@ import Footer from "@/components/sections/Footer";
 export const metadata: Metadata = {
   title: "À propos | Samuel Biancola, fondateur de Biancola Studio — Liège",
   description:
-    "Samuel Biancola, fondateur de Biancola Studio à Liège : analyse, conception et développement de solutions digitales adaptées aux processus des PME. Proche, direct, sans jargon.",
+    "Samuel Biancola, fondateur de Biancola Studio à Liège : analyse, conception et développement de solutions digitales adaptées aux processus des PME. Proche, direct, sans jargon.",
   alternates: { canonical: "/a-propos" },
 };
 

@@ -26,7 +26,7 @@ export default function FAQ({ simple = false }: { simple?: boolean }) {
             Questions <span className="text-gradient">fréquentes</span>
           </Heading>
           <p className="mx-auto mt-5 max-w-xl leading-relaxed text-gray-500">
-            Outils métiers, automatisation, Excel, budget, IA, suite du projet :
+            Outils métiers, automatisation, Excel, budget, IA, suite du projet :
             les questions que les dirigeants de PME me posent le plus souvent.
           </p>
         </div>

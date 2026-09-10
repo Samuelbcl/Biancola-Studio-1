@@ -2,12 +2,12 @@ export const methode = [
   {
     title: "Comprendre",
     description:
-      "Un échange avec vous, puis un regard sur votre fonctionnement réel : outils, fichiers, habitudes, points de friction.",
+      "Un échange avec vous, puis un regard sur votre fonctionnement réel : outils, fichiers, habitudes, points de friction.",
   },
   {
     title: "Identifier",
     description:
-      "Repérer les problèmes à forte valeur : ceux qui coûtent du temps, créent des erreurs ou freinent l'activité.",
+      "Repérer les problèmes à forte valeur : ceux qui coûtent du temps, créent des erreurs ou freinent l'activité.",
   },
   {
     title: "Simplifier",
@@ -32,6 +32,6 @@ export const methode = [
   {
     title: "Accompagner",
     description:
-      "Maintenance, surveillance et améliorations continues : l'outil évolue avec votre entreprise.",
+      "Maintenance, surveillance et améliorations continues : l'outil évolue avec votre entreprise.",
   },
 ];

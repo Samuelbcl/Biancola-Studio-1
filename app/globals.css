@@ -92,6 +92,25 @@ video::-webkit-media-controls-overlay-play-button {
   width: 100%;
 }
 
+/* ===== Mini-visuel automatisation : un point qui circule d'un outil à l'autre ===== */
+@keyframes flow-dot {
+  0% { left: 0; opacity: 0; }
+  15% { opacity: 1; }
+  85% { opacity: 1; }
+  100% { left: calc(100% - 0.5rem); opacity: 0; }
+}
+
+.flow-dot {
+  animation: flow-dot 1.8s ease-in-out infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .flow-dot {
+    animation: none;
+    left: calc(50% - 0.25rem);
+  }
+}
+
 /* ===== Blu chatbot animations ===== */
 /* Idle: gentle floating up and down when closed */
 @keyframes blu-float {

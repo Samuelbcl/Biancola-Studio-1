@@ -1,7 +1,6 @@
 "use client";
 
 import Image from "next/image";
-import Link from "next/link";
 import { motion } from "framer-motion";
 import {
   FileSpreadsheet,
@@ -9,9 +8,9 @@ import {
   MessageCircle,
   FileText,
   Calendar,
-  Database,
   Printer,
-  MousePointerClick,
+  Copy,
+  BellRing,
   Shuffle,
   Sparkles,
   ArrowRight,
@@ -22,12 +21,12 @@ const today = [
   { icon: FileSpreadsheet, label: "Excel", rotate: "-rotate-2" },
   { icon: Mail, label: "E-mails", rotate: "rotate-1" },
   { icon: MessageCircle, label: "WhatsApp", rotate: "rotate-2" },
-  { icon: FileText, label: "Documents Word & PDF", rotate: "-rotate-1" },
+  { icon: FileText, label: "Word & PDF", rotate: "-rotate-1" },
   { icon: Calendar, label: "Agenda", rotate: "rotate-1" },
-  { icon: Database, label: "CRM générique", rotate: "-rotate-2" },
-  { icon: Printer, label: "Papier", rotate: "rotate-2" },
-  { icon: MousePointerClick, label: "Tâches manuelles", rotate: "-rotate-1" },
-  { icon: Shuffle, label: "Informations dispersées", rotate: "rotate-1" },
+  { icon: Printer, label: "Papier", rotate: "-rotate-2" },
+  { icon: Copy, label: "Copier-coller", rotate: "rotate-2" },
+  { icon: BellRing, label: "Relances manuelles", rotate: "-rotate-1" },
+  { icon: Shuffle, label: "Infos dispersées", rotate: "rotate-1" },
 ];
 
 const modules = [
@@ -36,13 +35,10 @@ const modules = [
   "Clients",
   "Planning",
   "Documents",
-  "Commandes",
   "Projets",
   "Interventions",
   "Dashboard",
   "Automatisations",
-  "Notifications",
-  "Reporting",
 ];
 
 export default function Transformation() {
@@ -54,7 +50,7 @@ export default function Transformation() {
     >
       <div className="mx-auto max-w-6xl">
         <motion.div
-          className="mb-16 text-center"
+          className="mb-14 text-center"
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
@@ -63,17 +59,12 @@ export default function Transformation() {
             className="mb-3 text-sm font-semibold uppercase tracking-widest"
             style={{ color: "#2563EB" }}
           >
-            Aujourd&apos;hui → Demain
+            Avant / Après
           </p>
           <h2 className="font-display text-3xl font-bold tracking-tight text-dark md:text-5xl">
-            Vos outils devraient s&apos;adapter à votre entreprise.{" "}
-            <span className="text-gradient">Pas l&apos;inverse.</span>
+            Une information encodée une fois.{" "}
+            <span className="text-gradient">Le reste s&apos;automatise.</span>
           </h2>
-          <p className="mx-auto mt-5 max-w-2xl leading-relaxed text-gray-500">
-            Je ne force pas votre entreprise à rentrer dans un logiciel. Je
-            construis l&apos;outil autour de votre manière de travailler — et il
-            ne contient que ce dont vous avez besoin.
-          </p>
         </motion.div>
 
         <div className="grid items-stretch gap-6 lg:grid-cols-[1fr_auto_1fr]">
@@ -89,7 +80,7 @@ export default function Transformation() {
               Aujourd&apos;hui
             </p>
             <h3 className="font-display mt-2 text-2xl font-bold text-dark">
-              Des informations partout, sauf au même endroit
+              Des informations partout
             </h3>
             <div className="mt-6 flex flex-wrap gap-3">
               {today.map((t, i) => {
@@ -109,10 +100,6 @@ export default function Transformation() {
                 );
               })}
             </div>
-            <p className="mt-6 text-sm leading-relaxed text-gray-500">
-              Encodées plusieurs fois, difficiles à retrouver, dépendantes
-              d&apos;une personne.
-            </p>
           </motion.div>
 
           {/* Flèche centrale */}
@@ -141,7 +128,7 @@ export default function Transformation() {
             </div>
           </motion.div>
 
-          {/* Demain */}
+          {/* Avec Biancola */}
           <motion.div
             className="rounded-2xl p-8 text-white shadow-xl"
             style={{
@@ -156,7 +143,7 @@ export default function Transformation() {
               Avec Biancola
             </p>
             <h3 className="font-display mt-2 text-2xl font-bold">
-              Un outil métier central, construit pour vous
+              Un outil central, construit pour vous
             </h3>
             <div className="mt-6 flex flex-wrap gap-2">
               {modules.map((m, i) => (
@@ -179,35 +166,14 @@ export default function Transformation() {
                 transition={{ delay: 0.5 + modules.length * 0.04 }}
               >
                 <Sparkles size={13} />
-                IA, quand elle apporte une vraie valeur
+                IA, quand elle est utile
               </motion.span>
             </div>
-            <p className="mt-6 text-sm leading-relaxed text-white/70">
-              Uniquement les modules dont vous avez besoin. L&apos;outil est
-              construit selon votre fonctionnement, pas selon un catalogue.
+            <p className="mt-6 text-sm text-white/70">
+              Uniquement les modules dont vous avez besoin.
             </p>
           </motion.div>
         </div>
-
-        <motion.div
-          className="mt-16 text-center"
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ delay: 0.2 }}
-        >
-          <p className="font-display text-2xl font-bold tracking-tight text-dark md:text-3xl">
-            Une information encodée une fois.{" "}
-            <span className="text-gradient">Le reste s&apos;automatise.</span>
-          </p>
-          <Link
-            href="/services/automatisation-pme"
-            className="mt-5 inline-flex items-center gap-2 text-sm font-semibold text-primary hover:underline"
-          >
-            Découvrir ce qu&apos;on peut automatiser
-            <ArrowRight size={16} />
-          </Link>
-        </motion.div>
       </div>
     </section>
   );

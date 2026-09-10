@@ -6,7 +6,7 @@ import Footer from "@/components/sections/Footer";
 export const metadata: Metadata = {
   title: "Contact | Réserver un diagnostic gratuit — Biancola Studio, Liège",
   description:
-    "Racontez-moi comment votre PME travaille aujourd'hui : je reviens vers vous sous 48h pour un premier échange de 30 minutes, gratuit et sans engagement. Liège, Wallonie, Belgique.",
+    "Racontez-moi comment votre PME travaille aujourd'hui : je reviens vers vous sous 48h pour un premier échange de 30 minutes, gratuit et sans engagement. Liège, Wallonie, Belgique.",
   alternates: { canonical: "/contact" },
 };
 

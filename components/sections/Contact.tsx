@@ -107,7 +107,7 @@ export default function Contact({ simple = false }: { simple?: boolean }) {
             animate={{ opacity: 1, scale: 1 }}
           >
             <CheckCircle size={48} className="text-green-500" />
-            <h3 className="text-xl font-bold text-dark">Message envoyé !</h3>
+            <h3 className="text-xl font-bold text-dark">Message envoyé&nbsp;!</h3>
             <p className="text-sm text-gray-500">
               Je reviens vers vous sous 48h pour fixer notre premier échange.
               Merci pour votre confiance.
@@ -185,14 +185,14 @@ export default function Contact({ simple = false }: { simple?: boolean }) {
 
             <div>
               <label htmlFor="message" className="mb-1.5 block text-sm font-medium text-dark">
-                Comment travaillez-vous aujourd&apos;hui ?
+                Comment travaillez-vous aujourd&apos;hui&nbsp;?
               </label>
               <textarea
                 id="message"
                 name="message"
                 required
                 rows={5}
-                placeholder="Ex. : nos devis sont faits dans Excel, les commandes arrivent par e-mail et on ressaisit tout dans le logiciel de facturation…"
+                placeholder="Ex. : nos devis sont faits dans Excel, les commandes arrivent par e-mail et on ressaisit tout dans le logiciel de facturation…"
                 className={`${inputClass} resize-none`}
               />
             </div>

@@ -52,7 +52,7 @@ export default function Care() {
           </h2>
           <p className="mx-auto mt-5 max-w-2xl leading-relaxed text-gray-500">
             Après la mise en place, je ne disparais pas. Biancola Care couvre le
-            suivi de votre outil dans la durée : il reste fiable, à jour, et il
+            suivi de votre outil dans la durée : il reste fiable, à jour, et il
             continue de s&apos;adapter à votre façon de travailler.
           </p>
         </motion.div>

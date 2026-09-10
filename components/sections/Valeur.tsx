@@ -94,7 +94,7 @@ export default function Valeur() {
           viewport={{ once: true }}
           transition={{ delay: 0.3 }}
         >
-          Je ne promets aucun chiffre à l&apos;avance : les gains sont identifiés
+          Je ne promets aucun chiffre à l&apos;avance&nbsp;: les gains sont identifiés
           pendant l&apos;audit, puis mesurés après la mise en place.
         </motion.p>
       </div>

@@ -40,10 +40,8 @@ export default function CTABanner() {
         <h3 className="relative z-10 font-display text-2xl font-bold text-white md:text-3xl">
           Montrez-moi comment vous travaillez.
         </h3>
-        <p className="relative z-10 mx-auto mt-3 max-w-lg text-sm leading-relaxed text-white/60">
-          Pas besoin de cahier des charges, ni de savoir quelle application il vous
-          faut. Racontez-moi votre quotidien : je vous dis ce qui peut être
-          simplifié, et par où commencer.
+        <p className="relative z-10 mx-auto mt-3 max-w-md text-sm text-white/60">
+          Premier échange de 30 minutes, gratuit et sans engagement.
         </p>
         <a
           href="/contact"

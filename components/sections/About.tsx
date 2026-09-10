@@ -12,7 +12,7 @@ const pillars = [
     title: "Compréhension métier",
     subtitle: "Avant le code, le terrain",
     description:
-      "Je commence toujours par comprendre comment vous travaillez vraiment : vos outils, vos habitudes, vos contraintes. C'est là que se trouvent les vrais gains — pas dans une liste de fonctionnalités.",
+      "Je commence toujours par comprendre comment vous travaillez vraiment : vos outils, vos habitudes, vos contraintes. C'est là que se trouvent les vrais gains — pas dans une liste de fonctionnalités.",
   },
   {
     icon: Code,
@@ -20,7 +20,7 @@ const pillars = [
     title: "Technique",
     subtitle: "Des outils modernes, sans sur-ingénierie",
     description:
-      "React, Next.js, TypeScript, intégrations et IA quand elle apporte quelque chose. Je ne reconstruis pas ce qu'un logiciel existant fait déjà bien : je connecte, je complète, je simplifie.",
+      "React, Next.js, TypeScript, intégrations et IA quand elle apporte quelque chose. Je ne reconstruis pas ce qu'un logiciel existant fait déjà bien : je connecte, je complète, je simplifie.",
   },
   {
     icon: Handshake,
@@ -144,12 +144,12 @@ export default function About({ simple = false }: { simple?: boolean }) {
           </p>
           <Heading className="font-display text-3xl font-bold tracking-tight text-dark md:text-5xl">
             Qui est derrière{" "}
-            <span className="text-gradient">Biancola Studio</span> ?
+            <span className="text-gradient">Biancola Studio</span>&nbsp;?
           </Heading>
           <p className="mx-auto mt-5 max-w-2xl leading-relaxed text-gray-500">
             Je suis Samuel, fondateur de Biancola Studio. J&apos;analyse la façon
             dont les PME travaillent, puis je conçois et développe les solutions
-            digitales adaptées à leurs processus : outils métiers, automatisations
+            digitales adaptées à leurs processus : outils métiers, automatisations
             et, quand c&apos;est utile, sites et plateformes web. Basé à Liège, je
             travaille avec des entreprises de toute la Wallonie et de Belgique.
           </p>

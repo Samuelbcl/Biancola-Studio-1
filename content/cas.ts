@@ -6,6 +6,10 @@ export type Cas = {
   title: string;
   category: string;
   client?: string;
+  /** Version courte (home) : nom du produit + une ligne avant, une ligne après */
+  name?: string;
+  avant?: string;
+  apres?: string;
   /** Format Problème / Solution / Résultat (outils métiers) */
   problem?: string;
   solution?: string;
@@ -25,8 +29,11 @@ export const cas: Cas[] = [
     title: "Automatiser la création des offres commerciales",
     category: "Outil métier · Industrie",
     client: "RisoSales — pour RISO, pionnier de l'impression jet d'encre à froid écoresponsable",
+    name: "RisoSales · pour RISO",
+    avant: "Études et offres construites à la main dans Excel.",
+    apres: "Générées en quelques clics, fiables et centralisées.",
     problem:
-      "Chaque étude comparative et chaque offre commerciale était construite à la main dans Excel : des heures de manipulations, des formules fragiles et des erreurs difficiles à repérer.",
+      "Chaque étude comparative et chaque offre commerciale était construite à la main dans Excel : des heures de manipulations, des formules fragiles et des erreurs difficiles à repérer.",
     solution:
       "Un outil métier sur mesure qui centralise les données produits et génère études et offres en quelques clics, selon les règles de calcul propres à l'entreprise.",
     result:
@@ -42,8 +49,11 @@ export const cas: Cas[] = [
     title: "Centraliser le suivi commercial terrain",
     category: "Application terrain · Commercial",
     client: "RoadCRM — application mobile pour commerciaux itinérants",
+    name: "RoadCRM",
+    avant: "Rendez-vous et comptes éparpillés entre agendas, notes et fichiers.",
+    apres: "Une app mobile qui centralise tout, pensée pour la route.",
     problem:
-      "Rendez-vous, comptes et activités des commerciaux étaient dispersés entre agendas, notes et fichiers : impossible d'avoir une vue claire du terrain.",
+      "Rendez-vous, comptes et activités des commerciaux étaient dispersés entre agendas, notes et fichiers : impossible d'avoir une vue claire du terrain.",
     solution:
       "Une application mobile qui réunit rendez-vous, comptes clients et activités dans une interface pensée pour la route.",
     result:

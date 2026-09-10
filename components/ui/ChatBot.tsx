@@ -21,10 +21,10 @@ type ChatNode = {
 const TREE: Record<string, ChatNode> = {
   welcome: {
     message:
-      "👋 Salut, moi c'est Blu, le compagnon de Samuel ! Je peux t'aider à voir ce que Biancola Studio pourrait simplifier dans ton entreprise. Tu veux savoir quoi ?",
+      "👋 Salut, moi c'est Blu, le compagnon de Samuel ! Je peux t'aider à voir ce que Biancola Studio pourrait simplifier dans ton entreprise. Tu veux savoir quoi ?",
     buttons: [
       { label: "🧩 Ce que fait Biancola", next: "solutions" },
-      { label: "🔍 C'est quoi l'audit ?", next: "audit" },
+      { label: "🔍 C'est quoi l'audit ?", next: "audit" },
       { label: "📂 Voir des cas concrets", next: "cas" },
       { label: "💰 Combien ça coûte", next: "tarifs" },
       { label: "✉️ Réserver un diagnostic", next: "contact" },
@@ -32,7 +32,7 @@ const TREE: Record<string, ChatNode> = {
   },
   solutions: {
     message:
-      "Samuel aide les PME à travailler plus simplement :\n\n🔍 Biancola Audit — comprendre ton fonctionnement et trouver ce qui fait perdre du temps\n🧩 Outils métiers sur mesure — CRM, devis, planning, interventions…\n⚙️ Automatisations — connecter tes logiciels, supprimer les tâches répétitives\n🌐 Sites & e-commerce — quand ton projet passe aussi par le web",
+      "Samuel aide les PME à travailler plus simplement :\n\n🔍 Biancola Audit — comprendre ton fonctionnement et trouver ce qui fait perdre du temps\n🧩 Outils métiers sur mesure — CRM, devis, planning, interventions…\n⚙️ Automatisations — connecter tes logiciels, supprimer les tâches répétitives\n🌐 Sites & e-commerce — quand ton projet passe aussi par le web",
     buttons: [
       { label: "Voir les solutions", href: "/services" },
       { label: "↩ Retour", next: "welcome" },
@@ -49,7 +49,7 @@ const TREE: Record<string, ChatNode> = {
   },
   cas: {
     message:
-      "Deux exemples parlants :\n\n📊 RisoSales — des offres commerciales faites à la main dans Excel, transformées en outil qui les génère en quelques clics\n📱 RoadCRM — le suivi terrain des commerciaux centralisé dans une app mobile\n\nEt aussi des sites web, comme Flonaturopathie.",
+      "Deux exemples parlants :\n\n📊 RisoSales — des offres commerciales faites à la main dans Excel, transformées en outil qui les génère en quelques clics\n📱 RoadCRM — le suivi terrain des commerciaux centralisé dans une app mobile\n\nEt aussi des sites web, comme Flonaturopathie.",
     buttons: [
       { label: "Voir tous les cas concrets", href: "/realisations" },
       { label: "↩ Retour", next: "welcome" },
@@ -57,7 +57,7 @@ const TREE: Record<string, ChatNode> = {
   },
   tarifs: {
     message:
-      "Ça dépend du périmètre : une petite automatisation n'a rien à voir avec un outil complet.\n\nÇa commence toujours par un diagnostic gratuit de 30 min, puis chaque étape est chiffrée et validée avant de commencer. Pas de surprise.",
+      "Ça dépend du périmètre : une petite automatisation n'a rien à voir avec un outil complet.\n\nÇa commence toujours par un diagnostic gratuit de 30 min, puis chaque étape est chiffrée et validée avant de commencer. Pas de surprise.",
     buttons: [
       { label: "Voir comment ça marche", href: "/tarifs" },
       { label: "Réserver un diagnostic", href: "/contact" },
@@ -66,7 +66,7 @@ const TREE: Record<string, ChatNode> = {
   },
   contact: {
     message:
-      "Pour parler de tes processus directement avec Samuel :\n\n📧 samuel@biancolastudio.com\n📞 +32 498 73 71 62\n\nPremier échange gratuit, sans engagement !",
+      "Pour parler de tes processus directement avec Samuel :\n\n📧 samuel@biancolastudio.com\n📞 +32 498 73 71 62\n\nPremier échange gratuit, sans engagement !",
     buttons: [
       { label: "Envoyer un email", href: "mailto:samuel@biancolastudio.com", external: true },
       { label: "Page contact", href: "/contact" },

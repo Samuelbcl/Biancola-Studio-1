@@ -7,7 +7,7 @@ import Footer from "@/components/sections/Footer";
 export const metadata: Metadata = {
   title: "Cas concrets | Outils métiers & automatisations réalisés pour des PME — Biancola Studio",
   description:
-    "RisoSales, RoadCRM et d'autres projets : des processus manuels transformés en outils métiers, présentés en problème, solution, résultat. Réalisés depuis Liège pour des entreprises en Belgique.",
+    "RisoSales, RoadCRM et d'autres projets : des processus manuels transformés en outils métiers, présentés en problème, solution, résultat. Réalisés depuis Liège pour des entreprises en Belgique.",
   alternates: { canonical: "/realisations" },
 };
 
@@ -21,7 +21,7 @@ export default function RealisationsPage() {
           headingLevel="h1"
           ids={["risosales", "roadcrm"]}
           label="Cas concrets"
-          intro="Des outils métiers développés pour des entreprises belges, présentés comme je les aborde : un problème, une solution, un résultat."
+          intro="Des outils métiers développés pour des entreprises belges, présentés comme je les aborde : un problème, une solution, un résultat."
         />
         <Realisations
           simple

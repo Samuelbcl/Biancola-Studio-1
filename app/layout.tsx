@@ -77,7 +77,7 @@ const jsonLd = {
       name: "Biancola Studio",
       slogan: "Comprendre. Simplifier. Automatiser.",
       description:
-        "Digitalisation des PME à Liège, en Wallonie et en Belgique : audit du fonctionnement, développement d'outils métiers sur mesure (CRM, devis, planning, interventions, portails), automatisation des processus, intégration de logiciels et création de sites web.",
+        "Digitalisation des PME à Liège, en Wallonie et en Belgique : audit du fonctionnement, développement d'outils métiers sur mesure (CRM, devis, planning, interventions, portails), automatisation des processus, intégration de logiciels et création de sites web.",
       url: BASE_URL,
       logo: `${BASE_URL}/favicon.png`,
       image: `${BASE_URL}/favicon.png`,

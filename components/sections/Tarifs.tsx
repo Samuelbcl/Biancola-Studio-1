@@ -66,7 +66,7 @@ export default function Tarifs({ simple = false }: { simple?: boolean }) {
             transition={{ delay: 0.1 }}
           >
             Vous ne payez jamais pour une solution dont l&apos;intérêt n&apos;a pas
-            été démontré : chaque étape valide la suivante, et vous gardez la main
+            été démontré : chaque étape valide la suivante, et vous gardez la main
             à chacune d&apos;elles.
           </motion.p>
         </div>

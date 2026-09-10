@@ -7,7 +7,7 @@ import { faqs } from "@/content/faq";
 export const metadata: Metadata = {
   title: "FAQ | Outils métiers, automatisation et digitalisation des PME — Biancola Studio",
   description:
-    "Qu'est-ce qu'un outil métier ? Que faut-il automatiser ? Peut-on remplacer Excel ou connecter vos logiciels ? Les réponses aux questions des dirigeants de PME sur la digitalisation.",
+    "Qu'est-ce qu'un outil métier ? Que faut-il automatiser ? Peut-on remplacer Excel ou connecter vos logiciels ? Les réponses aux questions des dirigeants de PME sur la digitalisation.",
   alternates: { canonical: "/faq" },
 };
 

@@ -45,7 +45,7 @@ export default function SolutionDetail({ slug }: { slug: string }) {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
           >
-            Vous vous reconnaissez ?
+            Vous vous reconnaissez ?
           </motion.h2>
           <div className="grid gap-4 sm:grid-cols-2">
             {s.situations.map((t, i) => (

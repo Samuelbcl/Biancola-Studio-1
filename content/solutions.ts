@@ -66,7 +66,7 @@ export const solutions: Solution[] = [
     deliverables: [
       {
         title: "Cartographie de vos processus",
-        text: "Comment l'information circule aujourd'hui, de la demande du client à la facture : qui fait quoi, avec quel outil, à quel moment.",
+        text: "Comment l'information circule aujourd'hui, de la demande du client à la facture : qui fait quoi, avec quel outil, à quel moment.",
       },
       {
         title: "Frictions et pertes de temps",
@@ -114,7 +114,7 @@ export const solutions: Solution[] = [
       },
       {
         title: "Restitution",
-        text: "Un rapport clair : constats, quick wins, recommandation de solution et proposition par étapes. À vous de décider de la suite.",
+        text: "Un rapport clair : constats, quick wins, recommandation de solution et proposition par étapes. À vous de décider de la suite.",
       },
     ],
     principle: "Problème → Solution → Technologie. Jamais l'inverse.",
@@ -135,7 +135,7 @@ export const solutions: Solution[] = [
       "Un logiciel construit autour de votre façon de travailler — pas l'inverse. Uniquement ce dont vous avez besoin.",
     tagline: "Un logiciel qui s'adapte à votre entreprise. Pas l'inverse.",
     intro:
-      "Un outil métier, c'est une application construite autour de vos processus réels : vos devis, vos clients, votre planning, vos chantiers ou vos interventions. Il ne contient que ce dont vous avez besoin, parle votre vocabulaire et remplace les fichiers dispersés par une information centralisée, encodée une seule fois.",
+      "Un outil métier, c'est une application construite autour de vos processus réels : vos devis, vos clients, votre planning, vos chantiers ou vos interventions. Il ne contient que ce dont vous avez besoin, parle votre vocabulaire et remplace les fichiers dispersés par une information centralisée, encodée une seule fois.",
     examples: [
       "CRM sur mesure",
       "Devis & calculateurs",
@@ -160,7 +160,7 @@ export const solutions: Solution[] = [
       },
       {
         title: "Gestion de chantier, planning et interventions",
-        text: "Qui est où, quand, avec quel matériel : un planning partagé, des fiches d'intervention et un suivi depuis le terrain.",
+        text: "Qui est où, quand, avec quel matériel : un planning partagé, des fiches d'intervention et un suivi depuis le terrain.",
       },
       {
         title: "Portails, plateformes internes et dashboards",
@@ -181,7 +181,7 @@ export const solutions: Solution[] = [
     seo: {
       title: "Outil métier sur mesure à Liège | Logiciel & application métier pour PME",
       description:
-        "Développement d'outils métiers sur mesure pour PME : CRM, devis, planning, interventions, portails, dashboards. Un logiciel construit autour de votre façon de travailler. Liège, Wallonie, Belgique.",
+        "Développement d'outils métiers sur mesure pour PME : CRM, devis, planning, interventions, portails, dashboards. Un logiciel construit autour de votre façon de travailler. Liège, Wallonie, Belgique.",
     },
   },
   {
@@ -194,7 +194,7 @@ export const solutions: Solution[] = [
       "Arrêter de faire à la main ce qu'une machine peut faire, et connecter les logiciels que vous utilisez déjà.",
     tagline: "Arrêtez de faire à la main ce qu'une machine peut faire.",
     intro:
-      "Chaque semaine, des heures partent dans des tâches que personne n'a choisies : recopier une commande, relancer une facture, créer un dossier, envoyer le même e-mail. L'automatisation connecte vos outils entre eux pour que l'information circule sans vous — et que vos équipes se concentrent sur ce qui a de la valeur.",
+      "Chaque semaine, des heures partent dans des tâches que personne n'a choisies : recopier une commande, relancer une facture, créer un dossier, envoyer le même e-mail. L'automatisation connecte vos outils entre eux pour que l'information circule sans vous — et que vos équipes se concentrent sur ce qui a de la valeur.",
     examples: [
       "Formulaire → CRM → dossier",
       "Devis accepté → projet → facture",
@@ -219,15 +219,15 @@ export const solutions: Solution[] = [
       },
       {
         title: "Relances et rappels",
-        text: "Devis sans réponse, factures échues, rendez-vous à confirmer : relancés automatiquement, au bon moment, avec le bon message.",
+        text: "Devis sans réponse, factures échues, rendez-vous à confirmer : relancés automatiquement, au bon moment, avec le bon message.",
       },
       {
         title: "Connexion de vos logiciels existants",
-        text: "Comptabilité, facturation, CRM, agenda, e-mails, outils métier : je fais circuler l'information entre eux plutôt que de les remplacer.",
+        text: "Comptabilité, facturation, CRM, agenda, e-mails, outils métier : je fais circuler l'information entre eux plutôt que de les remplacer.",
       },
       {
         title: "Documents générés automatiquement",
-        text: "Contrats, bons de commande, rapports, fiches : produits à partir de vos données, au bon format, sans intervention.",
+        text: "Contrats, bons de commande, rapports, fiches : produits à partir de vos données, au bon format, sans intervention.",
       },
       {
         title: "IA, quand elle apporte une vraie valeur",
@@ -240,7 +240,7 @@ export const solutions: Solution[] = [
     seo: {
       title: "Automatisation PME & intégration de logiciels à Liège | Biancola Studio",
       description:
-        "Automatisation des processus et intégration de logiciels pour PME : relances automatiques, documents générés, formulaires connectés au CRM, devis → projet → facture. Liège, Wallonie, Belgique.",
+        "Automatisation des processus et intégration de logiciels pour PME : relances automatiques, documents générés, formulaires connectés au CRM, devis → projet → facture. Liège, Wallonie, Belgique.",
     },
   },
   {
@@ -250,10 +250,10 @@ export const solutions: Solution[] = [
     icon: Globe,
     title: "Sites & expériences digitales",
     short:
-      "Quand votre projet passe aussi par le web : site vitrine, e-commerce, plateforme ou espace client, connectés à vos outils.",
+      "Quand votre projet passe aussi par le web : site vitrine, e-commerce, plateforme ou espace client, connectés à vos outils.",
     tagline: "Création de site internet à Liège, pensée comme un outil.",
     intro:
-      "Webdesigner et développeur basé à Liège, je crée des sites vitrines, e-commerces et plateformes web sur mesure pour les entreprises et indépendants de Wallonie. La différence : votre site n'est pas une brochure isolée. Il s'intègre à votre fonctionnement — prise de rendez-vous, demandes de devis, espace client, catalogue — et alimente vos outils sans ressaisie.",
+      "Webdesigner et développeur basé à Liège, je crée des sites vitrines, e-commerces et plateformes web sur mesure pour les entreprises et indépendants de Wallonie. La différence : votre site n'est pas une brochure isolée. Il s'intègre à votre fonctionnement — prise de rendez-vous, demandes de devis, espace client, catalogue — et alimente vos outils sans ressaisie.",
     examples: ["Site vitrine", "E-commerce", "Plateforme / espace client", "SEO local"],
     situations: [
       "Votre site actuel ne reflète plus votre entreprise, ou ne génère aucune demande.",
@@ -273,7 +273,7 @@ export const solutions: Solution[] = [
       },
       {
         title: "Plateformes et espaces clients",
-        text: "Espace client, portail de réservation, plateforme SaaS : des applications web complètes, accessibles depuis n'importe où.",
+        text: "Espace client, portail de réservation, plateforme SaaS : des applications web complètes, accessibles depuis n'importe où.",
       },
       {
         title: "Refonte et SEO local",
@@ -287,7 +287,7 @@ export const solutions: Solution[] = [
     seo: {
       title: "Création de site internet à Liège | Webdesigner freelance — Biancola Studio",
       description:
-        "Webdesigner freelance à Liège : création de sites vitrines, e-commerces et plateformes web sur mesure, connectés à vos outils. Design moderne, performance et référencement local en Wallonie.",
+        "Webdesigner freelance à Liège : création de sites vitrines, e-commerces et plateformes web sur mesure, connectés à vos outils. Design moderne, performance et référencement local en Wallonie.",
     },
   },
 ];

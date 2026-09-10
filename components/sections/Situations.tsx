@@ -19,7 +19,7 @@ export default function Situations() {
             className="mb-3 text-sm font-semibold uppercase tracking-widest"
             style={{ color: "#2563EB" }}
           >
-            Vous vous reconnaissez ?
+            Vous vous reconnaissez ?
           </p>
           <h2 className="font-display text-3xl font-bold tracking-tight text-dark md:text-5xl">
             Vos processus méritent mieux qu&apos;
@@ -63,7 +63,7 @@ export default function Situations() {
           transition={{ delay: 0.2 }}
         >
           <p className="max-w-xl text-gray-500">
-            Vous avez répondu oui au moins une fois ? C&apos;est exactement ce que
+            Vous avez répondu oui au moins une fois&nbsp;? C&apos;est exactement ce que
             le Biancola Audit met à plat, avant de développer quoi que ce soit.
           </p>
           <Link
