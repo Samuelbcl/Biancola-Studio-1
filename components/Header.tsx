@@ -6,10 +6,10 @@ import { motion, AnimatePresence } from "framer-motion";
 import { Menu, X } from "lucide-react";
 
 const navLinks = [
-  { label: "Services", href: "/services" },
-  { label: "Réalisations", href: "/realisations" },
-  { label: "Processus", href: "/processus" },
-  { label: "Tarifs", href: "/tarifs" },
+  { label: "Solutions", href: "/services" },
+  { label: "Cas concrets", href: "/realisations" },
+  { label: "Méthode", href: "/processus" },
+  { label: "Audit", href: "/audit" },
   { label: "À propos", href: "/a-propos" },
   { label: "Contact", href: "/contact" },
 ];
@@ -46,7 +46,7 @@ export default function Header() {
           </a>
 
           {/* Desktop nav */}
-          <nav className="hidden items-center gap-8 md:flex">
+          <nav className="hidden items-center gap-8 lg:flex">
             {navLinks.map((link) => (
               <a
                 key={link.href}
@@ -60,14 +60,14 @@ export default function Header() {
 
           <a
             href="/contact"
-            className="hidden rounded-full bg-primary px-5 py-2.5 text-sm font-medium text-white transition-all glow-blue-hover hover:scale-105 md:inline-block"
+            className="hidden rounded-full bg-primary px-5 py-2.5 text-sm font-medium text-white transition-all glow-blue-hover hover:scale-105 lg:inline-block"
           >
-            Démarrer un projet
+            Réserver un diagnostic
           </a>
 
-          {/* Mobile hamburger */}
+          {/* Mobile / tablet hamburger */}
           <button
-            className="flex h-10 w-10 items-center justify-center rounded-full md:hidden"
+            className="flex h-10 w-10 items-center justify-center rounded-full lg:hidden"
             onClick={() => setMenuOpen((v) => !v)}
             aria-label={menuOpen ? "Fermer le menu" : "Ouvrir le menu"}
           >
@@ -80,7 +80,7 @@ export default function Header() {
       <AnimatePresence>
         {menuOpen && (
           <motion.div
-            className="fixed inset-0 z-40 flex flex-col bg-white px-6 pt-24 pb-10 md:hidden"
+            className="fixed inset-0 z-40 flex flex-col bg-white px-6 pt-24 pb-10 lg:hidden"
             initial={{ opacity: 0, y: -20 }}
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -20 }}
@@ -107,7 +107,7 @@ export default function Header() {
               onClick={() => setMenuOpen(false)}
               className="mt-10 inline-flex w-full items-center justify-center rounded-full bg-primary px-8 py-4 text-sm font-medium text-white"
             >
-              Démarrer un projet
+              Réserver un diagnostic
             </a>
           </motion.div>
         )}

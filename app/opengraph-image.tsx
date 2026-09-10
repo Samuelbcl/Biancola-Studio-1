@@ -1,7 +1,7 @@
 import { ImageResponse } from "next/og";
 
 export const runtime = "edge";
-export const alt = "Biancola Studio — Agence Web";
+export const alt = "Biancola Studio — Digitalisation & outils métiers sur mesure pour PME";
 export const size = { width: 1200, height: 630 };
 export const contentType = "image/png";
 
@@ -32,12 +32,21 @@ export default function Image() {
         </div>
         <div
           style={{
-            fontSize: 24,
-            color: "rgba(255,255,255,0.6)",
-            marginTop: 16,
+            fontSize: 26,
+            color: "rgba(255,255,255,0.75)",
+            marginTop: 18,
           }}
         >
-          Webdesigner Freelance — Liège, Wallonie
+          Digitalisation & outils métiers sur mesure pour PME
+        </div>
+        <div
+          style={{
+            fontSize: 20,
+            color: "rgba(255,255,255,0.5)",
+            marginTop: 12,
+          }}
+        >
+          Comprendre. Simplifier. Automatiser. — Liège, Belgique
         </div>
       </div>
     ),

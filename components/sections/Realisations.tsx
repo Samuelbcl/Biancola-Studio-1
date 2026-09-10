@@ -1,69 +1,10 @@
 "use client";
 
-import { useState, useEffect, useMemo } from "react";
+import { useState, useEffect, useMemo, type ReactNode } from "react";
 import Image from "next/image";
 import { motion } from "framer-motion";
 import { Lock, ArrowUpRight } from "lucide-react";
-
-const macbookProjects = [
-  {
-    title: "Automatisation des offres commerciales",
-    category: "Outil métier",
-    description:
-      "RisoSales — Plateforme développée pour RISO, pionnier de l'impression jet d'encre à froid écoresponsable. L'outil automatise la création d'études comparatives et d'offres commerciales, remplaçant des heures de travail manuel sur Excel par un processus rapide et fiable.",
-    images: [
-      "/projects/risosales_1.png",
-      "/projects/risosales_2.png",
-    ],
-    href: null,
-    isPublic: false,
-  },
-  {
-    title: "Vitrine digitale pour fleuriste artisanale",
-    category: "Projet démonstratif",
-    description:
-      "Bloom Club — Maquette fonctionnelle d'un site vitrine pour une fleuriste artisanale. Présentation des créations, catalogue produits et gestion événementielle. Livré avec un back-office no-code permettant de modifier contenus, photos, prix, SEO...",
-    images: [
-      "/projects/bloomclub_2.png",
-      "/projects/bloomclub_3.png",
-      "/projects/bloomclub_1.png",
-      "/projects/bloomclub_bo_1.png",
-      "/projects/bloomclub_bo_2.png",
-      "/projects/bloomclub_bo_3.png",
-    ],
-    href: null as string | null,
-    isPublic: false,
-  },
-  {
-    title: "Site vitrine & prise de rendez-vous pour naturopathe",
-    category: "Site vitrine",
-    description:
-      "Flonaturopathie — Site vitrine moderne pour une praticienne en naturopathie. Présentation des services et de l'approche thérapeutique, avec un module de prise de rendez-vous en ligne intégré. Une boutique d'ebooks est en préparation pour diversifier les canaux de vente.",
-    images: [
-      "/projects/flonaturopathie_1.png",
-      "/projects/flonaturopathie_2.png",
-      "/projects/flonaturopathie_3.png",
-      "/projects/flonaturopathie_4.png",
-    ],
-    href: "https://www.flonaturopathie.com/" as string | null,
-    isPublic: true,
-  },
-];
-
-const phoneProjects = [
-  {
-    title: "Optimisation du suivi commercial terrain",
-    category: "Application mobile",
-    description:
-      "RoadCRM — Application mobile développée pour structurer le quotidien des commerciaux terrain. L'outil centralise la gestion des rendez-vous, le suivi des comptes et les activités dans une interface pensée pour la mobilité.",
-    images: [
-      "/projects/roadcrm_1.png",
-      "/projects/roadcrm_2.png",
-    ],
-    href: null,
-    isPublic: false,
-  },
-];
+import { getCas, type Cas } from "@/content/cas";
 
 function useCarousel(images: string[]) {
   const ext = useMemo(() => [...images, images[0]], [images]);
@@ -127,6 +68,7 @@ function MacBookCarousel({ images }: { images: string[] }) {
         <div style={{ display: "flex", justifyContent: "center", gap: 6, marginTop: 12 }}>
           {images.map((_, i) => (
             <button key={i} onClick={() => { setAnimated(true); setIdx(i); }}
+              aria-label={`Capture ${i + 1}`}
               style={{
                 height: 5, width: i === activeDot ? 22 : 5, borderRadius: 3,
                 backgroundColor: i === activeDot ? "#2563EB" : "rgba(37,99,235,0.18)",
@@ -175,6 +117,7 @@ function PhoneCarousel({ images }: { images: string[] }) {
         <div style={{ display: "flex", justifyContent: "center", gap: 6, marginTop: 12 }}>
           {images.map((_, i) => (
             <button key={i} onClick={() => { setAnimated(true); setIdx(i); }}
+              aria-label={`Capture ${i + 1}`}
               style={{
                 height: 5, width: i === activeDot ? 22 : 5, borderRadius: 3,
                 backgroundColor: i === activeDot ? "#2563EB" : "rgba(37,99,235,0.18)",
@@ -187,18 +130,44 @@ function PhoneCarousel({ images }: { images: string[] }) {
   );
 }
 
-export default function Realisations({ simple = false }: { simple?: boolean }) {
+type Props = {
+  /** Mode page : pas de CTA « voir tous » par défaut */
+  simple?: boolean;
+  /** Filtre sur les identifiants de content/cas.ts (ordre conservé) */
+  ids?: string[];
+  id?: string;
+  label?: string;
+  title?: ReactNode;
+  intro?: string;
+  headingLevel?: "h1" | "h2";
+  showCta?: boolean;
+};
+
+export default function Realisations({
+  simple = false,
+  ids,
+  id = "realisations",
+  label = "Cas concrets",
+  title,
+  intro,
+  headingLevel = "h2",
+  showCta,
+}: Props) {
+  const projects = getCas(ids);
+  const Heading = headingLevel;
+  const withCta = showCta ?? !simple;
+
   return (
     <section
-      id="realisations"
+      id={id}
       style={{ background: "linear-gradient(180deg, #f7f8fc 0%, #ffffff 40%, #f7f8fc 100%)" }}
-      className="overflow-hidden py-32 px-6"
+      className="overflow-hidden px-6 py-32"
     >
       <div className="mx-auto max-w-6xl">
 
         {/* Header */}
         <motion.div
-          className="mb-16"
+          className="mb-16 max-w-3xl"
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
@@ -207,128 +176,59 @@ export default function Realisations({ simple = false }: { simple?: boolean }) {
             className="mb-2 text-sm font-semibold uppercase tracking-widest"
             style={{ color: "#2563EB" }}
           >
-            Réalisations
+            {label}
           </p>
-          <h2 className="font-display text-3xl font-bold tracking-tight text-dark md:text-5xl">
-            Projets <span className="text-gradient">réalisés</span>
-          </h2>
+          <Heading className="font-display text-3xl font-bold tracking-tight text-dark md:text-5xl">
+            {title ?? (
+              <>
+                Des problèmes réels, <span className="text-gradient">des outils concrets</span>
+              </>
+            )}
+          </Heading>
+          {intro && (
+            <p className="mt-5 max-w-2xl leading-relaxed text-gray-500">{intro}</p>
+          )}
         </motion.div>
 
-        {/* RisoSales — MacBook gauche, description droite */}
-        <motion.div
-          className="mb-24"
-          initial={{ opacity: 0, y: 40 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.7, ease: [0.25, 0.46, 0.45, 0.94] }}
-        >
-          {/* Mobile-only header above the carousel */}
-          <div className="mb-6 md:hidden">
-            <ProjectHeader project={macbookProjects[0]} />
-          </div>
-          <div className="flex flex-col gap-10 md:flex-row md:items-center md:gap-14">
-            <div className="w-full md:w-3/5">
-              <MacBookCarousel images={macbookProjects[0].images} />
-            </div>
-            <motion.div
-              className="w-full md:w-2/5"
-              initial={{ opacity: 0, x: 20 }}
-              whileInView={{ opacity: 1, x: 0 }}
-              viewport={{ once: true }}
-              transition={{ delay: 0.25 }}
-            >
-              <ProjectInfo project={macbookProjects[0]} />
-            </motion.div>
-          </div>
-        </motion.div>
-
-        {/* RoadCRM — description gauche, iPhone droite */}
-        <motion.div
-          initial={{ opacity: 0, y: 40 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.7, ease: [0.25, 0.46, 0.45, 0.94] }}
-        >
-          {/* Mobile-only header above the carousel */}
-          <div className="mb-6 md:hidden">
-            <ProjectHeader project={phoneProjects[0]} />
-          </div>
-          <div className="flex flex-col gap-10 md:flex-row md:items-center md:gap-14">
-            <motion.div
-              className="order-2 w-full md:order-1 md:w-2/5"
-              initial={{ opacity: 0, x: -20 }}
-              whileInView={{ opacity: 1, x: 0 }}
-              viewport={{ once: true }}
-              transition={{ delay: 0.25 }}
-            >
-              <ProjectInfo project={phoneProjects[0]} />
-            </motion.div>
-            <div className="order-1 w-full md:order-2 md:w-3/5">
-              <PhoneCarousel images={phoneProjects[0].images} />
-            </div>
-          </div>
-        </motion.div>
-
-        {/* Bloom Club — MacBook gauche, description droite (comme RisoSales) */}
-        <motion.div
-          className="mt-24"
-          initial={{ opacity: 0, y: 40 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ delay: 0.1, duration: 0.7, ease: [0.25, 0.46, 0.45, 0.94] }}
-        >
-          {/* Mobile-only header above the carousel */}
-          <div className="mb-6 md:hidden">
-            <ProjectHeader project={macbookProjects[1]} />
-          </div>
-          <div className="flex flex-col gap-10 md:flex-row md:items-center md:gap-14">
-            <div className="w-full md:w-3/5">
-              <MacBookCarousel images={macbookProjects[1].images} />
-            </div>
-            <motion.div
-              className="w-full md:w-2/5"
-              initial={{ opacity: 0, x: 20 }}
-              whileInView={{ opacity: 1, x: 0 }}
-              viewport={{ once: true }}
-              transition={{ delay: 0.25 }}
-            >
-              <ProjectInfo project={macbookProjects[1]} />
-            </motion.div>
-          </div>
-        </motion.div>
-
-        {/* Flonaturopathie — visible uniquement sur /realisations (page dédiée) */}
-        {simple && (
-          <motion.div
-            className="mt-24"
-            initial={{ opacity: 0, y: 40 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ delay: 0.1, duration: 0.7, ease: [0.25, 0.46, 0.45, 0.94] }}
-          >
-            {/* Mobile-only header above the carousel */}
-            <div className="mb-6 md:hidden">
-              <ProjectHeader project={macbookProjects[2]} />
-            </div>
-            <div className="flex flex-col gap-10 md:flex-row md:items-center md:gap-14">
+        <div className="space-y-24">
+          {projects.map((project, i) => {
+            const mediaLeft = i % 2 === 0;
+            return (
               <motion.div
-                className="order-2 w-full md:order-1 md:w-2/5"
-                initial={{ opacity: 0, x: -20 }}
-                whileInView={{ opacity: 1, x: 0 }}
+                key={project.id}
+                initial={{ opacity: 0, y: 40 }}
+                whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
-                transition={{ delay: 0.25 }}
+                transition={{ duration: 0.7, ease: [0.25, 0.46, 0.45, 0.94] }}
               >
-                <ProjectInfo project={macbookProjects[2]} />
+                {/* Mobile-only header above the carousel */}
+                <div className="mb-6 md:hidden">
+                  <ProjectHeader project={project} />
+                </div>
+                <div className="flex flex-col gap-10 md:flex-row md:items-center md:gap-14">
+                  <div className={`w-full md:w-3/5 ${mediaLeft ? "" : "md:order-2"}`}>
+                    {project.device === "phone" ? (
+                      <PhoneCarousel images={project.images} />
+                    ) : (
+                      <MacBookCarousel images={project.images} />
+                    )}
+                  </div>
+                  <motion.div
+                    className={`w-full md:w-2/5 ${mediaLeft ? "" : "md:order-1"}`}
+                    initial={{ opacity: 0, x: mediaLeft ? 20 : -20 }}
+                    whileInView={{ opacity: 1, x: 0 }}
+                    viewport={{ once: true }}
+                    transition={{ delay: 0.25 }}
+                  >
+                    <ProjectInfo project={project} />
+                  </motion.div>
+                </div>
               </motion.div>
-              <div className="order-1 w-full md:order-2 md:w-3/5">
-                <MacBookCarousel images={macbookProjects[2].images} />
-              </div>
-            </div>
-          </motion.div>
-        )}
+            );
+          })}
+        </div>
 
-        {/* CTA — only on homepage */}
-        {!simple && (
+        {withCta && (
           <motion.div
             className="mt-16 text-center"
             initial={{ opacity: 0, y: 20 }}
@@ -340,7 +240,7 @@ export default function Realisations({ simple = false }: { simple?: boolean }) {
               href="/realisations"
               className="inline-flex items-center gap-2 rounded-full bg-primary px-8 py-3.5 text-sm font-medium text-white transition-all glow-blue-hover hover:scale-105"
             >
-              Voir tous mes projets
+              Voir tous les cas concrets
             </a>
           </motion.div>
         )}
@@ -350,7 +250,7 @@ export default function Realisations({ simple = false }: { simple?: boolean }) {
   );
 }
 
-function ProjectHeader({ project }: { project: typeof macbookProjects[0] }) {
+function ProjectHeader({ project }: { project: Cas }) {
   return (
     <div className="flex flex-col">
       {/* Title — mobile: above (JSX order). Desktop: below badges via order-2 */}
@@ -374,10 +274,37 @@ function ProjectHeader({ project }: { project: typeof macbookProjects[0] }) {
   );
 }
 
-function ProjectBody({ project }: { project: typeof macbookProjects[0] }) {
+function ProjectBody({ project }: { project: Cas }) {
+  const psr = project.problem
+    ? [
+        ["Problème", project.problem],
+        ["Solution", project.solution],
+        ["Résultat", project.result],
+      ]
+    : null;
+
   return (
     <>
-      <p className="mb-5 text-sm leading-relaxed text-gray-500">{project.description}</p>
+      {project.client && (
+        <p className="mb-4 text-xs font-semibold text-gray-400">{project.client}</p>
+      )}
+
+      {psr ? (
+        <dl className="mb-5 space-y-3">
+          {psr.map(([k, v]) => (
+            <div key={k} className="rounded-xl border border-gray-100 bg-white/80 p-4">
+              <dt className="mb-1 flex items-center gap-2 text-xs font-semibold uppercase tracking-widest text-primary">
+                <span className="h-1.5 w-1.5 rounded-full bg-primary" />
+                {k}
+              </dt>
+              <dd className="text-sm leading-relaxed text-gray-600">{v}</dd>
+            </div>
+          ))}
+        </dl>
+      ) : (
+        <p className="mb-5 text-sm leading-relaxed text-gray-500">{project.description}</p>
+      )}
+
       {project.isPublic && project.href ? (
         <a
           href={project.href}
@@ -396,7 +323,7 @@ function ProjectBody({ project }: { project: typeof macbookProjects[0] }) {
   );
 }
 
-function ProjectInfo({ project }: { project: typeof macbookProjects[0] }) {
+function ProjectInfo({ project }: { project: Cas }) {
   return (
     <>
       {/* Header (badge + title) hidden on mobile — shown above carousel instead */}

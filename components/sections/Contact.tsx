@@ -4,17 +4,27 @@ import { useState } from "react";
 import { motion } from "framer-motion";
 import { Send, CheckCircle } from "lucide-react";
 
-const projectTypes = [
-  "Site Vitrine",
-  "E-commerce",
-  "Application Web",
-  "SaaS",
-  "Autre",
+const needs = [
+  "Diagnostic / Biancola Audit",
+  "Outil métier sur mesure",
+  "Automatisation & intégrations",
+  "Site internet / e-commerce",
+  "Je ne sais pas encore — expliquez-moi",
 ];
 
-export default function Contact() {
+const nextSteps = [
+  { n: "1", text: "Vous m'écrivez en quelques lignes" },
+  { n: "2", text: "Un échange de 30 min, gratuit" },
+  { n: "3", text: "Vous recevez mes premières pistes" },
+];
+
+const inputClass =
+  "w-full rounded-xl border-2 border-gray-100 bg-gray-50 px-4 py-3 text-sm text-dark outline-none transition-colors focus:border-primary focus:bg-white";
+
+export default function Contact({ simple = false }: { simple?: boolean }) {
   const [sent, setSent] = useState(false);
   const [loading, setLoading] = useState(false);
+  const Heading = simple ? "h1" : "h2";
 
   async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
@@ -47,26 +57,48 @@ export default function Contact() {
           >
             Contact
           </motion.p>
-          <motion.h2
-            className="font-display text-3xl font-bold tracking-tight text-dark md:text-5xl"
+          <motion.div
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ delay: 0.05 }}
           >
-            Démarrons votre <span className="text-gradient">projet</span>
-          </motion.h2>
+            <Heading className="font-display text-3xl font-bold tracking-tight text-dark md:text-5xl">
+              Réservons votre <span className="text-gradient">diagnostic</span>
+            </Heading>
+          </motion.div>
           <motion.p
-            className="mx-auto mt-4 max-w-lg text-gray-500"
+            className="mx-auto mt-4 max-w-xl leading-relaxed text-gray-500"
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ delay: 0.1 }}
           >
-            Décrivez votre projet et je reviens vers vous sous 48h avec une
-            proposition adaptée.
+            Racontez-moi comment votre entreprise travaille aujourd&apos;hui et ce
+            qui vous fait perdre du temps. Je reviens vers vous sous 48h pour
+            fixer un premier échange de 30 minutes, gratuit et sans engagement.
           </motion.p>
         </div>
+
+        <motion.div
+          className="mb-10 grid gap-3 sm:grid-cols-3"
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ delay: 0.12 }}
+        >
+          {nextSteps.map((s) => (
+            <div
+              key={s.n}
+              className="flex items-center gap-3 rounded-xl border border-gray-100 bg-gray-50 px-4 py-3"
+            >
+              <span className="flex h-7 w-7 flex-shrink-0 items-center justify-center rounded-full bg-primary text-xs font-bold text-white">
+                {s.n}
+              </span>
+              <span className="text-sm text-gray-600">{s.text}</span>
+            </div>
+          ))}
+        </motion.div>
 
         {sent ? (
           <motion.div
@@ -77,7 +109,8 @@ export default function Contact() {
             <CheckCircle size={48} className="text-green-500" />
             <h3 className="text-xl font-bold text-dark">Message envoyé !</h3>
             <p className="text-sm text-gray-500">
-              Je reviens vers vous très rapidement. Merci pour votre confiance.
+              Je reviens vers vous sous 48h pour fixer notre premier échange.
+              Merci pour votre confiance.
             </p>
           </motion.div>
         ) : (
@@ -100,7 +133,7 @@ export default function Contact() {
                   type="text"
                   required
                   placeholder="Jean Dupont"
-                  className="w-full rounded-xl border-2 border-gray-100 bg-gray-50 px-4 py-3 text-sm text-dark outline-none transition-colors focus:border-primary focus:bg-white"
+                  className={inputClass}
                 />
               </div>
               <div>
@@ -113,39 +146,54 @@ export default function Contact() {
                   type="email"
                   required
                   placeholder="jean@exemple.com"
-                  className="w-full rounded-xl border-2 border-gray-100 bg-gray-50 px-4 py-3 text-sm text-dark outline-none transition-colors focus:border-primary focus:bg-white"
+                  className={inputClass}
                 />
               </div>
             </div>
 
-            <div>
-              <label htmlFor="project-type" className="mb-1.5 block text-sm font-medium text-dark">
-                Type de projet
-              </label>
-              <select
-                id="project-type"
-                name="project-type"
-                required
-                className="w-full rounded-xl border-2 border-gray-100 bg-gray-50 px-4 py-3 text-sm text-dark outline-none transition-colors focus:border-primary focus:bg-white"
-              >
-                <option value="">Sélectionnez...</option>
-                {projectTypes.map((t) => (
-                  <option key={t} value={t}>{t}</option>
-                ))}
-              </select>
+            <div className="grid gap-5 sm:grid-cols-2">
+              <div>
+                <label htmlFor="company" className="mb-1.5 block text-sm font-medium text-dark">
+                  Entreprise{" "}
+                  <span className="font-normal text-gray-400">(facultatif)</span>
+                </label>
+                <input
+                  id="company"
+                  name="company"
+                  type="text"
+                  placeholder="Nom de votre entreprise"
+                  className={inputClass}
+                />
+              </div>
+              <div>
+                <label htmlFor="project-type" className="mb-1.5 block text-sm font-medium text-dark">
+                  Votre besoin
+                </label>
+                <select
+                  id="project-type"
+                  name="project-type"
+                  required
+                  className={inputClass}
+                >
+                  <option value="">Sélectionnez...</option>
+                  {needs.map((t) => (
+                    <option key={t} value={t}>{t}</option>
+                  ))}
+                </select>
+              </div>
             </div>
 
             <div>
               <label htmlFor="message" className="mb-1.5 block text-sm font-medium text-dark">
-                Décrivez votre projet
+                Comment travaillez-vous aujourd&apos;hui ?
               </label>
               <textarea
                 id="message"
                 name="message"
                 required
                 rows={5}
-                placeholder="Parlez-moi de votre projet, vos objectifs, votre budget estimé..."
-                className="w-full resize-none rounded-xl border-2 border-gray-100 bg-gray-50 px-4 py-3 text-sm text-dark outline-none transition-colors focus:border-primary focus:bg-white"
+                placeholder="Ex. : nos devis sont faits dans Excel, les commandes arrivent par e-mail et on ressaisit tout dans le logiciel de facturation…"
+                className={`${inputClass} resize-none`}
               />
             </div>
 
@@ -155,11 +203,11 @@ export default function Contact() {
                 disabled={loading}
                 className="inline-flex items-center gap-2 rounded-full bg-primary px-8 py-3.5 text-sm font-medium text-white transition-opacity hover:opacity-90 disabled:opacity-60"
               >
-                {loading ? "Envoi en cours..." : "Envoyer ma demande"}
+                {loading ? "Envoi en cours..." : "Réserver mon diagnostic"}
                 {!loading && <Send size={16} />}
               </button>
               <p className="text-xs text-gray-400">
-                Réponse sous 48h · Sans engagement
+                Réponse sous 48h · Gratuit · Sans engagement
               </p>
             </div>
           </motion.form>

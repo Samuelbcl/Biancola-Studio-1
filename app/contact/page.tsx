@@ -4,9 +4,9 @@ import Contact from "@/components/sections/Contact";
 import Footer from "@/components/sections/Footer";
 
 export const metadata: Metadata = {
-  title: "Contact | Biancola Studio — Webdesigner à Liège, devis gratuit",
+  title: "Contact | Réserver un diagnostic gratuit — Biancola Studio, Liège",
   description:
-    "Contactez Biancola Studio pour discuter de votre projet web à Liège. Réponse sous 48h, devis gratuit et sans engagement.",
+    "Racontez-moi comment votre PME travaille aujourd'hui : je reviens vers vous sous 48h pour un premier échange de 30 minutes, gratuit et sans engagement. Liège, Wallonie, Belgique.",
   alternates: { canonical: "/contact" },
 };
 
@@ -15,7 +15,7 @@ export default function ContactPage() {
     <>
       <Header />
       <main className="pt-20">
-        <Contact />
+        <Contact simple />
       </main>
       <Footer />
     </>

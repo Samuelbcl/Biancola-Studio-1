@@ -11,6 +11,8 @@ const spaceGrotesk = Space_Grotesk({
   weight: ["500", "600", "700"],
 });
 
+const BASE_URL = "https://www.biancolastudio.com";
+
 export const viewport: Viewport = {
   width: "device-width",
   initialScale: 1,
@@ -18,26 +20,30 @@ export const viewport: Viewport = {
 };
 
 export const metadata: Metadata = {
-  metadataBase: new URL("https://www.biancolastudio.com"),
+  metadataBase: new URL(BASE_URL),
   alternates: { canonical: "/" },
   icons: {
     icon: "/favicon.png",
     apple: "/favicon.png",
   },
-  title: "Biancola Studio | Webdesigner à Liège — Sites Vitrines & Applications Web",
+  title: "Digitalisation PME & outils métiers sur mesure à Liège | Biancola Studio",
   description:
-    "Webdesigner freelance à Liège, je crée des sites vitrines, e-commerces et applications web sur mesure en Wallonie. Design moderne et développement performant.",
+    "Audit, outils métiers sur mesure et automatisations pour PME à Liège, en Wallonie et en Belgique. Je transforme vos fichiers Excel, e-mails et tâches manuelles en un outil simple, centralisé et automatisé.",
   keywords: [
+    "digitalisation PME Belgique",
+    "digitalisation PME Liège",
+    "digitalisation entreprise Wallonie",
+    "outil métier sur mesure",
+    "logiciel métier sur mesure",
+    "application métier",
+    "CRM sur mesure",
+    "automatisation PME",
+    "automatisation entreprise",
+    "développement logiciel Liège",
+    "développement application métier",
+    "intégration logiciels PME",
     "webdesigner liège",
-    "site vitrine liège",
-    "création site liège",
-    "développeur web wallonie",
-    "freelance web liège",
-    "application web liège",
-    "agence web liège",
-    "e-commerce belgique",
-    "webdesigner belgique",
-    "création site wallonie",
+    "création site internet liège",
     "Biancola Studio",
   ],
   authors: [{ name: "Samuel Biancola" }],
@@ -46,15 +52,15 @@ export const metadata: Metadata = {
     type: "website",
     locale: "fr_BE",
     siteName: "Biancola Studio",
-    title: "Biancola Studio | Webdesigner à Liège — Sites Vitrines & Applications Web",
+    title: "Biancola Studio | Digitalisation & outils métiers sur mesure pour PME",
     description:
-      "Webdesigner freelance à Liège. Je crée des sites vitrines, e-commerces et applications web performantes en Wallonie.",
+      "J'analyse le fonctionnement des PME et je développe les outils métiers et automatisations qui leur font gagner du temps. Liège, Wallonie, Belgique.",
   },
   twitter: {
     card: "summary_large_image",
-    title: "Biancola Studio | Webdesigner à Liège",
+    title: "Biancola Studio | Digitalisation & outils métiers pour PME",
     description:
-      "Sites vitrines, e-commerces et applications web sur mesure à Liège, Wallonie.",
+      "Audit, outils métiers sur mesure et automatisation pour PME. Liège, Wallonie, Belgique.",
   },
   robots: {
     index: true,
@@ -67,10 +73,14 @@ const jsonLd = {
   "@graph": [
     {
       "@type": "ProfessionalService",
+      "@id": `${BASE_URL}/#organization`,
       name: "Biancola Studio",
+      slogan: "Comprendre. Simplifier. Automatiser.",
       description:
-        "Webdesigner et développeur web freelance à Liège. Création de sites vitrines, e-commerces et applications web sur mesure en Wallonie et en Belgique.",
-      url: "https://www.biancolastudio.com",
+        "Digitalisation des PME à Liège, en Wallonie et en Belgique : audit du fonctionnement, développement d'outils métiers sur mesure (CRM, devis, planning, interventions, portails), automatisation des processus, intégration de logiciels et création de sites web.",
+      url: BASE_URL,
+      logo: `${BASE_URL}/favicon.png`,
+      image: `${BASE_URL}/favicon.png`,
       telephone: "+32498737162",
       email: "samuel@biancolastudio.com",
       address: {
@@ -87,22 +97,62 @@ const jsonLd = {
       founder: {
         "@type": "Person",
         name: "Samuel Biancola",
-        jobTitle: "Webdesigner & Développeur Web",
+        jobTitle:
+          "Fondateur — analyse, conception et développement de solutions digitales pour PME",
       },
       priceRange: "Sur devis",
       serviceType: [
-        "Création de site vitrine",
-        "Développement e-commerce",
-        "Développement d'application web",
-        "Développement SaaS",
-        "Webdesign",
+        "Audit de digitalisation",
+        "Développement d'outils métiers sur mesure",
+        "Automatisation des processus",
+        "Intégration de logiciels",
+        "Développement d'applications web et mobiles",
+        "Création de sites internet",
       ],
+      hasOfferCatalog: {
+        "@type": "OfferCatalog",
+        name: "Solutions Biancola Studio",
+        itemListElement: [
+          {
+            "@type": "Offer",
+            itemOffered: {
+              "@type": "Service",
+              name: "Biancola Audit — diagnostic de digitalisation",
+              url: `${BASE_URL}/audit`,
+            },
+          },
+          {
+            "@type": "Offer",
+            itemOffered: {
+              "@type": "Service",
+              name: "Outils métiers sur mesure",
+              url: `${BASE_URL}/services/outil-metier-sur-mesure`,
+            },
+          },
+          {
+            "@type": "Offer",
+            itemOffered: {
+              "@type": "Service",
+              name: "Automatisation & intégrations",
+              url: `${BASE_URL}/services/automatisation-pme`,
+            },
+          },
+          {
+            "@type": "Offer",
+            itemOffered: {
+              "@type": "Service",
+              name: "Sites & expériences digitales",
+              url: `${BASE_URL}/services/creation-site-internet-liege`,
+            },
+          },
+        ],
+      },
       knowsLanguage: ["fr", "en"],
     },
     {
       "@type": "WebSite",
       name: "Biancola Studio",
-      url: "https://www.biancolastudio.com",
+      url: BASE_URL,
     },
   ],
 };

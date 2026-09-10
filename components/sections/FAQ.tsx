@@ -2,56 +2,11 @@
 
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
+import { faqs } from "@/content/faq";
 
-const faqs = [
-  {
-    q: "Combien coûte un site web ?",
-    a: "Chaque projet est unique, donc le prix aussi. Après un premier échange gratuit, je vous envoie un devis détaillé adapté à vos besoins. Pas de surprise, vous savez exactement ce que vous payez.",
-  },
-  {
-    q: "Combien de temps prend la création d'un site ?",
-    a: "Un site vitrine est généralement livré en 1 à 2 semaines. Pour une application web ou un projet plus complexe, les délais varient selon l'ampleur du projet — on en discute ensemble dès le premier échange.",
-  },
-  {
-    q: "Mon site fonctionnera-t-il sur téléphone et tablette ?",
-    a: "Évidemment. Chaque site est pensé dès le départ pour s'afficher parfaitement sur tous les écrans : smartphone, tablette et ordinateur.",
-  },
-  {
-    q: "Pourrai-je modifier mon site moi-même ?",
-    a: "Oui, selon le type de projet, j'intègre un espace d'administration qui vous permet de modifier vos contenus en toute autonomie. Une formation à la prise en main est incluse dans chaque projet.",
-  },
-  {
-    q: "Que se passe-t-il après la mise en ligne ?",
-    a: "Je reste disponible. Une maintenance mensuelle couvre les mises à jour de sécurité, les sauvegardes et les petites évolutions. Pour des besoins plus importants, on définit un nouveau périmètre ensemble.",
-  },
-  {
-    q: "Quelles technologies utilisez-vous ?",
-    a: "Je travaille principalement avec React, Next.js et TypeScript pour le front-end, et Node.js pour le back-end. Des outils modernes, performants et évolutifs.",
-  },
-  {
-    q: "Le référencement (SEO) est-il inclus ?",
-    a: "Oui, chaque site est optimisé pour le référencement naturel : structure technique propre, balises méta, vitesse de chargement et bonnes pratiques Google.",
-  },
-  {
-    q: "Comment se déroule le paiement ?",
-    a: "Simple et transparent : un acompte au démarrage du projet, puis le solde après votre validation finale. Vous ne payez le reste que lorsque vous êtes satisfait du résultat.",
-  },
-  {
-    q: "Travaillez-vous uniquement à Liège ?",
-    a: "Je suis basé à Liège, mais je travaille avec des clients dans toute la Wallonie et en Belgique. La plupart des échanges se font en visioconférence, mais je suis disponible pour des rencontres en personne dans la région liégeoise.",
-  },
-  {
-    q: "Pourquoi choisir un webdesigner freelance plutôt qu'une agence ?",
-    a: "En tant que freelance, vous bénéficiez d'un interlocuteur unique, de tarifs plus accessibles et d'une communication directe. Pas d'intermédiaire, pas de surprise. Chaque projet est suivi de A à Z par la même personne.",
-  },
-  {
-    q: "Pouvez-vous refondre un site existant ?",
-    a: "Absolument. Que votre site actuel soit vieillissant ou mal référencé, je peux le repenser entièrement : nouveau design, meilleures performances et optimisation pour le référencement local à Liège et en Wallonie.",
-  },
-];
-
-export default function FAQ() {
+export default function FAQ({ simple = false }: { simple?: boolean }) {
   const [openIndex, setOpenIndex] = useState<number | null>(null);
+  const Heading = simple ? "h1" : "h2";
 
   function toggle(i: number) {
     setOpenIndex(openIndex === i ? null : i);
@@ -60,9 +15,21 @@ export default function FAQ() {
   return (
     <section id="faq" className="bg-white px-6 py-32">
       <div className="mx-auto max-w-3xl">
-        <h2 className="mb-16 font-display text-center text-3xl font-bold tracking-tight text-dark md:text-5xl">
-          Questions <span className="text-gradient">Fréquentes</span>
-        </h2>
+        <div className="mb-16 text-center">
+          <p
+            className="mb-3 text-sm font-semibold uppercase tracking-widest"
+            style={{ color: "#2563EB" }}
+          >
+            FAQ
+          </p>
+          <Heading className="font-display text-3xl font-bold tracking-tight text-dark md:text-5xl">
+            Questions <span className="text-gradient">fréquentes</span>
+          </Heading>
+          <p className="mx-auto mt-5 max-w-xl leading-relaxed text-gray-500">
+            Outils métiers, automatisation, Excel, budget, IA, suite du projet :
+            les questions que les dirigeants de PME me posent le plus souvent.
+          </p>
+        </div>
 
         <div className="space-y-4">
           {faqs.map((faq, i) => {
@@ -79,6 +46,7 @@ export default function FAQ() {
                 <button
                   onClick={() => toggle(i)}
                   className="flex w-full items-center justify-between px-6 py-5 text-left"
+                  aria-expanded={isOpen}
                 >
                   <span className="pr-4 text-base font-medium text-dark">
                     {faq.q}

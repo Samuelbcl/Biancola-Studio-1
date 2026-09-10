@@ -1,12 +1,13 @@
 import type { Metadata } from "next";
 import Header from "@/components/Header";
 import Processus from "@/components/sections/Processus";
+import AuditTeaser from "@/components/sections/AuditTeaser";
 import Footer from "@/components/sections/Footer";
 
 export const metadata: Metadata = {
-  title: "Processus | Biancola Studio — Ma méthode de travail à Liège",
+  title: "Méthode | Comprendre, simplifier, automatiser — Biancola Studio",
   description:
-    "De l'analyse de vos besoins à la mise en ligne : découvrez le processus de création de votre site ou application web, étape par étape.",
+    "Comprendre, identifier, simplifier, prototyper, construire, automatiser, accompagner : la méthode Biancola Studio pour digitaliser le fonctionnement d'une PME sans développer dans le vide.",
   alternates: { canonical: "/processus" },
 };
 
@@ -16,6 +17,7 @@ export default function ProcessusPage() {
       <Header />
       <main className="pt-20">
         <Processus simple />
+        <AuditTeaser />
       </main>
       <Footer />
     </>

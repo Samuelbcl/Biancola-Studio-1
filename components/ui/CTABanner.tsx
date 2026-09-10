@@ -17,7 +17,7 @@ export default function CTABanner() {
         viewport={{ once: true }}
         transition={{ duration: 0.6 }}
       >
-        {/* Personnage Samuel + AI accoudé sur le bord supérieur gauche */}
+        {/* Personnage Samuel + Blu accoudé sur le bord supérieur gauche */}
         <div
           className="pointer-events-none absolute z-20 hidden md:block"
           style={{
@@ -29,7 +29,7 @@ export default function CTABanner() {
         >
           <Image
             src="/marketing/samuel-peek.png"
-            alt="Samuel et son IA"
+            alt="Samuel et Blu"
             width={440}
             height={400}
             priority
@@ -38,16 +38,18 @@ export default function CTABanner() {
         </div>
 
         <h3 className="relative z-10 font-display text-2xl font-bold text-white md:text-3xl">
-          Un projet en tête ?
+          Montrez-moi comment vous travaillez.
         </h3>
-        <p className="relative z-10 mx-auto mt-3 max-w-md text-sm text-white/60">
-          Discutons de votre projet web. Basé à Liège, je suis disponible pour un premier échange gratuit.
+        <p className="relative z-10 mx-auto mt-3 max-w-lg text-sm leading-relaxed text-white/60">
+          Pas besoin de cahier des charges, ni de savoir quelle application il vous
+          faut. Racontez-moi votre quotidien : je vous dis ce qui peut être
+          simplifié, et par où commencer.
         </p>
         <a
           href="/contact"
           className="relative z-10 mt-6 inline-flex items-center gap-2 rounded-full bg-white px-8 py-3.5 text-sm font-medium text-dark transition-all hover:scale-105 hover:shadow-lg"
         >
-          Démarrer un projet
+          Réserver un diagnostic
           <ArrowUpRight size={16} />
         </a>
       </motion.div>

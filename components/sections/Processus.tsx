@@ -1,41 +1,11 @@
 "use client";
 
 import { useRef } from "react";
-import { motion, useScroll, useTransform, MotionValue } from "framer-motion";
+import { motion, useScroll, useTransform } from "framer-motion";
 import { useIsMobile } from "@/hooks/useIsMobile";
+import { methode } from "@/content/methode";
 
-const steps = [
-  {
-    title: "Contact",
-    description:
-      "Échangeons sur votre projet, vos objectifs et vos besoins pour définir ensemble la meilleure approche.",
-  },
-  {
-    title: "Audit",
-    description:
-      "Analyse approfondie de votre marché, de vos concurrents et de votre positionnement digital actuel.",
-  },
-  {
-    title: "Confection",
-    description:
-      "Design et développement sur mesure de votre solution, avec des points réguliers à chaque étape.",
-  },
-  {
-    title: "Tests",
-    description:
-      "Tests rigoureux sur tous les appareils et navigateurs pour garantir performance et fiabilité.",
-  },
-  {
-    title: "Validation",
-    description:
-      "Revue complète avec vous, ajustements finaux et validation avant la mise en ligne.",
-  },
-  {
-    title: "Lancement",
-    description:
-      "Déploiement, monitoring et accompagnement post-lancement pour assurer un démarrage optimal.",
-  },
-];
+const steps = methode;
 
 function ProcessStep({
   step,
@@ -111,19 +81,34 @@ export default function Processus({ simple = false }: { simple?: boolean }) {
   const titleOpacity = useTransform(scrollYProgress, [0.05, 0.2], [0, 1]);
   const titleY = useTransform(scrollYProgress, [0.05, 0.2], [30, 0]);
   const timelineScale = useTransform(scrollYProgress, [0.1, 0.85], [0, 1]);
+  const Heading = simple ? "h1" : "h2";
 
   return (
     <section ref={simple ? undefined : sectionRef} id="processus" className="bg-white px-6 py-32">
       <div className="mx-auto max-w-3xl">
-        <motion.h2
-          className="mb-20 font-display text-center text-3xl font-bold tracking-tight text-dark md:text-5xl"
+        <motion.div
+          className="mb-20 text-center"
           {...(simple
             ? { initial: { opacity: 0, y: 20 }, whileInView: { opacity: 1, y: 0 }, viewport: { once: true } }
             : { style: { opacity: titleOpacity, y: titleY, willChange: "transform, opacity" } }
           )}
         >
-          Mon <span className="text-gradient">Processus</span>
-        </motion.h2>
+          <p
+            className="mb-3 text-sm font-semibold uppercase tracking-widest"
+            style={{ color: "#2563EB" }}
+          >
+            Méthode
+          </p>
+          <Heading className="font-display text-3xl font-bold tracking-tight text-dark md:text-5xl">
+            Comprendre. Simplifier.{" "}
+            <span className="text-gradient">Automatiser.</span>
+          </Heading>
+          <p className="mx-auto mt-5 max-w-2xl leading-relaxed text-gray-500">
+            Pas de « contact → design → développement → mise en ligne ». Je ne
+            développe rien avant d&apos;avoir compris comment vous travaillez,
+            identifié ce qui compte et simplifié le processus.
+          </p>
+        </motion.div>
 
         {/* Timeline centrée (mobile + desktop) */}
         <div className="relative">

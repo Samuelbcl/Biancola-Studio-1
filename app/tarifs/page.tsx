@@ -1,12 +1,13 @@
 import type { Metadata } from "next";
 import Header from "@/components/Header";
 import Tarifs from "@/components/sections/Tarifs";
+import CTABanner from "@/components/ui/CTABanner";
 import Footer from "@/components/sections/Footer";
 
 export const metadata: Metadata = {
-  title: "Tarifs | Webdesigner Liège — Devis sur mesure pour votre projet",
+  title: "Investissement | Diagnostic gratuit, audit et projet par étapes — Biancola Studio",
   description:
-    "Devis personnalisé pour la création de votre site vitrine, e-commerce ou application web à Liège. Tarifs transparents, sans surprise.",
+    "Comment se passe l'investissement dans un outil métier ou une automatisation : diagnostic gratuit, Biancola Audit, puis projet et accompagnement chiffrés par étapes. Aucune surprise.",
   alternates: { canonical: "/tarifs" },
 };
 
@@ -15,7 +16,8 @@ export default function TarifsPage() {
     <>
       <Header />
       <main className="pt-20">
-        <Tarifs />
+        <Tarifs simple />
+        <CTABanner />
       </main>
       <Footer />
     </>

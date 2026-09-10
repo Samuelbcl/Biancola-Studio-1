@@ -1,28 +1,38 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { FileText, Wrench, ArrowUpRight } from "lucide-react";
+import { MessagesSquare, SearchCheck, Wrench, ArrowUpRight } from "lucide-react";
 
 const phases = [
   {
-    icon: FileText,
-    label: "01 — Création",
-    title: "Devis sur mesure",
+    icon: MessagesSquare,
+    label: "01 — Diagnostic",
+    title: "Premier échange",
     description:
-      "Chaque projet est unique. Après un premier échange pour comprendre vos besoins, objectifs et contraintes, je vous envoie un devis détaillé : périmètre, délais, tarif. Pas de forfait figé — un prix juste pour votre projet.",
-    detail: "Inclus dans le devis : design, développement, mise en ligne, formation à la prise en main.",
+      "30 minutes, gratuites et sans engagement. Vous me racontez comment vous travaillez, je vous dis honnêtement s'il y a matière à simplifier — et par où commencer.",
+    detail: "Gratuit · En visio ou sur place",
+  },
+  {
+    icon: SearchCheck,
+    label: "02 — Biancola Audit",
+    title: "Analyse & recommandations",
+    description:
+      "Cartographie de vos processus, frictions, quick wins et recommandation de solution. Un livrable exploitable, que vous poursuiviez avec moi ou non.",
+    detail: "Périmètre et format définis lors du diagnostic",
   },
   {
     icon: Wrench,
-    label: "02 — Après lancement",
-    title: "Maintenance & évolutions",
+    label: "03 — Projet & Biancola Care",
+    title: "Construction & accompagnement",
     description:
-      "Une fois votre site en ligne, je reste disponible. Une facture mensuelle couvre la maintenance technique, les mises à jour de sécurité et les petites évolutions. Pour les développements plus importants, on définit un nouveau devis ensemble.",
-    detail: "Tarif mensuel défini selon le niveau de suivi souhaité.",
+      "Prototype, développement par étapes, automatisations, puis suivi dans la durée. Chaque étape fait l'objet d'un devis clair, validé avant de commencer.",
+    detail: "Devis par étape · Care mensuel selon le niveau de suivi",
   },
 ];
 
-export default function Tarifs() {
+export default function Tarifs({ simple = false }: { simple?: boolean }) {
+  const Heading = simple ? "h1" : "h2";
+
   return (
     <section id="tarifs" className="bg-white px-6 py-32">
       <div className="mx-auto max-w-7xl">
@@ -35,18 +45,19 @@ export default function Tarifs() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
           >
-            Tarifs
+            Investissement
           </motion.p>
-          <motion.h2
-            className="font-display text-3xl font-bold tracking-tight text-dark md:text-5xl"
+          <motion.div
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ delay: 0.05 }}
           >
-            Un prix juste,{" "}
-            <span className="text-gradient">adapté à votre projet</span>
-          </motion.h2>
+            <Heading className="font-display text-3xl font-bold tracking-tight text-dark md:text-5xl">
+              Un investissement{" "}
+              <span className="text-gradient">par étapes</span>
+            </Heading>
+          </motion.div>
           <motion.p
             className="mt-5 text-gray-500"
             initial={{ opacity: 0, y: 20 }}
@@ -54,19 +65,20 @@ export default function Tarifs() {
             viewport={{ once: true }}
             transition={{ delay: 0.1 }}
           >
-            Transparence totale. Vous savez exactement pour quoi vous payez,
-            dès le départ.
+            Vous ne payez jamais pour une solution dont l&apos;intérêt n&apos;a pas
+            été démontré : chaque étape valide la suivante, et vous gardez la main
+            à chacune d&apos;elles.
           </motion.p>
         </div>
 
-        {/* Two phase cards */}
-        <div className="grid gap-6 md:grid-cols-2">
+        {/* Phase cards */}
+        <div className="grid gap-6 md:grid-cols-3">
           {phases.map((phase, i) => {
             const Icon = phase.icon;
             return (
               <motion.div
                 key={phase.label}
-                className="group rounded-2xl border-2 border-gray-100 bg-white p-8 transition-colors hover:border-primary"
+                className="group flex flex-col rounded-2xl border-2 border-gray-100 bg-white p-8 transition-colors hover:border-primary"
                 initial={{ opacity: 0, y: 30 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
@@ -92,7 +104,7 @@ export default function Tarifs() {
                 </p>
 
                 <div
-                  className="rounded-xl p-4 text-sm text-gray-500"
+                  className="mt-auto rounded-xl p-4 text-sm text-gray-500"
                   style={{ backgroundColor: "rgba(37,99,235,0.04)" }}
                 >
                   {phase.detail}
@@ -112,9 +124,9 @@ export default function Tarifs() {
         >
           <a
             href="/contact"
-            className="magnetic inline-flex items-center gap-2 rounded-full bg-primary px-8 py-3.5 text-sm font-medium text-white transition-opacity hover:opacity-90"
+            className="inline-flex items-center gap-2 rounded-full bg-primary px-8 py-3.5 text-sm font-medium text-white transition-all glow-blue-hover hover:scale-105"
           >
-            Démarrer un projet
+            Réserver un diagnostic
             <ArrowUpRight size={16} />
           </a>
           <p className="text-sm text-gray-400">

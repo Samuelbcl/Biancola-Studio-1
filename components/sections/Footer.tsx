@@ -8,21 +8,22 @@ const footerLinks = [
   {
     title: "Navigation",
     links: [
-      { label: "Services", href: "/services" },
-      { label: "Réalisations", href: "/realisations" },
-      { label: "Processus", href: "/processus" },
-      { label: "Tarifs", href: "/tarifs" },
+      { label: "Solutions", href: "/services" },
+      { label: "Cas concrets", href: "/realisations" },
+      { label: "Méthode", href: "/processus" },
+      { label: "Investissement", href: "/tarifs" },
       { label: "À propos", href: "/a-propos" },
       { label: "FAQ", href: "/faq" },
+      { label: "Contact", href: "/contact" },
     ],
   },
   {
-    title: "Services",
+    title: "Solutions",
     links: [
-      { label: "Site Vitrine", href: "/services" },
-      { label: "E-commerce", href: "/services" },
-      { label: "Application Web", href: "/services" },
-      { label: "SaaS", href: "/services" },
+      { label: "Biancola Audit", href: "/audit" },
+      { label: "Outils métiers sur mesure", href: "/services/outil-metier-sur-mesure" },
+      { label: "Automatisation & intégrations", href: "/services/automatisation-pme" },
+      { label: "Sites & e-commerce", href: "/services/creation-site-internet-liege" },
     ],
   },
 ];
@@ -32,7 +33,7 @@ export default function Footer() {
     <footer className="bg-dark text-white">
       {/* Marquee divider */}
       <Marquee
-        text="Biancola Studio · Webdesigner à Liège · Wallonie, Belgique ·"
+        text="Biancola Studio · Digitalisation des PME · Outils métiers sur mesure · Liège, Belgique ·"
         variant="filled"
         speed={25}
       />
@@ -44,8 +45,9 @@ export default function Footer() {
           <div className="md:col-span-2">
             <h3 className="font-display text-xl font-bold tracking-tight">Biancola Studio</h3>
             <p className="mt-4 max-w-sm text-sm leading-relaxed text-gray-400">
-              Webdesigner freelance à Liège, je conçois des sites vitrines
-              et applications web performantes pour les entreprises en Wallonie.
+              Digitalisation & outils métiers sur mesure pour PME. J&apos;analyse
+              votre fonctionnement et je développe les outils qui vous font gagner
+              du temps — depuis Liège, pour toute la Wallonie et la Belgique.
             </p>
             <address className="mt-6 space-y-2 text-sm not-italic text-gray-400">
               <a href="mailto:samuel@biancolastudio.com" className="flex items-center gap-2 transition-colors hover:text-white">

@@ -1,26 +1,26 @@
 "use client";
 
 import { useRef } from "react";
-import { motion, useScroll, useTransform, MotionValue } from "framer-motion";
-import { Code, Lightbulb, Handshake } from "lucide-react";
+import { motion, useScroll, useTransform } from "framer-motion";
+import { Compass, Code, Handshake } from "lucide-react";
 import { useIsMobile } from "@/hooks/useIsMobile";
 
 const pillars = [
   {
-    icon: Code,
+    icon: Compass,
     number: "01",
-    title: "Technique",
-    subtitle: "Des outils modernes",
+    title: "Compréhension métier",
+    subtitle: "Avant le code, le terrain",
     description:
-      "React, Next.js, TypeScript — chaque projet est construit avec des technologies performantes et évolutives. Pas de template, tout est développé sur mesure.",
+      "Je commence toujours par comprendre comment vous travaillez vraiment : vos outils, vos habitudes, vos contraintes. C'est là que se trouvent les vrais gains — pas dans une liste de fonctionnalités.",
   },
   {
-    icon: Lightbulb,
+    icon: Code,
     number: "02",
-    title: "Créativité",
-    subtitle: "Un design qui vous ressemble",
+    title: "Technique",
+    subtitle: "Des outils modernes, sans sur-ingénierie",
     description:
-      "Chaque interface est pensée pour refléter votre identité. Un design soigné, une expérience fluide et un résultat qui se démarque.",
+      "React, Next.js, TypeScript, intégrations et IA quand elle apporte quelque chose. Je ne reconstruis pas ce qu'un logiciel existant fait déjà bien : je connecte, je complète, je simplifie.",
   },
   {
     icon: Handshake,
@@ -28,7 +28,7 @@ const pillars = [
     title: "Proximité",
     subtitle: "Un interlocuteur unique",
     description:
-      "Basé à Liège, je suis disponible pour des échanges en personne dans toute la Wallonie. Un interlocuteur unique, communication directe et transparence totale.",
+      "Basé à Liège, disponible en personne dans toute la Wallonie. Une communication directe, des explications sans jargon et une transparence totale du début à la fin.",
   },
 ];
 
@@ -116,6 +116,7 @@ export default function About({ simple = false }: { simple?: boolean }) {
 
   const headerOpacity = useTransform(scrollYProgress, [0.05, 0.2], [0, 1]);
   const headerY = useTransform(scrollYProgress, [0.05, 0.2], [30, 0]);
+  const Heading = simple ? "h1" : "h2";
 
   return (
     <section
@@ -141,16 +142,16 @@ export default function About({ simple = false }: { simple?: boolean }) {
           >
             À propos
           </p>
-          <h2 className="font-display text-3xl font-bold tracking-tight text-dark md:text-5xl">
+          <Heading className="font-display text-3xl font-bold tracking-tight text-dark md:text-5xl">
             Qui est derrière{" "}
             <span className="text-gradient">Biancola Studio</span> ?
-          </h2>
+          </Heading>
           <p className="mx-auto mt-5 max-w-2xl leading-relaxed text-gray-500">
-            Je suis Samuel, webdesigner et développeur web freelance basé à
-            Liège, en Wallonie. Je conçois des sites vitrines, e-commerces et
-            applications web sur mesure pour les entreprises et indépendants en
-            Belgique. Rigueur, transparence et résultats — c&apos;est ce qui
-            guide chaque projet.
+            Je suis Samuel, fondateur de Biancola Studio. J&apos;analyse la façon
+            dont les PME travaillent, puis je conçois et développe les solutions
+            digitales adaptées à leurs processus : outils métiers, automatisations
+            et, quand c&apos;est utile, sites et plateformes web. Basé à Liège, je
+            travaille avec des entreprises de toute la Wallonie et de Belgique.
           </p>
         </motion.div>
 

@@ -21,51 +21,52 @@ type ChatNode = {
 const TREE: Record<string, ChatNode> = {
   welcome: {
     message:
-      "👋 Salut, moi c'est Blu, le compagnon de Samuel ! Je peux t'aider à découvrir Biancola Studio. Tu veux savoir quoi ?",
+      "👋 Salut, moi c'est Blu, le compagnon de Samuel ! Je peux t'aider à voir ce que Biancola Studio pourrait simplifier dans ton entreprise. Tu veux savoir quoi ?",
     buttons: [
-      { label: "💼 Voir les services", next: "services" },
+      { label: "🧩 Ce que fait Biancola", next: "solutions" },
+      { label: "🔍 C'est quoi l'audit ?", next: "audit" },
+      { label: "📂 Voir des cas concrets", next: "cas" },
       { label: "💰 Combien ça coûte", next: "tarifs" },
-      { label: "🎨 Voir les réalisations", next: "realisations" },
-      { label: "📅 Délais & process", next: "process" },
-      { label: "✉️ Contacter Samuel", next: "contact" },
+      { label: "✉️ Réserver un diagnostic", next: "contact" },
     ],
   },
-  services: {
+  solutions: {
     message:
-      "Samuel propose 4 types de projets web :\n\n🌐 Site vitrine — ton activité en ligne\n🛒 E-commerce — boutique en ligne\n💻 Application web sur mesure\n☁️ SaaS — plateforme complète",
+      "Samuel aide les PME à travailler plus simplement :\n\n🔍 Biancola Audit — comprendre ton fonctionnement et trouver ce qui fait perdre du temps\n🧩 Outils métiers sur mesure — CRM, devis, planning, interventions…\n⚙️ Automatisations — connecter tes logiciels, supprimer les tâches répétitives\n🌐 Sites & e-commerce — quand ton projet passe aussi par le web",
     buttons: [
-      { label: "Voir la page Services", href: "/services" },
+      { label: "Voir les solutions", href: "/services" },
+      { label: "↩ Retour", next: "welcome" },
+    ],
+  },
+  audit: {
+    message:
+      "Tu n'as pas besoin de savoir quel logiciel construire. Tu expliques comment tu travailles (devis, clients, planning, factures…), Samuel identifie ce qui vaut la peine d'être simplifié ou automatisé — et par où commencer.",
+    buttons: [
+      { label: "Découvrir le Biancola Audit", href: "/audit" },
+      { label: "Réserver un diagnostic", href: "/contact" },
+      { label: "↩ Retour", next: "welcome" },
+    ],
+  },
+  cas: {
+    message:
+      "Deux exemples parlants :\n\n📊 RisoSales — des offres commerciales faites à la main dans Excel, transformées en outil qui les génère en quelques clics\n📱 RoadCRM — le suivi terrain des commerciaux centralisé dans une app mobile\n\nEt aussi des sites web, comme Flonaturopathie.",
+    buttons: [
+      { label: "Voir tous les cas concrets", href: "/realisations" },
       { label: "↩ Retour", next: "welcome" },
     ],
   },
   tarifs: {
     message:
-      "Chaque projet est unique, mais voici les fourchettes habituelles :\n\n🌐 Site vitrine : à partir de 1 500€\n🛒 E-commerce : à partir de 3 000€\n💻 Application web : à partir de 3 000€\n\nUn devis précis est gratuit !",
+      "Ça dépend du périmètre : une petite automatisation n'a rien à voir avec un outil complet.\n\nÇa commence toujours par un diagnostic gratuit de 30 min, puis chaque étape est chiffrée et validée avant de commencer. Pas de surprise.",
     buttons: [
-      { label: "Voir la page Tarifs", href: "/tarifs" },
-      { label: "Demander un devis", href: "/contact" },
-      { label: "↩ Retour", next: "welcome" },
-    ],
-  },
-  realisations: {
-    message:
-      "Samuel a déjà bossé sur plusieurs projets sympas : RisoSales, RoadCRM, Bloom Club, Flonaturopathie... Tu peux les voir en détail sur la page Réalisations.",
-    buttons: [
-      { label: "Voir tous les projets", href: "/realisations" },
-      { label: "↩ Retour", next: "welcome" },
-    ],
-  },
-  process: {
-    message:
-      "Comptez en moyenne :\n\n🌐 Site vitrine : 2-4 semaines\n🛒 E-commerce : 4-8 semaines\n💻 App web : 6-12 semaines\n\nLe process : échange → devis → maquettes → dev → tests → livraison.",
-    buttons: [
-      { label: "Voir le processus", href: "/processus" },
+      { label: "Voir comment ça marche", href: "/tarifs" },
+      { label: "Réserver un diagnostic", href: "/contact" },
       { label: "↩ Retour", next: "welcome" },
     ],
   },
   contact: {
     message:
-      "Pour discuter de ton projet directement avec Samuel :\n\n📧 samuel@biancolastudio.com\n📞 +32 498 73 71 62\n\nPremier échange gratuit !",
+      "Pour parler de tes processus directement avec Samuel :\n\n📧 samuel@biancolastudio.com\n📞 +32 498 73 71 62\n\nPremier échange gratuit, sans engagement !",
     buttons: [
       { label: "Envoyer un email", href: "mailto:samuel@biancolastudio.com", external: true },
       { label: "Page contact", href: "/contact" },
