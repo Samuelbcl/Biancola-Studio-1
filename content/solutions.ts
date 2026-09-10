@@ -29,8 +29,8 @@ export type Solution = {
   areas?: string[];
   /** Déroulé (audit uniquement) */
   steps?: { title: string; text: string }[];
-  /** Principe affiché en citation */
-  principle: string;
+  /** Principe affiché en citation, sur deux lignes (la 2e en dégradé) */
+  principle: [string, string];
   /** Cas concrets à afficher sur la page dédiée */
   caseIds: string[];
   /** Offre secondaire (sites web) : affichage plus discret */
@@ -58,7 +58,7 @@ export const solutions: Solution[] = [
     ],
     situations: [
       "Vous sentez que vous perdez du temps, sans savoir précisément où.",
-      "Vous avez déjà essayé un logiciel « tout-en-un » que personne n'utilise vraiment.",
+      "Vous avez déjà essayé un logiciel « tout-en-un » que personne n'utilise vraiment.",
       "On vous a proposé des applications, mais vous ne savez pas ce qui serait réellement utile.",
       "Vous voulez investir dans le digital, mais uniquement là où ça rapporte.",
     ],
@@ -117,7 +117,7 @@ export const solutions: Solution[] = [
         text: "Un rapport clair : constats, quick wins, recommandation de solution et proposition par étapes. À vous de décider de la suite.",
       },
     ],
-    principle: "Problème → Solution → Technologie. Jamais l'inverse.",
+    principle: ["Problème → Solution → Technologie.", "Jamais l'inverse."],
     caseIds: ["risosales"],
     seo: {
       title: "Biancola Audit | Diagnostic de digitalisation pour PME — Liège, Belgique",
@@ -175,8 +175,10 @@ export const solutions: Solution[] = [
         text: "Contrats, fiches et documents générés automatiquement à partir de vos données, et rangés au bon endroit.",
       },
     ],
-    principle:
-      "Du sur-mesure uniquement là où votre processus le justifie. Le reste, on le connecte.",
+    principle: [
+      "Du sur-mesure uniquement là où votre processus le justifie.",
+      "Le reste, on le connecte.",
+    ],
     caseIds: ["risosales", "roadcrm"],
     seo: {
       title: "Outil métier sur mesure à Liège | Logiciel & application métier pour PME",
@@ -231,11 +233,13 @@ export const solutions: Solution[] = [
       },
       {
         title: "IA, quand elle apporte une vraie valeur",
-        text: "Comprendre un e-mail, extraire les informations d'un document, résumer un dossier, repérer une anomalie. Jamais pour le plaisir d'écrire « IA ».",
+        text: "Comprendre un e-mail, extraire les informations d'un document, résumer un dossier, repérer une anomalie. Jamais pour le plaisir d'écrire « IA ».",
       },
     ],
-    principle:
-      "Une automatisation doit supprimer une vraie tâche. Sinon, elle n'a pas lieu d'être.",
+    principle: [
+      "Une automatisation doit supprimer une vraie tâche.",
+      "Sinon, elle n'a pas lieu d'être.",
+    ],
     caseIds: ["risosales"],
     seo: {
       title: "Automatisation PME & intégration de logiciels à Liège | Biancola Studio",
@@ -280,8 +284,10 @@ export const solutions: Solution[] = [
         text: "Refondre un site vieillissant, améliorer ses performances et son référencement à Liège, en Wallonie et en Belgique.",
       },
     ],
-    principle:
-      "Un site est une composante de votre écosystème digital — pas la définition de votre entreprise.",
+    principle: [
+      "Un site est une composante de votre écosystème digital.",
+      "Pas la définition de votre entreprise.",
+    ],
     caseIds: ["flonaturopathie", "bloomclub"],
     secondary: true,
     seo: {

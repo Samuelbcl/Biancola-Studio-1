@@ -104,7 +104,7 @@ export default function Processus({ simple = false }: { simple?: boolean }) {
             <span className="text-gradient">Automatiser.</span>
           </Heading>
           <p className="mx-auto mt-5 max-w-2xl leading-relaxed text-gray-500">
-            Pas de « contact → design → développement → mise en ligne ». Je ne
+            Pas de «&nbsp;contact → design → développement → mise en ligne&nbsp;». Je ne
             développe rien avant d&apos;avoir compris comment vous travaillez,
             identifié ce qui compte et simplifié le processus.
           </p>

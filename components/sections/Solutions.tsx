@@ -69,7 +69,7 @@ export default function Solutions({ simple = false }: { simple?: boolean }) {
                     {s.examples.map((e) => (
                       <span
                         key={e}
-                        className="rounded-full px-3 py-1 text-xs font-medium text-primary"
+                        className="select-none rounded-full px-3 py-1 text-xs font-medium text-primary"
                         style={{ backgroundColor: "rgba(37,99,235,0.06)" }}
                       >
                         {e}
@@ -107,7 +107,7 @@ export default function Solutions({ simple = false }: { simple?: boolean }) {
                 <div className="flex-1">
                   <div className="flex flex-wrap items-center gap-3">
                     <h3 className="text-lg font-bold text-dark">{s.title}</h3>
-                    <span className="rounded-full bg-white px-2.5 py-0.5 text-[11px] font-semibold uppercase tracking-wider text-gray-400 ring-1 ring-gray-200">
+                    <span className="select-none rounded-full bg-white px-2.5 py-0.5 text-[11px] font-semibold uppercase tracking-wider text-gray-400 ring-1 ring-gray-200">
                       En complément
                     </span>
                   </div>

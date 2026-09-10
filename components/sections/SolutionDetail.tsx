@@ -120,7 +120,7 @@ export default function SolutionDetail({ slug }: { slug: string }) {
                 {s.areas.map((a) => (
                   <span
                     key={a}
-                    className="rounded-full bg-white px-3.5 py-1.5 text-sm font-medium text-gray-600 ring-1 ring-gray-200"
+                    className="cursor-default select-none rounded-full bg-white px-3.5 py-1.5 text-sm font-medium text-gray-600 ring-1 ring-gray-200"
                   >
                     {a}
                   </span>
@@ -173,7 +173,8 @@ export default function SolutionDetail({ slug }: { slug: string }) {
           viewport={{ once: true }}
         >
           <p className="font-display text-2xl font-bold tracking-tight text-dark md:text-4xl">
-            « {s.principle} »
+            <span className="block text-balance">«&nbsp;{s.principle[0]}</span>
+            <span className="text-gradient block text-balance">{s.principle[1]}&nbsp;»</span>
           </p>
         </motion.blockquote>
       </section>

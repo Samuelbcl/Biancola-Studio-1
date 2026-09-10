@@ -261,13 +261,13 @@ function ProjectHeader({ project }: { project: Cas }) {
       {/* Badges — mobile: below title (JSX order). Desktop: above title via order-1 */}
       <div className="mb-3 flex flex-wrap items-center gap-2 md:order-1">
         <span
-          className="rounded-full px-3 py-1 text-xs font-medium"
+          className="cursor-default select-none rounded-full px-3 py-1 text-xs font-medium"
           style={{ color: "#2563EB", backgroundColor: "rgba(37,99,235,0.08)" }}
         >
           {project.category}
         </span>
         {!project.isPublic && (
-          <span className="flex items-center gap-1 rounded-full bg-gray-100 px-3 py-1 text-xs font-medium text-gray-500">
+          <span className="cursor-default select-none flex items-center gap-1 rounded-full bg-gray-100 px-3 py-1 text-xs font-medium text-gray-500">
             <Lock size={10} />
             Projet interne
           </span>
@@ -285,13 +285,13 @@ function CompactBody({ project }: { project: Cas }) {
       )}
       <div className="space-y-3">
         <div className="flex items-start gap-3">
-          <span className="mt-0.5 w-16 flex-shrink-0 rounded-full bg-gray-100 py-1 text-center text-[11px] font-semibold uppercase tracking-wider text-gray-500">
+          <span className="cursor-default select-none mt-0.5 w-16 flex-shrink-0 rounded-full bg-gray-100 py-1 text-center text-[11px] font-semibold uppercase tracking-wider text-gray-500">
             Avant
           </span>
           <p className="text-sm leading-relaxed text-gray-500">{project.avant}</p>
         </div>
         <div className="flex items-start gap-3">
-          <span className="mt-0.5 w-16 flex-shrink-0 rounded-full bg-primary py-1 text-center text-[11px] font-semibold uppercase tracking-wider text-white">
+          <span className="cursor-default select-none mt-0.5 w-16 flex-shrink-0 rounded-full bg-primary py-1 text-center text-[11px] font-semibold uppercase tracking-wider text-white">
             Après
           </span>
           <p className="text-sm font-medium leading-relaxed text-dark">{project.apres}</p>

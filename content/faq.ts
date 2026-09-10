@@ -41,7 +41,7 @@ export const faqs = [
   },
   {
     q: "Utilisez-vous l'intelligence artificielle ?",
-    a: "Quand elle apporte une vraie valeur : lire et classer des e-mails, extraire les informations d'un document, résumer un dossier, repérer des anomalies. Jamais pour pouvoir écrire « IA » sur une plaquette. Le raisonnement est toujours le même : problème, puis solution, puis technologie.",
+    a: "Quand elle apporte une vraie valeur : lire et classer des e-mails, extraire les informations d'un document, résumer un dossier, repérer des anomalies. Jamais pour pouvoir écrire « IA » sur une plaquette. Le raisonnement est toujours le même : problème, puis solution, puis technologie.",
   },
   {
     q: "Créez-vous encore des sites internet ?",

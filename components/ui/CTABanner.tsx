@@ -37,11 +37,12 @@ export default function CTABanner() {
           />
         </div>
 
-        <h3 className="relative z-10 font-display text-2xl font-bold text-white md:text-3xl">
-          Montrez-moi comment vous travaillez.
+        <h3 className="relative z-10 mx-auto max-w-2xl text-balance font-display text-2xl font-bold text-white md:text-3xl">
+          <span className="sm:block">30 minutes pour repérer</span>{" "}
+          <span className="sm:block">ce qui vous fait perdre du temps.</span>
         </h3>
-        <p className="relative z-10 mx-auto mt-3 max-w-md text-sm text-white/60">
-          Premier échange de 30 minutes, gratuit et sans engagement.
+        <p className="relative z-10 mx-auto mt-3 max-w-lg text-balance text-sm text-white/60">
+          Un premier échange gratuit et sans engagement, en visio ou sur place.
         </p>
         <a
           href="/contact"
