@@ -3,6 +3,7 @@
 import { useState } from "react";
 import { motion } from "framer-motion";
 import { Send, CheckCircle } from "lucide-react";
+import { sendForm } from "@/lib/sendForm";
 
 const needs = [
   "Diagnostic / Biancola Audit",
@@ -24,24 +25,17 @@ const inputClass =
 export default function Contact({ simple = false }: { simple?: boolean }) {
   const [sent, setSent] = useState(false);
   const [loading, setLoading] = useState(false);
+  const [failed, setFailed] = useState(false);
   const Heading = simple ? "h1" : "h2";
 
   async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
     setLoading(true);
-    const form = e.currentTarget;
-    const data = new FormData(form);
-
-    const res = await fetch("https://formspree.io/f/xqegyljz", {
-      method: "POST",
-      body: data,
-      headers: { Accept: "application/json" },
-    });
-
+    setFailed(false);
+    const ok = await sendForm(e.currentTarget, "contact");
     setLoading(false);
-    if (res.ok) {
-      setSent(true);
-    }
+    if (ok) setSent(true);
+    else setFailed(true);
   }
 
   return (
@@ -122,6 +116,7 @@ export default function Contact({ simple = false }: { simple?: boolean }) {
             viewport={{ once: true }}
             transition={{ delay: 0.15 }}
           >
+            <input type="text" name="_gotcha" tabIndex={-1} autoComplete="off" className="hidden" aria-hidden="true" />
             <div className="grid gap-5 sm:grid-cols-2">
               <div>
                 <label htmlFor="name" className="mb-1.5 block text-sm font-medium text-dark">
@@ -210,6 +205,15 @@ export default function Contact({ simple = false }: { simple?: boolean }) {
                 Réponse sous 48h · Gratuit · Sans engagement
               </p>
             </div>
+            {failed && (
+              <p className="text-center text-sm text-red-600 sm:text-left">
+                L&apos;envoi n&apos;a pas fonctionné. Écrivez-moi directement à{" "}
+                <a href="mailto:samuel@biancolastudio.com" className="font-medium underline">
+                  samuel@biancolastudio.com
+                </a>
+                .
+              </p>
+            )}
           </motion.form>
         )}
       </div>

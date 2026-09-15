@@ -3,6 +3,7 @@
 import { useState } from "react";
 import Image from "next/image";
 import { Download, CheckCircle, Send } from "lucide-react";
+import { sendForm } from "@/lib/sendForm";
 
 const inside = [
   "Les outils et l'installation de Claude Code",
@@ -26,16 +27,8 @@ export default function GuideForm() {
   async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
     setLoading(true);
-    const data = new FormData(e.currentTarget);
-    try {
-      await fetch("https://formspree.io/f/xqegyljz", {
-        method: "POST",
-        body: data,
-        headers: { Accept: "application/json" },
-      });
-    } catch {
-      // le guide reste accessible même si l'envoi échoue
-    }
+    // le guide reste accessible même si l'envoi échoue
+    await sendForm(e.currentTarget, "guide");
     setLoading(false);
     setUnlocked(true);
   }
@@ -85,6 +78,7 @@ export default function GuideForm() {
               <form onSubmit={handleSubmit} className="space-y-4">
                 <input type="hidden" name="_subject" value="Guide motion design — nouvelle demande" />
                 <input type="hidden" name="source" value="Page guide motion design (TikTok)" />
+                <input type="text" name="_gotcha" tabIndex={-1} autoComplete="off" className="hidden" aria-hidden="true" />
                 <div className="grid gap-4 sm:grid-cols-2">
                   <input name="prenom" type="text" placeholder="Prénom" className={inputClass} aria-label="Prénom" />
                   <input name="email" type="email" required placeholder="E-mail" className={inputClass} aria-label="E-mail" />
