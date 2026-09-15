@@ -5,10 +5,10 @@ import Image from "next/image";
 import { Download, CheckCircle, Send } from "lucide-react";
 
 const inside = [
-  "Les outils exacts que j'utilise",
-  "Le brief à copier-coller dans Claude Code",
-  "Les allers-retours qui font la qualité",
-  "Filmer l'écran et publier",
+  "Les outils et l'installation de Claude Code",
+  "Les 2 prompts à copier-coller",
+  "Comment corriger le premier jet",
+  "Les raccourcis pour lancer l'animation",
 ];
 
 const files = [
@@ -51,7 +51,7 @@ export default function GuideForm() {
             Le motion design avec <span className="text-gradient">Claude Code</span>
           </h1>
           <p className="mt-5 max-w-lg leading-relaxed text-white/70">
-            La méthode complète derrière ma vidéo «&nbsp;Claude&apos;s new Motion design&nbsp;», étape par étape.
+            La méthode derrière ma vidéo «&nbsp;Claude&apos;s new Motion design&nbsp;», en 5 étapes.
           </p>
           <ul className="mt-6 space-y-2">
             {inside.map((item) => (

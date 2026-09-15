@@ -8,7 +8,7 @@ import GuideForm from "@/components/sections/GuideForm";
 export const metadata: Metadata = {
   title: "Guide gratuit : le motion design avec Claude Code — Biancola Studio",
   description:
-    "La méthode complète derrière ma vidéo « Claude's new Motion design » : les outils, le brief à copier-coller, les allers-retours et le tournage. Gratuit, en français et en anglais.",
+    "La méthode derrière ma vidéo « Claude's new Motion design », en 5 étapes : l'installation de Claude Code, les 2 prompts à copier-coller et les corrections. Gratuit, en français et en anglais.",
   alternates: { canonical: "/guide-motion-design" },
   robots: { index: false, follow: true },
 };
