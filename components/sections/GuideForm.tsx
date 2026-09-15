@@ -108,10 +108,10 @@ export default function GuideForm() {
         <div className="relative mx-auto w-full max-w-sm">
           <div className="absolute -inset-6 rounded-[2rem] bg-primary/30 blur-3xl" aria-hidden />
           <Image
-            src="/guides/apercu-guide.jpg"
-            alt="Couverture du guide « Le motion design avec Claude Code »"
-            width={720}
-            height={1018}
+            src="/guides/visuel-guide.jpg"
+            alt="Blu, le robot de Biancola Studio, entouré d'éléments de motion design"
+            width={960}
+            height={1200}
             className="relative rounded-2xl shadow-2xl ring-1 ring-white/10"
             priority
           />
