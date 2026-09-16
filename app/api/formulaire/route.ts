@@ -82,7 +82,7 @@ export async function POST(req: Request) {
   try {
     if (f.formulaire === "guide") {
       const list = Number(process.env.BREVO_LIST_GUIDE);
-      const ok = list > 0 && (await saveContact(apiKey, f.email, list, { FIRSTNAME: f.prenom || "" }));
+      const ok = list > 0 && (await saveContact(apiKey, f.email, list, { PRENOM: f.prenom || "" }));
       return NextResponse.json({ ok }, { status: ok ? 200 : 502 });
     }
 
@@ -91,7 +91,7 @@ export async function POST(req: Request) {
     const list = Number(process.env.BREVO_LIST_CONTACT);
     if (list > 0) {
       const [first, ...rest] = (f.name || "").split(" ");
-      await saveContact(apiKey, f.email, list, { FIRSTNAME: first, LASTNAME: rest.join(" ") }).catch(() => false);
+      await saveContact(apiKey, f.email, list, { PRENOM: first, NOM: rest.join(" ") }).catch(() => false);
     }
     return NextResponse.json({ ok: sent }, { status: sent ? 200 : 502 });
   } catch {
