@@ -1,8 +1,9 @@
 import { NextResponse } from "next/server";
+import { guideEmail } from "@/lib/guideEmail";
 
 // Reçoit les formulaires du site (contact et guide) et les envoie dans Brevo :
 // - contact : e-mail d'alerte à Samuel (réponse directe au prospect) + fiche dans la liste « Prospects » ;
-// - guide : fiche dans la liste « Guide motion design ».
+// - guide : fiche dans la liste « Guide motion design » + e-mail avec les liens du guide.
 // Variables Vercel : BREVO_API_KEY, BREVO_LIST_CONTACT, BREVO_LIST_GUIDE, et en option BREVO_SENDER / BREVO_NOTIFY_TO.
 // Tant que BREVO_API_KEY n'est pas définie, on répond 503 et le navigateur repasse par Formspree.
 
@@ -58,6 +59,21 @@ async function notifySamuel(apiKey: string, f: Fields) {
   return res.ok;
 }
 
+async function sendGuide(apiKey: string, f: Fields) {
+  const sender = process.env.BREVO_SENDER || "samuel@biancolastudio.com";
+  const mail = guideEmail(f.prenom);
+  const res = await brevo("/smtp/email", apiKey, {
+    sender: { name: "Samuel · Biancola Studio", email: sender },
+    to: [{ email: f.email }],
+    replyTo: { email: sender, name: "Samuel Biancola" },
+    subject: mail.subject,
+    htmlContent: mail.html,
+    textContent: mail.text,
+    tags: ["guide-motion-design"],
+  });
+  return res.ok;
+}
+
 export async function POST(req: Request) {
   const apiKey = process.env.BREVO_API_KEY;
   if (!apiKey) return NextResponse.json({ ok: false, reason: "non configuré" }, { status: 503 });
@@ -82,8 +98,11 @@ export async function POST(req: Request) {
   try {
     if (f.formulaire === "guide") {
       const list = Number(process.env.BREVO_LIST_GUIDE);
-      const ok = list > 0 && (await saveContact(apiKey, f.email, list, { PRENOM: f.prenom || "" }));
-      return NextResponse.json({ ok }, { status: ok ? 200 : 502 });
+      const [ok, mail] = await Promise.all([
+        list > 0 && saveContact(apiKey, f.email, list, { PRENOM: f.prenom || "" }),
+        sendGuide(apiKey, f).catch(() => false),
+      ]);
+      return NextResponse.json({ ok, mail }, { status: ok ? 200 : 502 });
     }
 
     // demande de diagnostic : l'alerte e-mail est ce qui compte, la fiche contact est un plus

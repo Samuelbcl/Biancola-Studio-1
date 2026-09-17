@@ -1,6 +1,6 @@
 "use client";
 
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import Image from "next/image";
 import { Download, CheckCircle, Send, BookOpen } from "lucide-react";
 import { sendForm } from "@/lib/sendForm";
@@ -17,6 +17,8 @@ const files = [
   { lang: "en", download: "Download the guide (EN)", open: "Open the guide (EN)", read: "in English", href: "/guides/guide-motion-design-claude-code-en.pdf" },
 ] as const;
 const PAGES = 8;
+// on retient qu'un visiteur a déjà donné son e-mail, pour qu'il retombe sur le guide en revenant
+const STORAGE = "guide-motion-design";
 
 // Sur téléphone, un lien « download » ne fait souvent rien, surtout dans le navigateur intégré de TikTok
 // ou d'Instagram. Là, on ouvre simplement le PDF, et le guide reste lisible en images sur la page.
@@ -36,17 +38,34 @@ const inputClass =
 
 export default function GuideForm() {
   const [unlocked, setUnlocked] = useState(false);
+  const [mailed, setMailed] = useState(false);
   const [loading, setLoading] = useState(false);
   const [device, setDevice] = useState({ mobile: false, android: false, inApp: false });
   const [reader, setReader] = useState<"fr" | "en" | null>(null);
   const readerRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    try {
+      const saved = localStorage.getItem(STORAGE);
+      if (!saved) return;
+      setDevice(detectDevice());
+      setMailed(saved === "mail");
+      setUnlocked(true);
+    } catch {
+      // stockage indisponible : on affiche simplement le formulaire
+    }
+  }, []);
 
   async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
     setLoading(true);
     setDevice(detectDevice());
     // le guide reste accessible même si l'envoi échoue
-    await sendForm(e.currentTarget, "guide");
+    const { mail } = await sendForm(e.currentTarget, "guide");
+    try {
+      localStorage.setItem(STORAGE, mail ? "mail" : "1");
+    } catch {}
+    setMailed(mail);
     setLoading(false);
     setUnlocked(true);
   }
@@ -83,7 +102,11 @@ export default function GuideForm() {
               <>
               <div className="rounded-2xl border border-blue-light/30 bg-white/5 p-6">
                 <p className="font-display text-xl font-bold">C&apos;est prêt&nbsp;!</p>
-                <p className="mt-1 text-sm text-white/60">Bonne lecture, et montrez-moi ce que vous en faites.</p>
+                <p className="mt-1 text-sm text-white/60">
+                  {mailed
+                    ? "Je vous l'ai aussi envoyé par e-mail : vous le retrouvez à tout moment dans votre boîte (pensez aux onglets Promotions et Spam)."
+                    : "Bonne lecture, et montrez-moi ce que vous en faites."}
+                </p>
                 <div className="mt-5 flex flex-wrap gap-3">
                   {files.map((f) => (
                     <a
@@ -99,8 +122,11 @@ export default function GuideForm() {
                 </div>
                 {device.inApp && (
                   <p className="mt-4 rounded-xl bg-white/10 px-4 py-3 text-sm leading-relaxed text-white/80">
-                    Vous êtes dans l&apos;appli TikTok ou Instagram&nbsp;: si le guide ne s&apos;ouvre pas, touchez ⋯ en
-                    haut à droite puis «&nbsp;Ouvrir dans le navigateur&nbsp;», ou lisez-le juste en dessous.
+                    Vous êtes dans l&apos;appli TikTok ou Instagram&nbsp;:{" "}
+                    {mailed
+                      ? "le plus simple est d'ouvrir l'e-mail que je vous ai envoyé, le guide s'y ouvre normalement. Sinon, touchez"
+                      : "si le guide ne s'ouvre pas, touchez"}{" "}
+                    ⋯ en haut à droite puis «&nbsp;Ouvrir dans le navigateur&nbsp;», ou lisez-le juste en dessous.
                     {device.android && (
                       <span className="mt-2 block">
                         Ouvrir dans le navigateur&nbsp;:{" "}

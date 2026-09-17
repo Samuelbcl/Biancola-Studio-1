@@ -32,7 +32,7 @@ export default function Contact({ simple = false }: { simple?: boolean }) {
     e.preventDefault();
     setLoading(true);
     setFailed(false);
-    const ok = await sendForm(e.currentTarget, "contact");
+    const { ok } = await sendForm(e.currentTarget, "contact");
     setLoading(false);
     if (ok) setSent(true);
     else setFailed(true);

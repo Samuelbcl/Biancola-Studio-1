@@ -1,8 +1,12 @@
-// Envoie un formulaire du site : d'abord vers la feuille Google (/api/formulaire),
-// et si elle ne répond pas, vers Formspree comme avant, pour ne jamais perdre une demande.
+// Envoie un formulaire du site : d'abord vers Brevo (/api/formulaire),
+// et s'il ne répond pas, vers Formspree comme avant, pour ne jamais perdre une demande.
+// « mail » indique que le guide a aussi été envoyé par e-mail.
 const FORMSPREE = "https://formspree.io/f/xqegyljz";
 
-export async function sendForm(form: HTMLFormElement, formulaire: "contact" | "guide"): Promise<boolean> {
+export async function sendForm(
+  form: HTMLFormElement,
+  formulaire: "contact" | "guide",
+): Promise<{ ok: boolean; mail: boolean }> {
   const data = new FormData(form);
   const fields: Record<string, string> = { formulaire, page: window.location.pathname };
   data.forEach((v, k) => {
@@ -15,15 +19,18 @@ export async function sendForm(form: HTMLFormElement, formulaire: "contact" | "g
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(fields),
     });
-    if (res.ok) return true;
+    if (res.ok) {
+      const body = await res.json().catch(() => ({}));
+      return { ok: true, mail: body.mail === true };
+    }
   } catch {
     // on passe au secours
   }
 
   try {
     const res = await fetch(FORMSPREE, { method: "POST", body: data, headers: { Accept: "application/json" } });
-    return res.ok;
+    return { ok: res.ok, mail: false };
   } catch {
-    return false;
+    return { ok: false, mail: false };
   }
 }
