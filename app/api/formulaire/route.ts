@@ -59,6 +59,25 @@ async function notifySamuel(apiKey: string, f: Fields) {
   return res.ok;
 }
 
+// prévient Samuel de chaque inscription au guide : sans ça, il ne voit rien passer
+async function notifyGuide(apiKey: string, f: Fields) {
+  const sender = process.env.BREVO_SENDER || "samuel@biancolastudio.com";
+  const to = process.env.BREVO_NOTIFY_TO || "samuel@biancolastudio.com";
+  const qui = [f.prenom, f.email].filter(Boolean).join(" · ");
+  const res = await brevo("/smtp/email", apiKey, {
+    sender: { name: "Site Biancola Studio", email: sender },
+    to: [{ email: to, name: "Samuel Biancola" }],
+    replyTo: { email: f.email, name: f.prenom || f.email },
+    subject: `Nouvelle inscription au guide — ${f.prenom || f.email}`,
+    htmlContent: `<div style="font-family:Arial,sans-serif;font-size:15px;color:#0f1729">
+      <h2 style="margin:0 0 12px">Nouvelle inscription au guide</h2>
+      <p style="margin:0 0 6px"><b>${escapeHtml(qui)}</b></p>
+      <p style="margin:0;color:#64748b">Le guide lui a été envoyé automatiquement. Répondez à cet e-mail pour lui écrire.</p></div>`,
+    tags: ["guide-inscription"],
+  });
+  return res.ok;
+}
+
 async function sendGuide(apiKey: string, f: Fields) {
   const sender = process.env.BREVO_SENDER || "samuel@biancolastudio.com";
   const mail = guideEmail(f.prenom);
@@ -101,6 +120,7 @@ export async function POST(req: Request) {
       const [ok, mail] = await Promise.all([
         list > 0 && saveContact(apiKey, f.email, list, { PRENOM: f.prenom || "" }),
         sendGuide(apiKey, f).catch(() => false),
+        notifyGuide(apiKey, f).catch(() => false),
       ]);
       return NextResponse.json({ ok, mail }, { status: ok ? 200 : 502 });
     }
