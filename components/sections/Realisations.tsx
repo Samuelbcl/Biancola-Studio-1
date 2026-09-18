@@ -1,252 +1,367 @@
 "use client";
 
-import { useRef, useState } from "react";
+import { useState, useEffect, useMemo, type ReactNode } from "react";
+import Image from "next/image";
 import { motion } from "framer-motion";
-import { ArrowUpRight, Lock, ChevronLeft, ChevronRight } from "lucide-react";
+import { Lock, ArrowUpRight } from "lucide-react";
+import { getCas, type Cas } from "@/content/cas";
 
-const projects = [
-  {
-    title: "Élève-toi",
-    category: "App mobile / web",
-    description:
-      "Application de motivation quotidienne. Citations, objectifs et routines pensés pour booster la progression personnelle — disponible sur mobile et navigateur.",
-    // Ajouter les images dans /public/projects/ : eleve-toi-1.png, eleve-toi-2.png...
-    images: [],
-    color: "#1a1a2e",
-    href: "https://eleve-toi.vercel.app",
-    isPublic: true,
-  },
-  {
-    title: "RoadCRM",
-    category: "App mobile / CRM",
-    description:
-      "Mini CRM de terrain pour commerciaux. Gestion des prospects, suivi des rendez-vous et pipeline de vente — optimisé mobile pour les équipes en déplacement.",
-    // Ajouter les images dans /public/projects/ : roadcrm-1.png, roadcrm-2.png...
-    images: [],
-    color: "#0f2027",
-    href: "https://roadcrm.vercel.app",
-    isPublic: true,
-  },
-  {
-    title: "RisoSales",
-    category: "Outil métier",
-    description:
-      "Configurateur commercial sur mesure pour une entreprise. Création d'offres, étude comparative et gestion documentaire avec cloud intégré.",
-    // 5 images disponibles : risosales-1.png → risosales-5.png
-    images: [
-      "/projects/risosales-1.png",
-      "/projects/risosales-2.png",
-      "/projects/risosales-3.png",
-      "/projects/risosales-4.png",
-      "/projects/risosales-5.png",
-    ],
-    color: "#1c1c1c",
-    href: null,
-    isPublic: false,
-  },
-];
+function useCarousel(images: string[]) {
+  const ext = useMemo(() => [...images, images[0]], [images]);
+  const [idx, setIdx]           = useState(0);
+  const [animated, setAnimated] = useState(true);
 
-export default function Realisations() {
-  const scrollRef = useRef<HTMLDivElement>(null);
-  const [isDragging, setIsDragging] = useState(false);
-  const startX = useRef(0);
-  const startScrollLeft = useRef(0);
+  useEffect(() => {
+    if (images.length <= 1) return;
+    const t = setInterval(() => { setAnimated(true); setIdx((c) => c + 1); }, 3500);
+    return () => clearInterval(t);
+  }, [images.length]);
 
-  function onMouseDown(e: React.MouseEvent<HTMLDivElement>) {
-    if (!scrollRef.current) return;
-    setIsDragging(true);
-    startX.current = e.pageX;
-    startScrollLeft.current = scrollRef.current.scrollLeft;
-  }
+  useEffect(() => {
+    if (idx !== ext.length - 1) return;
+    const t = setTimeout(() => { setAnimated(false); setIdx(0); }, 920);
+    return () => clearTimeout(t);
+  }, [idx, ext.length]);
 
-  function onMouseMove(e: React.MouseEvent<HTMLDivElement>) {
-    if (!isDragging || !scrollRef.current) return;
-    e.preventDefault();
-    const dx = e.pageX - startX.current;
-    scrollRef.current.scrollLeft = startScrollLeft.current - dx;
-  }
+  useEffect(() => {
+    if (animated || idx !== 0) return;
+    const id = requestAnimationFrame(() => requestAnimationFrame(() => setAnimated(true)));
+    return () => cancelAnimationFrame(id);
+  }, [animated, idx]);
 
-  function onMouseUp() {
-    setIsDragging(false);
-  }
+  return { ext, idx, setIdx, animated, setAnimated, activeDot: idx % images.length };
+}
+
+function MacBookCarousel({ images }: { images: string[] }) {
+  const { ext, idx, setIdx, animated, setAnimated, activeDot } = useCarousel(images);
 
   return (
-    <section id="realisations" className="bg-white px-6 py-24">
-      <div className="mx-auto max-w-7xl">
+    <div>
+      <div style={{ position: "relative" }}>
+        <div style={{
+          position: "absolute",
+          top: "9.7%", left: "9.9%", right: "10.0%", bottom: "10.3%",
+          zIndex: 1, overflow: "hidden", backgroundColor: "#000",
+          borderRadius: "clamp(8px, 2vw, 16px) clamp(8px, 2vw, 16px) 0 0",
+        }}>
+          <div style={{
+            display: "flex", height: "100%",
+            width: `${ext.length * 100}%`,
+            transform: `translateX(-${(idx * 100) / ext.length}%)`,
+            transition: animated ? "transform 0.9s cubic-bezier(0.25, 0.46, 0.45, 0.94)" : "none",
+            willChange: "transform",
+          }}>
+            {ext.map((img, i) => (
+              <div key={i} style={{ width: `${100 / ext.length}%`, height: "100%", flexShrink: 0, position: "relative" }}>
+                <Image src={img} alt={`Screenshot ${i + 1}`} fill
+                  sizes="(max-width: 768px) 100vw, 60vw"
+                  style={{ objectFit: "cover", objectPosition: "top" }} />
+              </div>
+            ))}
+          </div>
+        </div>
+        <Image src="/projects/macbook-frame.png.png" alt="" width={3220} height={2100}
+          sizes="(max-width: 768px) 100vw, 60vw" priority
+          style={{ width: "100%", height: "auto", display: "block", position: "relative", zIndex: 2, pointerEvents: "none", userSelect: "none" }} />
+      </div>
+      {images.length > 1 && (
+        <div style={{ display: "flex", justifyContent: "center", gap: 6, marginTop: 12 }}>
+          {images.map((_, i) => (
+            <button key={i} onClick={() => { setAnimated(true); setIdx(i); }}
+              aria-label={`Capture ${i + 1}`}
+              style={{
+                height: 5, width: i === activeDot ? 22 : 5, borderRadius: 3,
+                backgroundColor: i === activeDot ? "#2563EB" : "rgba(37,99,235,0.18)",
+                border: "none", padding: 0, cursor: "pointer", transition: "all 0.35s ease",
+              }} />
+          ))}
+        </div>
+      )}
+    </div>
+  );
+}
+
+function PhoneCarousel({ images }: { images: string[] }) {
+  const { ext, idx, setIdx, animated, setAnimated, activeDot } = useCarousel(images);
+
+  return (
+    <div style={{ maxWidth: 320, margin: "0 auto" }}>
+      <div style={{ position: "relative" }}>
+        <div style={{
+          position: "absolute",
+          top: "6.0%", left: "12.68%", right: "12.74%", bottom: "6.82%",
+          zIndex: 1, overflow: "hidden", backgroundColor: "#000",
+          borderRadius: "22px",
+        }}>
+          <div style={{
+            display: "flex", height: "100%",
+            width: `${ext.length * 100}%`,
+            transform: `translateX(-${(idx * 100) / ext.length}%)`,
+            transition: animated ? "transform 0.9s cubic-bezier(0.25, 0.46, 0.45, 0.94)" : "none",
+            willChange: "transform",
+          }}>
+            {ext.map((img, i) => (
+              <div key={i} style={{ width: `${100 / ext.length}%`, height: "100%", flexShrink: 0, position: "relative" }}>
+                <Image src={img} alt={`Screenshot ${i + 1}`} fill
+                  sizes="280px"
+                  style={{ objectFit: "cover", objectPosition: "top" }} />
+              </div>
+            ))}
+          </div>
+        </div>
+        <Image src="/projects/iphone-frame.png.png" alt="" width={1570} height={2932}
+          sizes="280px" priority
+          style={{ width: "100%", height: "auto", display: "block", position: "relative", zIndex: 2, pointerEvents: "none", userSelect: "none" }} />
+      </div>
+      {images.length > 1 && (
+        <div style={{ display: "flex", justifyContent: "center", gap: 6, marginTop: 12 }}>
+          {images.map((_, i) => (
+            <button key={i} onClick={() => { setAnimated(true); setIdx(i); }}
+              aria-label={`Capture ${i + 1}`}
+              style={{
+                height: 5, width: i === activeDot ? 22 : 5, borderRadius: 3,
+                backgroundColor: i === activeDot ? "#2563EB" : "rgba(37,99,235,0.18)",
+                border: "none", padding: 0, cursor: "pointer", transition: "all 0.35s ease",
+              }} />
+          ))}
+        </div>
+      )}
+    </div>
+  );
+}
+
+type Props = {
+  /** Mode page : pas de CTA « voir tous » par défaut */
+  simple?: boolean;
+  /** Home : une ligne avant / une ligne après au lieu de problème / solution / résultat */
+  compact?: boolean;
+  /** Filtre sur les identifiants de content/cas.ts (ordre conservé) */
+  ids?: string[];
+  id?: string;
+  label?: string;
+  title?: ReactNode;
+  intro?: string;
+  headingLevel?: "h1" | "h2";
+  showCta?: boolean;
+};
+
+export default function Realisations({
+  simple = false,
+  compact = false,
+  ids,
+  id = "realisations",
+  label = "Cas concrets",
+  title,
+  intro,
+  headingLevel = "h2",
+  showCta,
+}: Props) {
+  const projects = getCas(ids);
+  const Heading = headingLevel;
+  const withCta = showCta ?? !simple;
+
+  return (
+    <section
+      id={id}
+      style={{ background: "linear-gradient(180deg, #f7f8fc 0%, #ffffff 40%, #f7f8fc 100%)" }}
+      className="overflow-hidden px-6 py-32"
+    >
+      <div className="mx-auto max-w-6xl">
+
         {/* Header */}
-        <div className="mb-12">
-          <motion.p
+        <motion.div
+          className="mb-16 max-w-3xl"
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+        >
+          <p
             className="mb-2 text-sm font-semibold uppercase tracking-widest"
             style={{ color: "#2563EB" }}
-            initial={{ opacity: 0, y: 10 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
           >
-            Réalisations
-          </motion.p>
-          <motion.h2
-            className="text-3xl font-bold text-dark md:text-5xl"
+            {label}
+          </p>
+          <Heading className="font-display text-3xl font-bold tracking-tight text-dark md:text-5xl">
+            {title ?? (
+              <>
+                Des problèmes réels, <span className="text-gradient">des outils concrets</span>
+              </>
+            )}
+          </Heading>
+          {intro && (
+            <p className="mt-5 max-w-2xl leading-relaxed text-gray-500">{intro}</p>
+          )}
+        </motion.div>
+
+        <div className={compact ? "space-y-20" : "space-y-24"}>
+          {projects.map((project, i) => {
+            const mediaLeft = i % 2 === 0;
+            return (
+              <motion.div
+                key={project.id}
+                initial={{ opacity: 0, y: 40 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.7, ease: [0.25, 0.46, 0.45, 0.94] }}
+              >
+                {/* Mobile-only header above the carousel */}
+                <div className="mb-6 md:hidden">
+                  <ProjectHeader project={project} />
+                </div>
+                <div className="flex flex-col gap-10 md:flex-row md:items-center md:gap-14">
+                  <div className={`w-full md:w-3/5 ${mediaLeft ? "" : "md:order-2"}`}>
+                    {project.device === "phone" ? (
+                      <PhoneCarousel images={project.images} />
+                    ) : (
+                      <MacBookCarousel images={project.images} />
+                    )}
+                  </div>
+                  <motion.div
+                    className={`w-full md:w-2/5 ${mediaLeft ? "" : "md:order-1"}`}
+                    initial={{ opacity: 0, x: mediaLeft ? 20 : -20 }}
+                    whileInView={{ opacity: 1, x: 0 }}
+                    viewport={{ once: true }}
+                    transition={{ delay: 0.25 }}
+                  >
+                    <ProjectInfo project={project} compact={compact} />
+                  </motion.div>
+                </div>
+              </motion.div>
+            );
+          })}
+        </div>
+
+        {withCta && (
+          <motion.div
+            className="mt-16 text-center"
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            transition={{ delay: 0.05 }}
+            transition={{ delay: 0.2 }}
           >
-            Projets <span style={{ color: "#2563EB" }}>réalisés</span>
-          </motion.h2>
-        </div>
+            <a
+              href="/realisations"
+              className="inline-flex items-center gap-2 rounded-full bg-primary px-8 py-3.5 text-sm font-medium text-white transition-all glow-blue-hover hover:scale-105"
+            >
+              Voir tous les cas concrets
+            </a>
+          </motion.div>
+        )}
 
-        {/* Desktop: 3-column grid */}
-        <div className="hidden gap-6 md:grid md:grid-cols-3">
-          {projects.map((project, i) => (
-            <ProjectCard key={project.title} project={project} index={i} />
-          ))}
-        </div>
-
-        {/* Mobile: horizontal scroll */}
-        <div
-          ref={scrollRef}
-          className={`flex gap-6 overflow-x-auto pb-4 md:hidden select-none ${isDragging ? "cursor-grabbing" : "cursor-grab"}`}
-          style={{ scrollbarWidth: "none" }}
-          onMouseDown={onMouseDown}
-          onMouseMove={onMouseMove}
-          onMouseUp={onMouseUp}
-          onMouseLeave={onMouseUp}
-        >
-          {projects.map((project, i) => (
-            <div key={project.title} className="min-w-[300px] flex-shrink-0">
-              <ProjectCard project={project} index={i} />
-            </div>
-          ))}
-        </div>
       </div>
     </section>
   );
 }
 
-function ProjectCard({
-  project,
-  index,
-}: {
-  project: (typeof projects)[number];
-  index: number;
-}) {
-  const [current, setCurrent] = useState(0);
-  const hasImages = project.images.length > 0;
-  const hasMultiple = project.images.length > 1;
-
-  function prev(e: React.MouseEvent) {
-    e.preventDefault();
-    setCurrent((c) => (c - 1 + project.images.length) % project.images.length);
-  }
-
-  function next(e: React.MouseEvent) {
-    e.preventDefault();
-    setCurrent((c) => (c + 1) % project.images.length);
-  }
-
+function ProjectHeader({ project }: { project: Cas }) {
   return (
-    <motion.div
-      className="group overflow-hidden rounded-2xl border border-gray-100 bg-white shadow-sm transition-shadow hover:shadow-md"
-      initial={{ opacity: 0, y: 30 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true }}
-      transition={{ delay: index * 0.1 }}
-    >
-      {/* Image area */}
-      <div
-        className="relative flex h-52 items-center justify-center overflow-hidden"
-        style={{ backgroundColor: project.color }}
-      >
-        {hasImages ? (
-          <>
-            {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img
-              src={project.images[current]}
-              alt={`${project.title} ${current + 1}`}
-              className="h-full w-full object-cover transition-opacity duration-300"
-            />
-
-            {/* Prev / Next arrows — visibles au hover si plusieurs images */}
-            {hasMultiple && (
-              <>
-                <button
-                  onClick={prev}
-                  className="absolute left-2 top-1/2 -translate-y-1/2 flex h-7 w-7 items-center justify-center rounded-full bg-black/40 text-white opacity-0 backdrop-blur-sm transition-opacity group-hover:opacity-100"
-                >
-                  <ChevronLeft size={14} />
-                </button>
-                <button
-                  onClick={next}
-                  className="absolute right-2 top-1/2 -translate-y-1/2 flex h-7 w-7 items-center justify-center rounded-full bg-black/40 text-white opacity-0 backdrop-blur-sm transition-opacity group-hover:opacity-100"
-                >
-                  <ChevronRight size={14} />
-                </button>
-
-                {/* Dot indicators */}
-                <div className="absolute bottom-3 left-1/2 flex -translate-x-1/2 gap-1.5">
-                  {project.images.map((_, i) => (
-                    <button
-                      key={i}
-                      onClick={(e) => { e.preventDefault(); setCurrent(i); }}
-                      className="h-1.5 rounded-full transition-all"
-                      style={{
-                        width: i === current ? "16px" : "6px",
-                        backgroundColor: i === current ? "#fff" : "rgba(255,255,255,0.4)",
-                      }}
-                    />
-                  ))}
-                </div>
-              </>
-            )}
-          </>
-        ) : (
-          <span
-            className="select-none text-6xl font-bold opacity-20"
-            style={{ color: "#ffffff" }}
-          >
-            {project.title.charAt(0)}
-          </span>
-        )}
-
-        {/* Category badge */}
+    <div className="flex flex-col">
+      {/* Title — mobile: above (JSX order). Desktop: below badges via order-2 */}
+      <h3 className="mb-3 text-2xl font-bold text-dark md:order-2">{project.title}</h3>
+      {/* Badges — mobile: below title (JSX order). Desktop: above title via order-1 */}
+      <div className="mb-3 flex flex-wrap items-center gap-2 md:order-1">
         <span
-          className="absolute left-4 top-4 rounded-full px-3 py-1 text-xs font-medium backdrop-blur-sm"
-          style={{ color: "#2563EB", backgroundColor: "rgba(255,255,255,0.9)" }}
+          className="cursor-default select-none rounded-full px-3 py-1 text-xs font-medium"
+          style={{ color: "#2563EB", backgroundColor: "rgba(37,99,235,0.08)" }}
         >
           {project.category}
         </span>
-
-        {/* Private badge */}
         {!project.isPublic && (
-          <span className="absolute right-4 top-4 flex items-center gap-1 rounded-full bg-black/40 px-3 py-1 text-xs font-medium text-white backdrop-blur-sm">
+          <span className="cursor-default select-none flex items-center gap-1 rounded-full bg-gray-100 px-3 py-1 text-xs font-medium text-gray-500">
             <Lock size={10} />
             Projet interne
           </span>
         )}
       </div>
+    </div>
+  );
+}
 
-      {/* Content */}
-      <div className="p-5">
-        <h3 className="mb-2 text-lg font-semibold text-dark">{project.title}</h3>
-        <p className="mb-5 text-sm leading-relaxed text-gray-500">
-          {project.description}
-        </p>
-
-        {project.isPublic && project.href ? (
-          <a
-            href={project.href}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="inline-flex items-center gap-1.5 text-sm font-medium transition-opacity hover:opacity-70"
-            style={{ color: "#2563EB" }}
-          >
-            Voir le projet
-            <ArrowUpRight size={15} />
-          </a>
-        ) : (
-          <span className="text-sm text-gray-400">Usage interne · Non public</span>
-        )}
+function CompactBody({ project }: { project: Cas }) {
+  return (
+    <>
+      {project.name && (
+        <p className="mb-5 text-xs font-semibold text-gray-400">{project.name}</p>
+      )}
+      <div className="space-y-3">
+        <div className="flex items-start gap-3">
+          <span className="cursor-default select-none mt-0.5 w-16 flex-shrink-0 rounded-full bg-gray-100 py-1 text-center text-[11px] font-semibold uppercase tracking-wider text-gray-500">
+            Avant
+          </span>
+          <p className="text-sm leading-relaxed text-gray-500">{project.avant}</p>
+        </div>
+        <div className="flex items-start gap-3">
+          <span className="cursor-default select-none mt-0.5 w-16 flex-shrink-0 rounded-full bg-primary py-1 text-center text-[11px] font-semibold uppercase tracking-wider text-white">
+            Après
+          </span>
+          <p className="text-sm font-medium leading-relaxed text-dark">{project.apres}</p>
+        </div>
       </div>
-    </motion.div>
+    </>
+  );
+}
+
+function ProjectBody({ project }: { project: Cas }) {
+  const psr = project.problem
+    ? [
+        ["Problème", project.problem],
+        ["Solution", project.solution],
+        ["Résultat", project.result],
+      ]
+    : null;
+
+  return (
+    <>
+      {project.client && (
+        <p className="mb-4 text-xs font-semibold text-gray-400">{project.client}</p>
+      )}
+
+      {psr ? (
+        <dl className="mb-5 space-y-3">
+          {psr.map(([k, v]) => (
+            <div key={k} className="rounded-xl border border-gray-100 bg-white/80 p-4">
+              <dt className="mb-1 flex items-center gap-2 text-xs font-semibold uppercase tracking-widest text-primary">
+                <span className="h-1.5 w-1.5 rounded-full bg-primary" />
+                {k}
+              </dt>
+              <dd className="text-sm leading-relaxed text-gray-600">{v}</dd>
+            </div>
+          ))}
+        </dl>
+      ) : (
+        <p className="mb-5 text-sm leading-relaxed text-gray-500">{project.description}</p>
+      )}
+
+      {project.isPublic && project.href ? (
+        <a
+          href={project.href}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="inline-flex items-center gap-1.5 text-sm font-medium transition-colors hover:underline"
+          style={{ color: "#2563EB" }}
+        >
+          Voir le site
+          <ArrowUpRight size={14} />
+        </a>
+      ) : (
+        <span className="text-sm text-gray-400">Usage interne · Non public</span>
+      )}
+    </>
+  );
+}
+
+function ProjectInfo({ project, compact = false }: { project: Cas; compact?: boolean }) {
+  return (
+    <>
+      {/* Header (badge + title) hidden on mobile — shown above carousel instead */}
+      <div className="hidden md:block">
+        <ProjectHeader project={project} />
+      </div>
+      {compact && project.avant ? (
+        <CompactBody project={project} />
+      ) : (
+        <ProjectBody project={project} />
+      )}
+    </>
   );
 }

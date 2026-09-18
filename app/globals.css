@@ -4,19 +4,130 @@
   --color-primary: #2563EB;
   --color-dark: #0A0A0A;
   --color-light: #FFFFFF;
+  --color-navy: #0f1729;
+  --color-blue-light: #60a5fa;
+  --font-body: var(--font-body);
+  --font-display: var(--font-display);
 }
 
-/* Hide default cursor only on devices with a fine pointer AND hover support (mouse/trackpad) */
-@media (pointer: fine) and (hover: hover) {
-  * {
-    cursor: none !important;
+::-webkit-scrollbar {
+  display: none;
+}
+
+/* Hide the play button overlay on iOS/mobile Safari for background videos */
+video::-webkit-media-controls,
+video::-webkit-media-controls-panel,
+video::-webkit-media-controls-play-button,
+video::-webkit-media-controls-start-playback-button,
+video::-webkit-media-controls-overlay-play-button {
+  display: none !important;
+  -webkit-appearance: none !important;
+  appearance: none !important;
+  opacity: 0 !important;
+  pointer-events: none !important;
+}
+
+/* Display font for headings */
+.font-display {
+  font-family: var(--font-display), system-ui, sans-serif;
+}
+
+.font-body {
+  font-family: var(--font-body), system-ui, sans-serif;
+}
+
+/* Text gradient effect */
+.text-gradient {
+  background: linear-gradient(135deg, #2563EB 0%, #60a5fa 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* Animated liquid gradient on text */
+.text-gradient-animated {
+  background: linear-gradient(
+    90deg,
+    #2563EB 0%,
+    #60a5fa 30%,
+    #2563EB 60%,
+    #60a5fa 100%
+  );
+  background-size: 200% 100%;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  animation: liquid-flow 8s linear infinite;
+}
+
+@keyframes liquid-flow {
+  0% { background-position: 0% 0%; }
+  100% { background-position: 200% 0%; }
+}
+
+/* Glow effect for buttons */
+.glow-blue {
+  box-shadow: 0 0 20px rgba(37, 99, 235, 0.3), 0 0 40px rgba(37, 99, 235, 0.1);
+}
+
+.glow-blue-hover:hover {
+  box-shadow: 0 0 30px rgba(37, 99, 235, 0.4), 0 0 60px rgba(37, 99, 235, 0.15);
+}
+
+/* Animated underline */
+.underline-anim {
+  position: relative;
+}
+.underline-anim::after {
+  content: "";
+  position: absolute;
+  bottom: -2px;
+  left: 0;
+  width: 0;
+  height: 2px;
+  background: #2563EB;
+  transition: width 0.3s ease;
+}
+.underline-anim:hover::after {
+  width: 100%;
+}
+
+/* ===== Mini-visuel automatisation : un point qui circule d'un outil à l'autre ===== */
+@keyframes flow-dot {
+  0% { left: 0; opacity: 0; }
+  15% { opacity: 1; }
+  85% { opacity: 1; }
+  100% { left: calc(100% - 0.5rem); opacity: 0; }
+}
+
+.flow-dot {
+  animation: flow-dot 1.8s ease-in-out infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .flow-dot {
+    animation: none;
+    left: calc(50% - 0.25rem);
   }
 }
 
-/* Force-hide custom cursor on touch devices as a fallback */
-@media (pointer: coarse), (hover: none) {
-  .custom-cursor {
-    display: none !important;
-  }
+/* ===== Blu chatbot animations ===== */
+/* Idle: gentle floating up and down when closed */
+@keyframes blu-float {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-6px); }
+}
+
+.blu-idle {
+  animation: blu-float 3s ease-in-out infinite;
+}
+
+/* On hover: just a blue glow, nothing else */
+.blu-trigger {
+  transition: filter 0.3s ease;
+}
+
+.blu-trigger:hover {
+  filter: drop-shadow(0 0 18px rgba(37, 99, 235, 0.6));
 }
 

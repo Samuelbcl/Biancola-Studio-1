@@ -1,27 +1,29 @@
 "use client";
 
-import { motion } from "framer-motion";
-import { ArrowUpRight, Mail, Phone, MapPin } from "lucide-react";
+
+import { Mail, Phone, MapPin } from "lucide-react";
 import Marquee from "@/components/ui/Marquee";
 
 const footerLinks = [
   {
     title: "Navigation",
     links: [
-      { label: "Services", href: "#services" },
-      { label: "Réalisations", href: "#realisations" },
-      { label: "Processus", href: "#processus" },
-      { label: "Tarifs", href: "#tarifs" },
-      { label: "FAQ", href: "#faq" },
+      { label: "Solutions", href: "/services" },
+      { label: "Cas concrets", href: "/realisations" },
+      { label: "Méthode", href: "/processus" },
+      { label: "Investissement", href: "/tarifs" },
+      { label: "À propos", href: "/a-propos" },
+      { label: "FAQ", href: "/faq" },
+      { label: "Contact", href: "/contact" },
     ],
   },
   {
-    title: "Services",
+    title: "Solutions",
     links: [
-      { label: "Site Vitrine", href: "#services" },
-      { label: "E-commerce", href: "#services" },
-      { label: "Application Web", href: "#services" },
-      { label: "SaaS", href: "#services" },
+      { label: "Biancola Audit", href: "/audit" },
+      { label: "Outils métiers sur mesure", href: "/services/outil-metier-sur-mesure" },
+      { label: "Automatisation & intégrations", href: "/services/automatisation-pme" },
+      { label: "Sites & e-commerce", href: "/services/creation-site-internet-liege" },
     ],
   },
 ];
@@ -29,57 +31,9 @@ const footerLinks = [
 export default function Footer() {
   return (
     <footer className="bg-dark text-white">
-      {/* CTA Section */}
-      <section id="contact" className="px-6 py-24">
-        <div className="mx-auto max-w-4xl text-center">
-          <motion.h2
-            className="text-3xl font-bold md:text-5xl"
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-          >
-            Prêt à <span style={{ color: "#2563EB" }}>transformer</span> votre
-            présence digitale ?
-          </motion.h2>
-
-          <motion.p
-            className="mx-auto mt-6 max-w-xl text-gray-400"
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ delay: 0.15 }}
-          >
-            Discutons de votre projet et construisons ensemble une solution qui
-            fera la différence.
-          </motion.p>
-
-          <motion.div
-            className="mt-10 flex flex-col items-center justify-center gap-4 sm:flex-row"
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ delay: 0.3 }}
-          >
-            <a
-              href="mailto:hello@biancolastudio.com"
-              className="magnetic inline-flex items-center gap-2 rounded-full bg-primary px-8 py-3 text-sm font-medium text-white transition-opacity hover:opacity-90"
-            >
-              Démarrer un projet
-              <ArrowUpRight size={16} />
-            </a>
-            <a
-              href="#realisations"
-              className="magnetic inline-flex items-center gap-2 rounded-full border border-white/20 px-8 py-3 text-sm font-medium text-white transition-colors hover:border-white/50"
-            >
-              Voir nos réalisations
-            </a>
-          </motion.div>
-        </div>
-      </section>
-
       {/* Marquee divider */}
       <Marquee
-        text="Biancola Studio · Votre partenaire digital ·"
+        text="Biancola Studio · Digitalisation des PME · Outils métiers sur mesure · Liège, Belgique ·"
         variant="filled"
         speed={25}
       />
@@ -89,25 +43,26 @@ export default function Footer() {
         <div className="mx-auto grid max-w-7xl gap-12 md:grid-cols-4">
           {/* Brand */}
           <div className="md:col-span-2">
-            <h3 className="text-xl font-bold">Biancola Studio</h3>
+            <h3 className="font-display text-xl font-bold tracking-tight">Biancola Studio</h3>
             <p className="mt-4 max-w-sm text-sm leading-relaxed text-gray-400">
-              Nous concevons des expériences digitales modernes et performantes
-              pour propulser votre activité.
+              Digitalisation & outils métiers sur mesure pour PME. J&apos;analyse
+              votre fonctionnement et je développe les outils qui vous font gagner
+              du temps — depuis Liège, pour toute la Wallonie et la Belgique.
             </p>
-            <div className="mt-6 space-y-2 text-sm text-gray-400">
-              <p className="flex items-center gap-2">
+            <address className="mt-6 space-y-2 text-sm not-italic text-gray-400">
+              <a href="mailto:samuel@biancolastudio.com" className="flex items-center gap-2 transition-colors hover:text-white">
                 <Mail size={14} className="text-primary" />
-                hello@biancolastudio.com
-              </p>
-              <p className="flex items-center gap-2">
+                samuel@biancolastudio.com
+              </a>
+              <a href="tel:+32498737162" className="flex items-center gap-2 transition-colors hover:text-white">
                 <Phone size={14} className="text-primary" />
-                +33 1 23 45 67 89
-              </p>
+                +32 498 73 71 62
+              </a>
               <p className="flex items-center gap-2">
                 <MapPin size={14} className="text-primary" />
-                Paris, France
+                Liège, Wallonie, Belgique
               </p>
-            </div>
+            </address>
           </div>
 
           {/* Links */}

@@ -4,21 +4,14 @@ import { useRef } from "react";
 import { motion, useScroll, useTransform } from "framer-motion";
 import Marquee from "@/components/ui/Marquee";
 
-const titleText = "Votre présence digitale,";
-const highlightText = "réinventée.";
+const lines = [
+  { text: "Vos outils devraient s'adapter à votre entreprise.", accent: false },
+  { text: "Pas l'inverse.", accent: true },
+];
 
-const letterVariants = {
-  hidden: { opacity: 0, y: 20 },
-  visible: { opacity: 1, y: 0 },
-};
-
-const containerVariants = {
-  hidden: {},
-  visible: {
-    transition: {
-      staggerChildren: 0.03,
-    },
-  },
+const lineVariants = {
+  hidden: { y: "100%", opacity: 0 },
+  visible: { y: "0%", opacity: 1 },
 };
 
 export default function Hero() {
@@ -29,8 +22,8 @@ export default function Hero() {
   });
 
   const videoY = useTransform(scrollYProgress, [0, 1], ["0%", "30%"]);
-  const contentY = useTransform(scrollYProgress, [0, 1], ["0%", "15%"]);
-  const contentOpacity = useTransform(scrollYProgress, [0, 0.8], [1, 0]);
+  const contentY = useTransform(scrollYProgress, [0, 1], ["0%", "20%"]);
+  const contentOpacity = useTransform(scrollYProgress, [0, 0.6], [1, 0]);
 
   return (
     <section ref={sectionRef} className="relative flex min-h-screen flex-col overflow-hidden">
@@ -45,77 +38,65 @@ export default function Hero() {
         style={{ y: videoY }}
       />
 
-      {/* White overlay */}
+      {/* Overlay */}
       <div
         className="absolute inset-0"
-        style={{ backgroundColor: "rgba(255,255,255,0.85)" }}
+        style={{ backgroundColor: "rgba(255,255,255,0.72)" }}
       />
 
-      {/* Content with parallax */}
+      {/* Content with parallax — une phrase, un label, un bouton */}
       <motion.div
-        className="relative z-10 flex flex-1 flex-col items-center justify-center px-6 text-center"
+        className="relative z-10 flex flex-1 flex-col items-center justify-center px-6 pb-10 pt-24 text-center"
         style={{ y: contentY, opacity: contentOpacity }}
       >
-        {/* Title - letter by letter */}
-        <motion.h1
-          className="text-4xl font-bold leading-tight tracking-tight text-dark md:text-6xl lg:text-7xl"
-          variants={containerVariants}
-          initial="hidden"
-          animate="visible"
-        >
-          {titleText.split("").map((char, i) => (
-            <motion.span key={i} variants={letterVariants}>
-              {char}
-            </motion.span>
+        <h1 className="font-display max-w-6xl text-4xl font-bold leading-[1.08] tracking-tight sm:text-5xl lg:text-6xl xl:text-7xl">
+          {lines.map((line, i) => (
+            <span key={i} className="block overflow-hidden">
+              <motion.span
+                className={`block text-balance ${line.accent ? "text-gradient-animated" : "text-dark"}`}
+                variants={lineVariants}
+                initial="hidden"
+                animate="visible"
+                transition={{
+                  duration: 0.8,
+                  delay: 0.3 + i * 0.15,
+                  ease: [0.25, 0.46, 0.45, 0.94],
+                }}
+              >
+                {line.text}
+              </motion.span>
+            </span>
           ))}
-          <br />
-          {highlightText.split("").map((char, i) => (
-            <motion.span
-              key={`h-${i}`}
-              variants={letterVariants}
-              style={{ color: "#2563EB" }}
-            >
-              {char}
-            </motion.span>
-          ))}
-        </motion.h1>
+        </h1>
 
-        {/* Subtitle */}
+        {/* SEO label */}
         <motion.p
-          className="mt-6 max-w-xl text-lg text-gray-600"
+          className="mt-6 text-xs font-semibold uppercase leading-relaxed tracking-widest text-primary sm:text-sm"
           initial={{ opacity: 0, y: 10 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 1.2, duration: 0.8 }}
+          transition={{ delay: 0.8, duration: 0.6 }}
         >
-          Nous concevons des expériences web modernes, performantes et sur
-          mesure pour propulser votre activité.
+          Digitalisation & outils métiers sur mesure · PME · Liège, Belgique
         </motion.p>
 
-        {/* CTAs */}
         <motion.div
-          className="mt-10 flex flex-col gap-4 sm:flex-row"
-          initial={{ opacity: 0, y: 10 }}
+          className="mt-10"
+          initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 1.6, duration: 0.8 }}
+          transition={{ delay: 1.1, duration: 0.8 }}
         >
           <a
-            href="#realisations"
-            className="magnetic rounded-full bg-primary px-8 py-3 text-sm font-medium text-white transition-opacity hover:opacity-90"
+            href="/contact"
+            className="inline-block rounded-full bg-primary px-9 py-4 text-sm font-medium text-white transition-all glow-blue-hover hover:scale-105"
           >
-            Voir nos réalisations
-          </a>
-          <a
-            href="#contact"
-            className="magnetic rounded-full border-2 border-primary bg-white px-8 py-3 text-sm font-medium text-primary transition-colors hover:bg-primary hover:text-white"
-          >
-            Discutons de votre projet
+            Réserver un diagnostic
           </a>
         </motion.div>
       </motion.div>
 
       {/* Marquee bottom */}
       <div className="relative z-10 border-t border-gray-200 bg-white py-4">
-        <Marquee text="Sites Vitrines · E-commerce · Applications · SaaS ·" />
+        <Marquee text="Digitalisation des PME · Outils métiers sur mesure · Automatisation · CRM sur mesure · Liège, Wallonie ·" />
       </div>
     </section>
   );
